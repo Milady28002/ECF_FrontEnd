@@ -1,0 +1,8 @@
+$primary: #A3DC5E; 
+:root {
+  --font-body: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-ui: "Righteous", "Roboto", sans-serif;
+  --font-brand: "Ribeye", "Righteous", serif;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";

@@ -1,0 +1,15 @@
+body {
+  font-family: var(--font-body);
+}
+
+nav, button, .btn, .menu, .nav-link {
+  font-family: var(--font-ui);
+}
+
+.brand, .logo, .site-title {
+  font-family: var(--font-brand);
+}
+
+
+@import url("/ECF/VSCODE/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+@import 'custom';
