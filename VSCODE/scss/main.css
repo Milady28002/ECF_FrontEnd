@@ -11998,6 +11998,33 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+:root {
+  --bs-success: #A3DC5E;
+  --bs-success-rgb: 123, 192, 67;
+}
+
+.btn-outline-success {
+  --bs-btn-color: var(--bs-success);
+  --bs-btn-border-color: var(--bs-success);
+  --bs-btn-hover-bg: #fff;
+  --bs-btn-hover-border-color: var(--bs-success);
+  --bs-btn-hover-color: var(--bs-success);
+}
+
+.btn-back {
+  align-self: flex-start;
+  width: auto;
+  background-color: var(--bs-success);
+  color: #000;
+  border-color: var(--bs-success);
+}
+.btn-back:hover {
+  background-color: #fff;
+  color: var(--bs-success);
+  border-color: var(--bs-success);
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -12009,17 +12036,79 @@ body {
   flex-direction: column;
 }
 
-#main-page {
-  flex: 1 0 auto;
-  display: block;
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
 }
 
-main {
-  margin-bottom: 250px;
+.navbar .nav-link {
+  color: var(--bs-success);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: #222;
+}
+
+.navbar .nav-link.active {
+  color: #222;
+  font-weight: 500;
+}
+
+.navbar .navbar-brand {
+  color: var(--bs-success);
+  font-family: var(--font-brand);
+}
+
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #222;
+}
+
+.navbar-toggler {
+  border-color: #ccc;
+}
+
+.navbar-toggler-icon {
+  filter: none;
+}
+
+#main-page {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 footer.footer {
-  flex-shrink: 0;
+  background: #fff;
+  color: #222;
+  flex: 0 0 auto;
   width: 100%;
   padding: 15px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.sandwiches {
+  flex: 1 0 auto;
+  background-image: url("../Assets/sandwiches.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sandwiches::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+.sandwiches > * {
+  position: relative;
+  z-index: 2;
 }/*# sourceMappingURL=main.css.map */
