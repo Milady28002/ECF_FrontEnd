@@ -12090,7 +12090,9 @@ footer.footer {
 
 .sandwiches {
   flex: 1 0 auto;
-  background-image: url("../Assets/sandwiches.png");
+  min-height: 520px;
+  width: 100%;
+  background-image: url("../assets/sandwiches.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12108,7 +12110,35 @@ footer.footer {
   z-index: 1;
 }
 
-.sandwiches > * {
-  position: relative;
-  z-index: 2;
+.sandwiches__card {
+  position: absolute;
+  isolation: isolate;
+  top: 80px;
+  left: 60px;
+  width: min(520px, 90%);
+  padding: 36px 32px;
+  background: rgba(163, 220, 94, 0.7);
+  border-radius: 61px;
+  color: #fff;
+  text-align: center;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .sandwiches__card {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 24px auto;
+    border-radius: 36px;
+  }
+}
+/* Bouton centré en bas sur l'image */
+.sandwiches__cta {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  z-index: 3; /* au-dessus du voile */
 }/*# sourceMappingURL=main.css.map */
