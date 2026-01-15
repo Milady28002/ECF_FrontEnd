@@ -5,6 +5,7 @@ export const allRoutes = [
   new Route("/formules", "Nos formules", "./pages/formules.html"),
   new Route("/galerie", "La galerie", "./pages/galerie.html"),
   new Route("/contact", "Nous contacter", "./pages/contact.html"),
+  new Route("/menus", "Nos menus", "./pages/menus.html"), 
   ];
 
 export const websiteName = "Vite & Gourmand";
