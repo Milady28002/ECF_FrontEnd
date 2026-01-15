@@ -12229,4 +12229,108 @@ footer.footer {
 .text__galerie {
   color: var(--bs-success);
   font-family: var(--font-brand);
+}
+
+.contact__hero {
+  min-height: calc(100vh - 140px); /* laisse de la place au header */
+  padding: clamp(40px, 6vh, 90px) 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-image: url("../assets/board-4874863_640.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.contact__hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contact__hero > .container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact__card {
+  width: min(760px, 92%);
+  padding: 48px 56px;
+  border-radius: 60px;
+  background: rgba(163, 220, 94, 0.7);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px); /* optionnel, joli */
+}
+
+.contact__card h2, .contact__card .h2 {
+  margin-bottom: 28px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+}
+
+.contact-form {
+  display: grid;
+  gap: 18px;
+  font-family: var(--font-ui);
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 0;
+  outline: none;
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.45);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.field input::-moz-placeholder, .field textarea::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.field textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.contact-submit {
+  justify-self: center;
+  margin-top: 8px;
+  padding: 10px 26px;
+  font-family: var(--font-body);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .contact__card {
+    padding: 28px 20px;
+    border-radius: 32px;
+  }
+  .field label {
+    text-align: left; /* sur mobile c’est plus lisible */
+  }
 }/*# sourceMappingURL=main.css.map */
