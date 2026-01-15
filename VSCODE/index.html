@@ -26,7 +26,7 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Galerie</a>
+          <a class="nav-link" href="/galerie">Galerie</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -53,7 +53,7 @@
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="/">Nous contacter</a>
+          <a class="nav-link" href="/contact">Nous contacter</a>
         </li>
 
       </ul>
@@ -74,30 +74,46 @@
 
     </main>
 
- 
     <footer class="footer bg-white text-dark border-top">
-        <div class="row">
-            
-            <div class="col-6 col-lg-2">
-                <p>Vite & Gourmand <br/>
-                    7 rue du Croissant <br/>
-                    33000 Bordeaux <br/>
-                    04 01 01 01 01 <br/>
-                </p>
-            </div>
-             <div class="col-6 col-lg-2">
-                <p>Conditions générales</p>
-             </div>
-             <div class="col-6 col-lg-2">
-                <p>Mentions légales</p>
-             </div>
-            <div class="col-6 col-lg-2">
-                <h3 class="text-primary">Nos horaires</h3>
-                <p>Du lundi au samedi  10h à 17h</p>
-            </div>
-           
+      <div class="container-fluid">
+        <div class="row align-items-center">
+
+          <div class="col-6 col-lg-4">
+            <p class="footer__tagline">Authentique – Familial – Convivial</p>
+            <p class="footer__brand">Vite & Gourmand</p>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <p>Conditions générales</p>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <p>Mentions légales</p>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <h3 class="text-primary">Nos horaires</h3>
+            <p>Du lundi au samedi<br>10h à 17h</p>
+          </div>
+
+          <!-- COLONNE AVIS -->
+          <div class="col-12 col-lg-2 footer__reviews">
+            <img
+              src="assets/stars-6966343_640.png"
+              alt="Note 5 étoiles"
+              class="footer__stars"
+            >
+            <img
+              src="assets/badge-fr.png"
+              alt="Avis vérifiés"
+              class="footer__badge"
+            >
+          </div>
+
         </div>
+      </div>
     </footer>
+
 
     <script type="module" src="./Router/router.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

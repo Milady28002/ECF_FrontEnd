@@ -12088,7 +12088,51 @@ footer.footer {
   border-top: 1px solid #e5e5e5;
 }
 
+.footer__brand,
+.footer__tagline {
+  font-family: var(--font-brand);
+  color: var(--bs-success);
+}
+
+.footer__brand {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+
+.footer__tagline {
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.footer__reviews {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer__stars {
+  height: 45px;
+  width: auto;
+  display: block;
+}
+
+.footer__badge {
+  height: 65px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .footer__reviews {
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
 .sandwiches {
+  position: relative;
   flex: 1 0 auto;
   min-height: 520px;
   width: 100%;
@@ -12098,7 +12142,6 @@ footer.footer {
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
-  position: relative;
   overflow: hidden;
 }
 
@@ -12112,9 +12155,9 @@ footer.footer {
 
 .sandwiches__card {
   position: absolute;
-  isolation: isolate;
-  top: 80px;
-  left: 60px;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: min(520px, 90%);
   padding: 36px 32px;
   background: rgba(163, 220, 94, 0.7);
@@ -12122,6 +12165,7 @@ footer.footer {
   color: #fff;
   text-align: center;
   z-index: 10;
+  isolation: isolate;
 }
 
 @media (max-width: 768px) {
@@ -12129,8 +12173,10 @@ footer.footer {
     position: relative;
     top: auto;
     left: auto;
+    transform: none;
     margin: 24px auto;
-    border-radius: 36px;
+    width: 90%;
+    border-radius: 32px;
   }
 }
 /* Bouton centré en bas sur l'image */
@@ -12140,5 +12186,47 @@ footer.footer {
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
-  z-index: 3; /* au-dessus du voile */
+  z-index: 11; /* au-dessus du voile */
+}
+
+.sandwiches__bulles-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(20px, 60px); /* équivalent aux valeurs négatives */
+  width: 400px;
+  max-width: 45%;
+  z-index: 8;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .sandwiches__bulles-img {
+    display: none;
+  }
+}
+.sushi {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 520px;
+  width: 100%;
+  background-image: url(../assets/sushi-5241271_640.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  overflow: hidden;
+}
+
+.sushi::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+.text__galerie {
+  color: var(--bs-success);
+  font-family: var(--font-brand);
 }/*# sourceMappingURL=main.css.map */
