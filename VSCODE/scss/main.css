@@ -12003,6 +12003,10 @@ textarea.form-control-lg {
   --bs-success-rgb: 123, 192, 67;
 }
 
+:root {
+  --card-green: rgba(163, 220, 94, 0.70);
+}
+
 .btn-outline-success {
   --bs-btn-color: var(--bs-success);
   --bs-btn-border-color: var(--bs-success);
@@ -12160,7 +12164,7 @@ footer.footer {
   transform: translate(-50%, -50%);
   width: min(520px, 90%);
   padding: 36px 32px;
-  background: rgba(163, 220, 94, 0.7);
+  background: var(--card-green);
   border-radius: 61px;
   color: #fff;
   text-align: center;
@@ -12248,14 +12252,14 @@ footer.footer {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.18);
   z-index: 1;
   pointer-events: none;
 }
 
 .contact__hero > .container {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12265,7 +12269,7 @@ footer.footer {
   width: min(760px, 92%);
   padding: 48px 56px;
   border-radius: 60px;
-  background: rgba(163, 220, 94, 0.7);
+  background: var(--card-green);
   color: #fff;
   text-align: center;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
@@ -12336,13 +12340,8 @@ footer.footer {
 }
 .section-formules {
   position: relative;
-  flex: 1 0 auto;
-  min-height: 520px;
   width: 100%;
-  background-image: url(../assets/dessert_nos_formules.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: rgba(163, 220, 94, 0.7);
 }
 
 .section-formules::after {
@@ -12350,22 +12349,28 @@ footer.footer {
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.25);
-  z-index: 1;
 }
 
 .section-formules > * {
   position: relative;
-  z-index: 3;
+  z-index: 1;
 }
 
-.text__formule {
+.text-title {
   font-family: var(--font-ui);
-  color: #fff;
   text-align: center;
+  color: #fff;
 }
 
 .text-justify {
   text-align: justify;
-  font-family: var(--font-ui);
+  color: #000;
+}
+
+.formules__cta {
+  justify-self: center;
+  margin-top: 8px;
+  padding: 10px 26px;
+  font-family: var(--font-body);
   color: #fff;
 }/*# sourceMappingURL=main.css.map */
