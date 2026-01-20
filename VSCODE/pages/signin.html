@@ -1,0 +1,43 @@
+<section class="signin-hero d-flex align-items-center">
+  <div class="signin-hero__overlay"></div>
+
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-5">
+
+        <div class="card signin-card border-0">
+          <div class="card-body p-4 p-md-5">
+
+            <h1 class="text-center mb-4">Connexion</h1>
+
+            <form aria-label="Formulaire de connexion">
+              <div class="mb-3">
+                <label for="EmailInput" class="form-label">Email</label>
+                <input type="email" class="form-control" id="EmailInput" placeholder="email@mail.fr" name="Email" required> 
+              </div>
+
+              <div class="mb-3">
+                <label for="PasswordInput" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="PasswordInput" name="Password" required>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100">
+                  Valider
+                </button>
+              </div>
+            </form>
+
+            <div class="text-center pt-3">
+              <a href="/signup" onclick="route()" class="link-light">
+                Vous n’avez pas de compte ? Inscrivez-vous ici !
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

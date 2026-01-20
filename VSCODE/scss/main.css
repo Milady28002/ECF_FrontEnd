@@ -12054,6 +12054,15 @@ body {
   color: #222;
 }
 
+.navbar .btn-outline-success:hover {
+  color: #222;
+}
+
+.navbar .signup__cta:hover {
+  font-family: var(--bs-success);
+  color: #fff;
+}
+
 .navbar .nav-link.active {
   color: #222;
   font-weight: 500;
@@ -12090,6 +12099,7 @@ footer.footer {
   width: 100%;
   padding: 15px;
   border-top: 1px solid #e5e5e5;
+  font-family: var(--font-body);
 }
 
 .footer__brand,
@@ -12214,7 +12224,7 @@ footer.footer {
   flex: 1 0 auto;
   min-height: 520px;
   width: 100%;
-  background-image: url(../assets/sushi-5241271_640.jpg);
+  background-image: url("../assets/sushi-5241271_640.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12373,4 +12383,128 @@ footer.footer {
   padding: 10px 26px;
   font-family: var(--font-body);
   color: #fff;
+}
+
+.signin__cta {
+  justify-self: center;
+  margin-top: 8px;
+  padding: 10px 26px;
+  font-family: var(--font-body);
+  color: #fff;
+}
+
+.form-label {
+  color: #fff;
+  font-family: var(--font-body);
+}
+
+.signin-hero {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 520px;
+  width: 100%;
+  background: url("../assets/dessert-4013009_640.jpg") center/cover no-repeat;
+  font-family: var(--font-ui);
+  color: #fff;
+}
+
+.signin-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.signin-card {
+  background: rgba(163, 220, 94, 0.75);
+  border-radius: 32px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+
+.signin-card .form-control {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.signin-card .form-control::-moz-placeholder {
+  color: #999;
+}
+
+.signin-card .form-control::placeholder {
+  color: #999;
+}
+
+.signin-card .form-control:focus {
+  background-color: #fff;
+  color: #000;
+  border-color: var(--bs-success);
+  box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
+}
+
+.signin-card .w-100:hover {
+  font-family: var(--bs-success);
+  color: #fff;
+}
+
+.signup-hero {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 520px;
+  width: 100%;
+  background: url("../assets/pancake-1984716_640.jpg") center/cover no-repeat;
+  font-family: var(--font-ui);
+  color: #fff;
+}
+
+.signup-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.signup-card {
+  background: rgba(163, 220, 94, 0.75);
+  border-radius: 32px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+
+.signup-card .form-control {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.signup-card .form-control::-moz-placeholder {
+  color: #999;
+}
+
+.signup-card .form-control::placeholder {
+  color: #999;
+}
+
+.signup-card .form-control:focus {
+  background-color: #fff;
+  color: #000;
+  border-color: var(--bs-success);
+  box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
+}
+
+.signup__cta:hover {
+  font-family: var(--bs-success);
+  color: #fff;
+}
+
+.signup-link {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.signup-link:hover {
+  color: #fff;
+  text-decoration: none;
 }/*# sourceMappingURL=main.css.map */
