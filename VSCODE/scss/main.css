@@ -12059,7 +12059,6 @@ body {
 }
 
 .navbar .signup__cta:hover {
-  font-family: var(--bs-success);
   color: #fff;
 }
 
@@ -12246,15 +12245,16 @@ footer.footer {
 }
 
 .contact__hero {
-  min-height: calc(100vh - 140px); /* laisse de la place au header */
-  padding: clamp(40px, 6vh, 90px) 0;
   position: relative;
-  display: flex;
-  align-items: center;
+  flex: 1 0 auto;
+  min-height: 520px;
+  width: 100%;
   background-image: url("../assets/board-4874863_640.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
   overflow: hidden;
 }
 
@@ -12276,8 +12276,8 @@ footer.footer {
 }
 
 .contact__card {
-  width: min(760px, 92%);
-  padding: 48px 56px;
+  width: min(650px, 85%);
+  padding: 20px 10px;
   border-radius: 60px;
   background: var(--card-green);
   color: #fff;
@@ -12307,7 +12307,7 @@ footer.footer {
 
 .field input,
 .field textarea {
-  width: 100%;
+  width: 90%;
   border: 0;
   outline: none;
   border-radius: 10px;
@@ -12389,7 +12389,11 @@ footer.footer {
   justify-self: center;
   margin-top: 8px;
   padding: 10px 26px;
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
+  color: #000;
+}
+
+.signin__cta:hover {
   color: #fff;
 }
 
@@ -12443,9 +12447,13 @@ footer.footer {
   box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
 }
 
-.signin-card .w-100:hover {
-  font-family: var(--bs-success);
+.signin-link-light {
   color: #fff;
+}
+
+.signin-link-light:hover {
+  color: #000;
+  text-decoration: none;
 }
 
 .signup-hero {
@@ -12476,6 +12484,15 @@ footer.footer {
   color: #000;
   border: 1px solid #ddd;
   border-radius: 10px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.signup-card label {
+  max-width: 350px;
+  margin: 0 auto 4px;
+  display: block;
 }
 
 .signup-card .form-control::-moz-placeholder {
@@ -12494,7 +12511,6 @@ footer.footer {
 }
 
 .signup__cta:hover {
-  font-family: var(--bs-success);
   color: #fff;
 }
 
@@ -12505,6 +12521,6 @@ footer.footer {
 }
 
 .signup-link:hover {
-  color: #fff;
+  color: #000;
   text-decoration: none;
 }/*# sourceMappingURL=main.css.map */
