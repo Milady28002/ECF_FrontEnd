@@ -12015,16 +12015,16 @@ textarea.form-control-lg {
   --bs-btn-hover-color: var(--bs-success);
 }
 
-.btn-back {
+.btn-primary {
   align-self: flex-start;
   width: auto;
   background-color: var(--bs-success);
   color: #000;
   border-color: var(--bs-success);
 }
-.btn-back:hover {
-  background-color: #fff;
-  color: var(--bs-success);
+.btn-primary:hover {
+  background-color: var(--bs-success);
+  color: #fff;
   border-color: var(--bs-success);
   transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -12195,10 +12195,10 @@ footer.footer {
 /* Bouton centré en bas sur l'image */
 .sandwiches__cta {
   position: absolute;
+  font-family: var(--font-ui);
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  color: #fff;
   z-index: 11; /* au-dessus du voile */
 }
 
@@ -12335,8 +12335,6 @@ footer.footer {
   justify-self: center;
   margin-top: 8px;
   padding: 10px 26px;
-  font-family: var(--font-body);
-  color: #fff;
 }
 
 @media (max-width: 768px) {
@@ -12378,23 +12376,7 @@ footer.footer {
 }
 
 .formules__cta {
-  justify-self: center;
-  margin-top: 8px;
-  padding: 10px 26px;
-  font-family: var(--font-body);
-  color: #fff;
-}
-
-.signin__cta {
-  justify-self: center;
-  margin-top: 8px;
-  padding: 10px 26px;
   font-family: var(--font-ui);
-  color: #000;
-}
-
-.signin__cta:hover {
-  color: #fff;
 }
 
 .form-label {
@@ -12508,10 +12490,6 @@ footer.footer {
   color: #000;
   border-color: var(--bs-success);
   box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
-}
-
-.signup__cta:hover {
-  color: #fff;
 }
 
 .signup-link {
