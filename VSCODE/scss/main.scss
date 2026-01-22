@@ -36,6 +36,7 @@ nav, button, .btn, .menu, .nav-link {
   background-color: var(--bs-success);
   color: #000;
   border-color: var(--bs-success);
+  font-family: var(--font-ui);
 
  &:hover {
     background-color:var(--bs-success);
@@ -285,14 +286,80 @@ footer.footer {
 
 .galerie-grid img {
   width: 100%;
-  height: 190px;          // 👈 réduit visuellement la taille
-  object-fit: cover;     // 👈 coupe proprement
+  height: 320px;          // réduit visuellement la taille
+  object-fit: cover;     //coupe proprement
   border-radius: 12px;
   transition: transform 0.3s ease;
 }
 
 .galerie-grid img:hover {
   transform: scale(1.05);
+}
+
+.galerie-items {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  &:hover{
+  .action-image-buttons {
+    opacity: 1;
+}
+}
+}
+
+.galerie-items img{
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+.action-image-buttons {
+  opacity: 0;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+
+  display: flex;
+  gap: 10px;
+
+  z-index: 2;
+}
+
+//je neutralise bootstrap pour rendre visible les icons sur mes images
+.action-image-buttons .btn {
+   width: 42px;
+  height: 42px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.action-image-buttons .btn:hover {
+  transform: scale(1.08);
+  background: rgba(0, 0, 0, 0.60);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+  opacity: 1;
+ 
+}
+
+.action-image-buttons i {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #fff; // force la lisibilité même si btn-outline-dark traîne
+}
+
+
+.galerie__cta {
+  font-family: var(--font-ui);
 }
 
 
@@ -403,21 +470,29 @@ footer.footer {
   }
 }
 
-.section-formules { 
+.section-menus,
+.section-classique { 
   position: relative;   
-    width: 100%;
-    background: rgba(163, 220, 94, 0.70);
+  width: 100%;
+  background: rgba(163, 220, 94, 0.70);
 
 }
+
+.section-classique{
+  min-height: calc(100vh - 180px); /* ajuste 160px selon le header/footer */
+  padding-bottom: 1rem;
+}
+
+
 //pour le voile
-.section-formules::after {
+.section-menus::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.25);
 }
 //avec le voile
-.section-formules > * {
+.section-menus > * {
   position: relative;
   z-index: 1;
 }
@@ -434,13 +509,54 @@ footer.footer {
   color:#000;
 }
 
-.formules__cta{
+.menus__cta{
   font-family: var(--font-ui);
 }
 
 .form-label{
   color: #fff;
   font-family: var(--font-body);
+}
+
+//pour le voile
+.section-classique::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+}
+//avec le voile
+.section-classique > * {
+  position: relative;
+  z-index: 1;
+}
+.section-classique .menu-intro,
+.section-classique .menu-details p{
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-classique ul{
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.section-classique h1,
+.section-classique h2{
+  text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-family: var(--font-ui);
+  text-align: center;
+  color: #fff;
+}
+
+.section-classique .menu-block.allergenes p {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .signin-hero {
@@ -557,3 +673,15 @@ footer.footer {
   text-decoration: none;
 }
 
+.allorders {
+  a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 8px;
+
+    &:hover {
+      background: rgba(0,0,0,0.06);
+    }
+  }
+}
