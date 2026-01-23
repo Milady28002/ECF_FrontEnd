@@ -14,6 +14,10 @@
               <div class="mb-3">
                 <label for="EmailInput" class="form-label">Email</label>
                 <input type="email" class="form-control" id="EmailInput" placeholder="email@mail.fr" name="Email" required> 
+                  <div class="invalid-feedback">
+                  Le mail et le mot de passe ne correspondent pas
+
+                </div>
               </div>
 
               <div class="mb-3">
@@ -28,7 +32,7 @@
               </div>
 
               <div class="text-center">
-                <button type="submit" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" id="btnSignin">
                   Valider
                 </button>
               </div>
