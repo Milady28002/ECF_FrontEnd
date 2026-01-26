@@ -13,38 +13,55 @@
             <form aria-label="Formulaire d'inscription">
               <div class="mb-3">
                 <label for="NomInput" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="NomInput" placeholder="Votre nom" name="Nom" required >
+                <input type="text" class="form-control" id="NomInput" placeholder="Votre nom" name="Nom">
+                  <div class="invalid-feedback">
+                  Le nom est requis
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="PrenomInput" class="form-label">Prénom</label>
-                <input type="text" class="form-control" id="PrenomInput" placeholder="Votre prénom" name="Prenom" required>
+                <input type="text" class="form-control" id="PrenomInput" placeholder="Votre prénom" name="Prenom">
+                  <div class="invalid-feedback">
+                  Le prénom est requis
+                </div>
               </div>
 
             <div class="mb-3">
                 <label for="TelephoneInput" class="form-label">Téléphone</label>
-                <input type="tel" class="form-control" id="TelephoneInput" placeholder="Votre n° de téléphone" name="Telephone" required>
+                <input type="tel" class="form-control" id="TelephoneInput" placeholder="Votre n° de téléphone" name="Telephone">
+                  <div class="invalid-feedback">
+                  Le n° de téléphone est requis
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="EmailInput" class="form-label">Email</label>
                 <input type="email" class="form-control" id="EmailInput" placeholder="test@mail.fr" name="Email">
-              
+                <div class="invalid-feedback">
+                  Le mail n'est pas au bon format
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="PasswordInput" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="PasswordInput" name="Password" required>
+                <input type="password" class="form-control" id="PasswordInput" name="Password">
+                <div class="invalid-feedback">
+                  Mot de passe pas assez robuste : Au moins 8 caractères, avec au moins 1 majusccule, 1 minuscule, 1 chiffre et 1 caractère spécial
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="ValidatePasswordInput" class="form-label">Confirmez votre mot de passe</label>
-                <input type="password" class="form-control" id="ValidatePasswordInput" name="PasswordConfirm" required>
+                <input type="password" class="form-control" id="ValidatePasswordInput" name="PasswordConfirm">
+                 <div class="invalid-feedback">
+                  La confirmation n'est pas identique au mot de passe saisi
+                </div>
                 
               </div>
 
               <div class="text-center">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" id="btn-validation-inscription">
                   Inscription
                 </button>
               </div>
