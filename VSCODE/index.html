@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Ribeye&family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="scss/main.css">
     <title>Vite & Gourmand</title>
-    <script src="script.js" defer></script>
+    <script src="js/script.js" defer></script>
 </head>
 
 <body>
@@ -44,6 +44,7 @@
             <li><a class="dropdown-item" href="/classique" onclick="route()">Classique</a></li>
             <li><a class="dropdown-item" href="/noel-paques" onclick="route()">Noël/Pâques</a></li>
             <li><a class="dropdown-item" href="/evenements" onclick="route()">Événements</a></li>
+            <li><a class="dropdown-item" href="/commander" onclick="route()">Commander</a></li>
           </ul>
         </li>
 
@@ -54,6 +55,10 @@
           <li class="nav-item">
             <a class="nav-link" href="/contact" onclick="route()">Nous contacter</a>
           </li>
+
+           <li class="nav-item" data-show="connected">
+            <a class="nav-link" href="/account" onclick="route()">Mon compte</a>
+          </li>
           </ul>
 
       <div class="auth-buttons" aria-label="Authentification" data-show="disconnected">
@@ -61,9 +66,10 @@
           Se connecter
         </a>
       </div>
-        <div class="nav-item" data-show="connected">
-          <button class="nav-link" id="signout-btn">Se déconnecter</button>
-        </div>
+      <div class="nav-item" data-show="connected">
+        <button id="signout-btn" type="button" class="btn btn-outline-success">
+        Se déconnecter</button>
+      </div>
 
         <a href="/signup" onclick="route()" class="btn btn-primary signup__cta" data-show="disconnected">
         S’inscrire
@@ -124,7 +130,7 @@
       </div>
     </footer>
 
-    <script src="js/script.js"></script>
+  
     <script type="module" src="./Router/router.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     
