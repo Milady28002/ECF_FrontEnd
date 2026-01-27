@@ -28,8 +28,9 @@ function validateForm(){
     else {
         btnValidation.disabled=true;
     }
-
 }
+
+
 
 function validateMail(input){
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,6 +43,19 @@ function validateMail(input){
     else{
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
+        return false;
+    }
+}
+
+function validateConfirmationPassword(inputPwd, inputConfirmPwd){
+    if(inputPwd.value == inputConfirmPwd.value){
+        inputConfirmPwd.classList.add("is-valid");
+        inputConfirmPwd.classList.remove("is-invalid");
+        return true;
+    }
+    else{
+        inputConfirmPwd.classList.add("is-invalid");
+        inputConfirmPwd.classList.remove("is-valid");
         return false;
     }
 }

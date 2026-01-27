@@ -56,15 +56,18 @@
           </li>
           </ul>
 
-      <nav class="auth-buttons" aria-label="Authentification">
+      <div class="auth-buttons" aria-label="Authentification" data-show="disconnected">
         <a href="/signin" onclick="route()" class="btn btn-outline-success">
           Se connecter
         </a>
+      </div>
+        <div class="nav-item" data-show="connected">
+          <button class="nav-link" id="signout-btn">Se déconnecter</button>
+        </div>
 
-        <a href="/signup" onclick="route()" class="btn btn-primary signup__cta">
+        <a href="/signup" onclick="route()" class="btn btn-primary signup__cta" data-show="disconnected">
         S’inscrire
       </a>
-      </nav>
 
 
     </div>
