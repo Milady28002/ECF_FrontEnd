@@ -97,7 +97,7 @@ Le projet frontend utilise la stratégie suivante :
 
 Le développement est réalisé sur la branche dev, puis fusionné vers main une fois stable.
 
-👩‍💻 Autrice
 
+👩‍💻 Autrice
 Projet réalisé par Sylvie
 Formation Graduate Développeur Web Full Stack
