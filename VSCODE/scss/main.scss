@@ -471,17 +471,51 @@ footer.footer {
 }
 
 .section-menus,
-.section-classique { 
+.section-classique{ 
   position: relative;   
   width: 100%;
   background: rgba(163, 220, 94, 0.70);
-
-}
-
-.section-classique{
+  padding: 0 1.5rem;
   min-height: calc(100vh - 180px); /* ajuste 160px selon le header/footer */
   padding-bottom: 1rem;
 }
+
+.section-classique__content {
+  max-width: 100ch;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+.section-classique__content p {
+  margin: 0;
+  padding: 1.25rem 0;
+  line-height: 1.7;
+}
+
+/* Titres des articles */
+.section-classique__content .cgu-title {
+  font-weight: 600;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Texte qui suit un titre */
+.section-classique__content .cgu-title + p {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+
+@media (max-width: 768px) {
+  .section-menus,
+  .section-classique {
+    padding: 0 1.25rem;
+  }
+  .section-classique__content {
+    text-align: left;
+  }
+}
+
 
 
 //pour le voile
