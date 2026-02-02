@@ -16,9 +16,6 @@ nav, button, .btn, .menu, .nav-link {
 :root {
   --bs-success: #A3DC5E;
   --bs-success-rgb: 123, 192, 67;
-}
-
-:root {
   --card-green: rgba(163, 220, 94, 0.70);
 }
 
@@ -371,7 +368,7 @@ footer.footer {
   min-height: 520px;     
   width: 100%;
 
-  background-image: url("../assets/board-4874863_640.jpg");
+  background-image: url("../assets/board-contact.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -532,12 +529,6 @@ footer.footer {
   z-index: 1;
 }
 
-.text-title {
-  font-family: var(--font-ui);
-  text-align: center;
-  color: #fff;
-}
-
 .text-justify {
   text-align: justify;
   
@@ -600,7 +591,7 @@ footer.footer {
   flex: 1 0 auto;        
   min-height: 520px;     
   width: 100%;
-  background: url("../assets/dessert-4013009_640.jpg") center / cover no-repeat;
+  background: url("../assets/mousse-mangue-galerie.jpg") center / cover no-repeat;
   font-family: var(--font-ui);
   color: #fff;
 }
@@ -727,7 +718,7 @@ footer.footer {
   min-height: 520px;     
   width: 100%;
 
-  background-image: url("../assets/table.jpg");
+  background-image: url("../assets/table-menus.jpg");
 
   background-size: cover;
   background-position: center;
