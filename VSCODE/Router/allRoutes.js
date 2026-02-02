@@ -14,6 +14,7 @@ export const allRoutes = [
   new Route("/commander", "Commander","./pages/order/commander.html",["client"]),
   new Route("/cgv", "Conditions generales", "./pages/footer/cgv.html",[]),
   new Route("/mentions-legales", "Mentions légales", "./pages/footer/mentions-legales.html",[]),
+  new Route("/engagements", "Nos engagements", "./pages/engagements.html",[]),
   ];
 
 export const websiteName = "Vite & Gourmand";

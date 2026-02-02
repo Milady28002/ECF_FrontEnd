@@ -212,7 +212,8 @@ footer.footer {
 }
 
 @media (max-width: 768px) {
-  .sandwiches__card {
+  .sandwiches__card, 
+  .engagements__card {
     position: relative;
     top: auto;
     left: auto;
@@ -718,5 +719,71 @@ footer.footer {
     &:hover {
       background: rgba(0,0,0,0.06);
     }
+  }
+}
+
+.engagements {
+  position: relative;        
+  min-height: 520px;     
+  width: 100%;
+
+  background-image: url("../assets/table.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  overflow: hidden;  
+}
+
+.engagements::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+.engagements__card {
+    position: relative;
+    margin: 60px auto;
+
+    max-width: 1100px;
+    width: 90%;
+    padding: 40px 40px;
+    background: var(--card-green);
+    border-radius: 61px;
+    color:#fff;
+    text-align:center;
+
+    z-index:10;
+    isolation:isolate;  
+}
+.engagements__card p {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-eng {
+  margin-top: 2.5rem;  /* très aéré, premium */
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+.title-eng.conclusion {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+//mobile
+@media (max-width: 576px) {
+  .engagements__card {
+    width: 94%;
+    margin: 32px auto;
+    padding: 22px 18px;
+    border-radius: 32px;
   }
 }
