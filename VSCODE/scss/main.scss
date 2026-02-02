@@ -102,6 +102,12 @@ body {
 .navbar-toggler-icon {
   filter: none;
 }
+@media (min-width: 992px) {
+  .navbar .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+  }
+}
 
 #main-page {
   flex: 1 0 auto;
@@ -165,15 +171,12 @@ footer.footer {
   }
 }
 
-.sandwiches {
+.hero-bg {
   position: relative;
   flex: 1 0 auto;        
   min-height: 520px;     
   width: 100%;
-
-  background-image: url("../assets/sandwiches.png");
   
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -183,13 +186,15 @@ footer.footer {
   overflow: hidden;  
 }
 
-.sandwiches::after {
+.hero-bg::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.18);
   z-index: 1;
 }
+.sandwiches { @extend .hero-bg; background-image: url("../assets/sandwiches.png"); }
+.engagements { @extend .hero-bg; background-image: url("../assets/table-menus.jpg"); }
 
 .sandwiches__card {
     position: absolute;
@@ -235,7 +240,7 @@ footer.footer {
   position: absolute;
   bottom: 0;
   right: 0;
-  transform: translate(20px, 60px); /* équivalent aux valeurs négatives */
+  transform: translate(20px, 60px);
   width: 400px;
   max-width: 45%;
   z-index: 8;
@@ -607,7 +612,7 @@ footer.footer {
   background: rgba(163, 220, 94, .75);
   border-radius: 32px;
   box-shadow: 0 12px 30px rgba(0,0,0,.25);
-  color: #fff;
+  color:#fff;
 }
 
 .signin-card .form-control {
@@ -641,7 +646,7 @@ footer.footer {
   flex: 1 0 auto;        
   min-height: 520px;     
   width: 100%;
-  background: url("../assets/pancake-1984716_640.jpg") center / cover no-repeat;
+  background: url("../assets/pancake-galerie.jpg") center / cover no-repeat;
   font-family: var(--font-ui);
   color: #fff;
 }
@@ -713,34 +718,11 @@ footer.footer {
   }
 }
 
-.engagements {
-  position: relative;        
-  min-height: 520px;     
-  width: 100%;
-
-  background-image: url("../assets/table-menus.jpg");
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  display: flex;
-  justify-content: center;
-  overflow: hidden;  
-}
-
-.engagements::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.18);
-  z-index: 1;
-}
-
 .engagements__card {
     position: relative;
     margin: 60px auto;
 
+     /* max-width keeps the card readable on desktop, width makes it responsive */
     max-width: 1100px;
     width: 90%;
     padding: 40px 40px;
@@ -759,7 +741,7 @@ footer.footer {
 }
 
 .title-eng {
-  margin-top: 2.5rem;  /* très aéré, premium */
+  margin-top: 2.5rem;  /* très aéré*/
   margin-bottom: 0.75rem;
   text-align: center;
 }
@@ -769,7 +751,7 @@ footer.footer {
   margin-top: 3rem;
 }
 
-//mobile
+/*mobile*/
 @media (max-width: 576px) {
   .engagements__card {
     width: 94%;
