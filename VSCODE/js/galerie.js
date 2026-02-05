@@ -22,12 +22,9 @@ deleteModal?.addEventListener("show.bs.modal", (event) => {
   const button = event.relatedTarget;
   const item = button.closest(".galerie-items");
 
-  /*const title = item?.dataset.title ?? "";
-  const src = item?.dataset.src ?? "";*/
+  const title = item?.dataset.title ?? "";
+  const src = item?.dataset.src ?? "";
 
-  const img = item.querySelector("img");
-  const title = item?.dataset.title || img?.alt || "";
-  const src = item?.dataset.src || img?.getAttribute("src") || "";
 
   document.getElementById("DeleteTitle").textContent = title; // ✅ anti-XSS
   document.getElementById("DeleteImg").src = src;
@@ -60,7 +57,7 @@ function recupImages() {
     new Image("Asperges et canard","../assets/asperges-galerie.jpg"),
     new Image("Burgers maison","../assets/burgers-galerie.jpg"),
     new Image("Crevettes marinées","../assets/crevettes-galerie.jpg"),
-    new Image("Pâtes thaï","../assets/thai-galerie.jpg"),
+    new Image("Pâtes thaïlandaises","../assets/thai-galerie.jpg"),
     new Image("Sushis","../assets/sushi-galerie.jpg"),
     new Image("Truites aux herbes","../assets/poisson-galerie.png"),
     new Image("Velouté de butternut","../assets/veloute-galerie.jpg"),
