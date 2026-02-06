@@ -16,9 +16,6 @@ nav, button, .btn, .menu, .nav-link {
 :root {
   --bs-success: #A3DC5E;
   --bs-success-rgb: 123, 192, 67;
-}
-
-:root {
   --card-green: rgba(163, 220, 94, 0.70);
 }
 
@@ -30,16 +27,17 @@ nav, button, .btn, .menu, .nav-link {
   --bs-btn-hover-color: var(--bs-success);
 }
 
-.btn-back {
+.btn-primary {
   align-self: flex-start;
   width: auto;
   background-color: var(--bs-success);
   color: #000;
   border-color: var(--bs-success);
+  font-family: var(--font-ui);
 
  &:hover {
-    background-color: #fff;
-    color: var(--bs-success);
+    background-color:var(--bs-success);
+    color: #fff;
     border-color: var(--bs-success);
     transition: background-color .15s ease-in-out,
     color .15s ease-in-out,
@@ -80,7 +78,6 @@ body {
 }
 
 .navbar .signup__cta:hover{
-  font-family: var(--bs-success);
   color: #fff;
 }
 
@@ -104,6 +101,12 @@ body {
 
 .navbar-toggler-icon {
   filter: none;
+}
+@media (min-width: 992px) {
+  .navbar .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+  }
 }
 
 #main-page {
@@ -168,15 +171,12 @@ footer.footer {
   }
 }
 
-.sandwiches {
+.hero-bg {
   position: relative;
   flex: 1 0 auto;        
   min-height: 520px;     
   width: 100%;
-
-  background-image: url("../assets/sandwiches.png");
   
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -186,13 +186,15 @@ footer.footer {
   overflow: hidden;  
 }
 
-.sandwiches::after {
+.hero-bg::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.18);
   z-index: 1;
 }
+.sandwiches { @extend .hero-bg; background-image: url("../assets/sandwiches.png"); }
+.engagements { @extend .hero-bg; background-image: url("../assets/table-menus.jpg"); }
 
 .sandwiches__card {
     position: absolute;
@@ -212,7 +214,8 @@ footer.footer {
 }
 
 @media (max-width: 768px) {
-  .sandwiches__card {
+  .sandwiches__card, 
+  .engagements__card {
     position: relative;
     top: auto;
     left: auto;
@@ -226,10 +229,10 @@ footer.footer {
 /* Bouton centré en bas sur l'image */
 .sandwiches__cta {
   position: absolute;
+  font-family: var(--font-ui);
   bottom: 32px;          
   left: 50%;
   transform: translateX(-50%);
-  color: #fff;
   z-index: 11;            /* au-dessus du voile */
 }
 
@@ -237,7 +240,7 @@ footer.footer {
   position: absolute;
   bottom: 0;
   right: 0;
-  transform: translate(20px, 60px); /* équivalent aux valeurs négatives */
+  transform: translate(20px, 60px);
   width: 400px;
   max-width: 45%;
   z-index: 8;
@@ -250,47 +253,133 @@ footer.footer {
   }
 }
 
-.sushi {
-    position: relative;
-    flex: 1 0 auto;        
-    min-height: 520px;     
-    width: 100%;
+.section-galerie { 
+  position: relative;   
+  width: 100%;
+  background: rgba(163, 220, 94, 0.70);
 
-    background-image: url("../assets/sushi-5241271_640.jpg");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    display: flex;
-    overflow: hidden; 
 }
-
-.sushi::after {
+//pour le voile
+.section-galerie::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.25);
+}
+//avec le voile
+.section-galerie > * {
+  position: relative;
   z-index: 1;
 }
 
-.text__galerie {
-  color: var(--bs-success);
-  font-family: var(--font-brand);
+.text-title {
+  font-family: var(--font-ui);
+  text-align: center;
+  color: #fff;
 }
+
+.galerie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.galerie-grid img {
+  width: 100%;
+  height: 320px;          // réduit visuellement la taille
+  object-fit: cover;     //coupe proprement
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.galerie-grid img:hover {
+  transform: scale(1.05);
+}
+
+.galerie-items {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  &:hover{
+  .action-image-buttons {
+    opacity: 1;
+}
+}
+}
+
+.galerie-items img{
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+.action-image-buttons {
+  opacity: 0;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+
+  display: flex;
+  gap: 10px;
+
+  z-index: 2;
+}
+
+//je neutralise bootstrap pour rendre visible les icons sur mes images
+.action-image-buttons .btn {
+   width: 42px;
+  height: 42px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.action-image-buttons .btn:hover {
+  transform: scale(1.08);
+  background: rgba(0, 0, 0, 0.60);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+  opacity: 1;
+ 
+}
+
+.action-image-buttons i {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #fff; // force la lisibilité même si btn-outline-dark traîne
+}
+
+
+.galerie__cta {
+  font-family: var(--font-ui);
+}
+
 
 //fond + voile
 .contact__hero {
-  min-height: calc(100vh - 140px);          /* laisse de la place au header */
-  padding: clamp(40px, 6vh, 90px) 0;
   position: relative;
-  display: flex;
-  align-items: center;
+  flex: 1 0 auto;        
+  min-height: 520px;     
+  width: 100%;
 
-  background-image: url("../assets/board-4874863_640.jpg");
+  background-image: url("../assets/board-contact.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
   overflow: hidden;
 }
 
@@ -312,8 +401,8 @@ footer.footer {
 }
 
 .contact__card {
-  width: min(760px, 92%);
-  padding: 48px 56px;
+  width: min(650px, 85%);
+  padding: 20px 10px;
   border-radius: 60px;
 
   background: var(--card-green);
@@ -344,7 +433,7 @@ footer.footer {
 
 .field input,
 .field textarea {
-  width: 100%;
+  width: 90%;
   border: 0;
   outline: none;
   border-radius: 10px;
@@ -370,8 +459,7 @@ footer.footer {
   justify-self: center;
   margin-top: 8px;
   padding: 10px 26px;
-  font-family: var(--font-body);
-  color: #fff;
+  
 }
 
 @media (max-width: 768px) {
@@ -385,29 +473,65 @@ footer.footer {
   }
 }
 
-.section-formules { 
+.section-menus,
+.section-classique{ 
   position: relative;   
-    width: 100%;
-    background: rgba(163, 220, 94, 0.70);
-
+  width: 100%;
+  background: rgba(163, 220, 94, 0.70);
+  padding: 0 1.5rem;
+  min-height: calc(100vh - 180px); /* ajuste 160px selon le header/footer */
+  padding-bottom: 1rem;
 }
+
+.section-classique__content {
+  max-width: 100ch;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+.section-classique__content p {
+  margin: 0;
+  padding: 1.25rem 0;
+  line-height: 1.7;
+}
+
+/* Titres des articles */
+.section-classique__content .cgu-title {
+  font-weight: 600;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Texte qui suit un titre */
+.section-classique__content .cgu-title + p {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+
+@media (max-width: 768px) {
+  .section-menus,
+  .section-classique {
+    padding: 0 1.25rem;
+  }
+  .section-classique__content {
+    text-align: left;
+  }
+}
+
+
+
 //pour le voile
-.section-formules::after {
+.section-menus::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.25);
 }
 //avec le voile
-.section-formules > * {
-   position: relative;
+.section-menus > * {
+  position: relative;
   z-index: 1;
-}
-
-.text-title {
-  font-family: var(--font-ui);
-  text-align: center;
-  color: #fff;
 }
 
 .text-justify {
@@ -416,20 +540,8 @@ footer.footer {
   color:#000;
 }
 
-.formules__cta {
-  justify-self: center;
-  margin-top: 8px;
-  padding: 10px 26px;
-  font-family: var(--font-body);
-  color: #fff;
-}
-
-.signin__cta {
-  justify-self: center;
-  margin-top: 8px;
-  padding: 10px 26px;
-  font-family: var(--font-body);
-  color: #fff;
+.menus__cta{
+  font-family: var(--font-ui);
 }
 
 .form-label{
@@ -437,12 +549,54 @@ footer.footer {
   font-family: var(--font-body);
 }
 
+//pour le voile
+.section-classique::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+}
+//avec le voile
+.section-classique > * {
+  position: relative;
+  z-index: 1;
+}
+.section-classique .menu-intro,
+.section-classique .menu-details p{
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-classique ul{
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.section-classique h1,
+.section-classique h2,
+.section-classique h3{
+  text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-family: var(--font-ui);
+  text-align: center;
+  color: #fff;
+}
+
+.section-classique .menu-block.allergenes p {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
 .signin-hero {
   position: relative;
   flex: 1 0 auto;        
   min-height: 520px;     
   width: 100%;
-  background: url("../assets/dessert-4013009_640.jpg") center / cover no-repeat;
+  background: url("../assets/mousse-mangue-galerie.jpg") center / cover no-repeat;
   font-family: var(--font-ui);
   color: #fff;
 }
@@ -458,7 +612,7 @@ footer.footer {
   background: rgba(163, 220, 94, .75);
   border-radius: 32px;
   box-shadow: 0 12px 30px rgba(0,0,0,.25);
-  color: #fff;
+  color:#fff;
 }
 
 .signin-card .form-control {
@@ -479,9 +633,12 @@ footer.footer {
   box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
 }
 
-.signin-card .w-100:hover {
-  font-family: var(--bs-success);
+.signin-link-light{
   color: #fff;
+}
+.signin-link-light:hover {
+  color: #000;
+  text-decoration: none;
 }
 
 .signup-hero {
@@ -489,7 +646,7 @@ footer.footer {
   flex: 1 0 auto;        
   min-height: 520px;     
   width: 100%;
-  background: url("../assets/pancake-1984716_640.jpg") center / cover no-repeat;
+  background: url("../assets/pancake-galerie.jpg") center / cover no-repeat;
   font-family: var(--font-ui);
   color: #fff;
 }
@@ -515,7 +672,15 @@ footer.footer {
   color: #000;
   border: 1px solid #ddd;
   border-radius: 10px;
- 
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto; 
+}
+
+.signup-card label {
+  max-width: 350px;
+  margin: 0 auto 4px;
+  display: block;
 }
 
 .signup-card .form-control::placeholder {
@@ -528,10 +693,6 @@ footer.footer {
   box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
 }
 
-.signup__cta:hover {
-  font-family: var(--bs-success);
-  color: #fff;
-}
 
 .signup-link {
   color: #fff;
@@ -540,8 +701,62 @@ footer.footer {
 }
 
 .signup-link:hover {
-  color: #fff;
+  color: #000;
   text-decoration: none;
 }
 
+.allorders {
+  a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 8px;
 
+    &:hover {
+      background: rgba(0,0,0,0.06);
+    }
+  }
+}
+
+.engagements__card {
+    position: relative;
+    margin: 60px auto;
+
+     /* max-width keeps the card readable on desktop, width makes it responsive */
+    max-width: 1100px;
+    width: 90%;
+    padding: 40px 40px;
+    background: var(--card-green);
+    border-radius: 61px;
+    color:#fff;
+    text-align:center;
+
+    z-index:10;
+    isolation:isolate;  
+}
+.engagements__card p {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-eng {
+  margin-top: 2.5rem;  /* très aéré*/
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+.title-eng.conclusion {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/*mobile*/
+@media (max-width: 576px) {
+  .engagements__card {
+    width: 94%;
+    margin: 32px auto;
+    padding: 22px 18px;
+    border-radius: 32px;
+  }
+}

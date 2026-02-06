@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Ribeye&family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="scss/main.css">
     <title>Vite & Gourmand</title>
-    <script src="script.js" defer></script>
+    <script src="js/script.js" defer></script>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
 
 <nav class="navbar navbar-expand-lg bg-white navbar-light border-bottom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Vite & Gourmand</a>
+    <a class="navbar-brand" href="/">VITE & GOURMAND</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -26,46 +26,55 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/galerie">Galerie</a>
+          <a class="nav-link" href="/galerie" onclick="route()">Galerie</a>
         </li>
+
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
-            href="/formules"
+            href="/menus"
             onclick="route()"
-            role="button"
             data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Nos formules
+            aria-expanded="false">
+            Nos Menus
           </a>
 
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/formules/menus" onclick="route()">Menus</a></li>
-            <li><a class="dropdown-item" href="/formules/carte" onclick="route()">À la carte</a></li>
-            <li><a class="dropdown-item" href="/formules/evenements" onclick="route()">Événements</a></li>
+            <li><a class="dropdown-item" href="/classique" onclick="route()">Classique</a></li>
+            <li><a class="dropdown-item" href="/noel-paques" onclick="route()">Noël / Pâques</a></li>
+            <li><a class="dropdown-item" href="/evenements" onclick="route()">Événements</a></li>
+            <li><a class="dropdown-item" href="/commander" onclick="route()">Commander</a></li>
           </ul>
         </li>
- 
 
-        <li class="nav-item">
-          <a class="nav-link" href="/">Nos engagements</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/engagements" onclick="route()">Nos engagements</a>
+          </li>
         
-        <li class="nav-item">
-          <a class="nav-link" href="/contact">Nous contacter</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact" onclick="route()">Nous contacter</a>
+          </li>
 
-      </ul>
-  <nav class="auth-buttons" aria-label="Authentification">
-    <a href="/signin" onclick="route()" class="btn btn-outline-success">
-      Se connecter
-    </a>
+           <li class="nav-item" data-show="connected">
+            <a class="nav-link" href="/account" onclick="route()">Mon compte</a>
+          </li>
+          </ul>
 
-    <a href="/signup" onclick="route()" class="btn btn-primary signup__cta">
-     S’inscrire
-   </a>
-  </nav>
+      <div class="auth-buttons" aria-label="Authentification" data-show="disconnected">
+        <a href="/signin" onclick="route()" class="btn btn-outline-success">
+          Se connecter
+        </a>
+      </div>
+      <div class="nav-item" data-show="connected">
+        <button id="signout-btn" type="button" class="btn btn-outline-success">
+        Se déconnecter</button>
+      </div>
+
+        <a href="/signup" onclick="route()" class="btn btn-primary signup__cta" data-show="disconnected">
+        S’inscrire
+      </a>
+
+
     </div>
   </div>
 </nav>
@@ -74,6 +83,7 @@
     </header>
 
     <main id="main-page">
+
    
         <!-- Contenu de ma page-->
 
@@ -85,20 +95,28 @@
 
           <div class="col-6 col-lg-4">
             <p class="footer__tagline">Authentique – Familial – Convivial</p>
-            <p class="footer__brand">Vite & Gourmand</p>
+            <p class="footer__brand">VITE & GOURMAND</p>
           </div>
 
           <div class="col-6 col-lg-2">
-            <p>Conditions générales</p>
+            <a href="/cgv"
+              onclick="route()"
+              class="footer-link">
+              Conditions générales
+            </a>
           </div>
 
           <div class="col-6 col-lg-2">
-            <p>Mentions légales</p>
+            <a href="/mentions-legales"
+              onclick="route()"
+              class="footer-link">
+              Mentions légales
+            </a>
           </div>
 
           <div class="col-6 col-lg-2">
             <h3 class="text-primary">Nos horaires</h3>
-            <p>Du lundi au samedi<br>10h à 17h</p>
+            <p>Du lundi au samedi<br>De 10h à 17h</p>
           </div>
 
           <!-- COLONNE AVIS -->
@@ -119,7 +137,7 @@
       </div>
     </footer>
 
-
+  
     <script type="module" src="./Router/router.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     
