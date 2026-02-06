@@ -1,0 +1,65 @@
+<section class="section-galerie">
+    <h1 class="text-title">Galerie</h1>
+   
+         <div class="galerie-grid" id="allImages">
+        </div>
+     <div class="text-center">
+        <a href="/menus" class="btn btn-primary galerie__cta">Commander</a>
+    </div>
+    
+</section>
+
+    <!-- Modal édition-->
+<div class="modal fade" id="EditionPhotoModal" tabindex="-1" aria-labelledby="EditionPhotoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="EditionPhotoModalLabel">Edition Photo</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form>
+              <div class="mb-3">
+                <label for="NamePhotoInput" class="form-label">Titre photo</label>
+                <input type="text" class="form-control" id="NamePhotoInput" placeholder="Titre de la photo"> 
+              </div>
+
+              <div class="mb-3">
+                <label for="ImageInput" class="form-label">Image</label>
+                <input type="file" class="form-control" id="ImageInput">
+              </div>
+
+              <div class="text-center">
+                <button type="button" class="btn btn-primary">Enregistrer</button>
+              </div>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Modal suppression-->
+<div class="modal fade" id="DeletePhotoModal" tabindex="-1" aria-labelledby="DeletePhotoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="DeletePhotoModalLabel">Etes-vous sûr de vouloir supprimer cette photo ?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form>
+              <div class="mb-3">
+                <p id="DeleteTitle">Titre</p>
+                <img id="DeleteImg" class="w-100 rounded" src="../assets/asperges-galerie.jpg" alt="asperges et canard">
+              </div>
+
+              <div class="text-center">
+                <button type="button" class="btn btn-danger">Supprimer</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              </div>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
