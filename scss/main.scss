@@ -1,23 +1,48 @@
-body {
-  font-family: var(--font-body);
-}
-
-nav, button, .btn, .menu, .nav-link {
-  font-family: var(--font-ui);
-}
-
-.brand, .logo, .site-title {
-  font-family: var(--font-brand);
-}
-
 @import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
-@import 'custom';
+@import "custom";
 
 :root {
   --bs-success: #A3DC5E;
   --bs-success-rgb: 123, 192, 67;
   --card-green: rgba(163, 220, 94, 0.70);
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+}
+
+nav,
+button,
+.btn,
+.menu,
+.nav-link {
+  font-family: var(--font-ui);
+}
+
+.brand,
+.logo,
+.site-title {
+  font-family: var(--font-brand);
+}
+
+#main-page {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   BOUTONS
+========================= */
 
 .btn-outline-success {
   --bs-btn-color: var(--bs-success);
@@ -35,37 +60,28 @@ nav, button, .btn, .menu, .nav-link {
   border-color: var(--bs-success);
   font-family: var(--font-ui);
 
- &:hover {
-    background-color:var(--bs-success);
+  &:hover {
+    background-color: var(--bs-success);
     color: #fff;
     border-color: var(--bs-success);
-    transition: background-color .15s ease-in-out,
-    color .15s ease-in-out,
-    border-color .15s ease-in-out;
+    transition:
+      background-color .15s ease-in-out,
+      color .15s ease-in-out,
+      border-color .15s ease-in-out;
   }
-  
 }
 
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar {
   background-color: #fff;
   border-bottom: 1px solid #e5e5e5;
- }
+}
 
 .navbar .nav-link {
   color: var(--bs-success);
-  //color: #222;
 }
 
 .navbar .nav-link:hover,
@@ -73,19 +89,19 @@ body {
   color: #222;
 }
 
-.navbar .btn-outline-success:hover{
-  color:#222
+.navbar .btn-outline-success:hover {
+  color: #222;
 }
 
-.navbar .signup__cta:hover{
+.navbar .signup__cta:hover {
   color: #fff;
 }
-
 
 .navbar .nav-link.active {
   color: #222;
   font-weight: 500;
 }
+
 .navbar .navbar-brand {
   color: var(--bs-success);
   font-family: var(--font-brand);
@@ -95,6 +111,7 @@ body {
 .navbar .navbar-brand:focus {
   color: #222;
 }
+
 .navbar-toggler {
   border-color: #ccc;
 }
@@ -102,6 +119,7 @@ body {
 .navbar-toggler-icon {
   filter: none;
 }
+
 @media (min-width: 992px) {
   .navbar .dropdown:hover .dropdown-menu {
     display: block;
@@ -109,12 +127,9 @@ body {
   }
 }
 
-#main-page {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
+/* =========================
+   FOOTER
+========================= */
 
 footer.footer {
   background: #fff;
@@ -124,9 +139,8 @@ footer.footer {
   padding: 15px;
   border-top: 1px solid #e5e5e5;
   font-family: var(--font-body);
-
 }
- 
+
 .footer__brand,
 .footer__tagline {
   font-family: var(--font-brand);
@@ -135,7 +149,7 @@ footer.footer {
 
 .footer__brand {
   font-size: 1.5rem;
-  font-weight: 400;         
+  font-weight: 400;
   margin-bottom: 0.25rem;
 }
 
@@ -171,19 +185,31 @@ footer.footer {
   }
 }
 
+/* =========================
+   TITRES
+========================= */
+
+.text-title {
+  font-family: var(--font-ui);
+  text-align: center;
+  color: #fff;
+}
+
+/* =========================
+   HERO COMMUN
+========================= */
+
 .hero-bg {
   position: relative;
-  flex: 1 0 auto;        
-  min-height: 520px;     
+  flex: 1 0 auto;
+  min-height: 520px;
   width: 100%;
-  
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   display: flex;
-  align-items: center; 
-  overflow: hidden;  
+  align-items: center;
+  overflow: hidden;
 }
 
 .hero-bg::after {
@@ -193,47 +219,43 @@ footer.footer {
   background: rgba(0, 0, 0, 0.18);
   z-index: 1;
 }
-.sandwiches { @extend .hero-bg; background-image: url("../assets/sandwiches.png"); }
-.engagements { @extend .hero-bg; background-image: url("../assets/table-menus.jpg"); }
+
+.sandwiches {
+  @extend .hero-bg;
+  background-image: url("../assets/sandwiches.png");
+}
+
+.engagements {
+  @extend .hero-bg;
+  background-image: url("../assets/table-menus.jpg");
+}
+
+/* =========================
+   HOME HERO
+========================= */
 
 .sandwiches__card {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: min(520px, 90%);
-    padding: 36px 32px;
-    background: var(--card-green);
-    border-radius: 61px;
-    color:#fff;
-    text-align:center;
-
-    z-index:10;
-    isolation:isolate;  
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, 90%);
+  padding: 36px 32px;
+  background: var(--card-green);
+  border-radius: 61px;
+  color: #fff;
+  text-align: center;
+  z-index: 10;
+  isolation: isolate;
 }
 
-@media (max-width: 768px) {
-  .sandwiches__card, 
-  .engagements__card {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 24px auto;
-    width: 90%;
-    border-radius: 32px;
-  }
-}
-
-/* Bouton centré en bas sur l'image */
 .sandwiches__cta {
   position: absolute;
   font-family: var(--font-ui);
-  bottom: 32px;          
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 11;            /* au-dessus du voile */
+  z-index: 11;
 }
 
 .sandwiches__bulles-img {
@@ -246,36 +268,44 @@ footer.footer {
   z-index: 8;
   pointer-events: none;
 }
-//l'img bulles3 disparait sur version mobile
+
 @media (max-width: 768px) {
+  .sandwiches__card,
+  .engagements__card {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 24px auto;
+    width: 90%;
+    border-radius: 32px;
+  }
+
   .sandwiches__bulles-img {
     display: none;
   }
 }
 
-.section-galerie { 
-  position: relative;   
+/* =========================
+   GALERIE
+========================= */
+
+.section-galerie {
+  position: relative;
   width: 100%;
   background: rgba(163, 220, 94, 0.70);
-
 }
-//pour le voile
+
 .section-galerie::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.25);
 }
-//avec le voile
+
 .section-galerie > * {
   position: relative;
   z-index: 1;
-}
-
-.text-title {
-  font-family: var(--font-ui);
-  text-align: center;
-  color: #fff;
 }
 
 .galerie-grid {
@@ -289,8 +319,8 @@ footer.footer {
 
 .galerie-grid img {
   width: 100%;
-  height: 320px;          // réduit visuellement la taille
-  object-fit: cover;     //coupe proprement
+  height: 320px;
+  object-fit: cover;
   border-radius: 12px;
   transition: transform 0.3s ease;
 }
@@ -303,45 +333,41 @@ footer.footer {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  &:hover{
-  .action-image-buttons {
-    opacity: 1;
-}
-}
+
+  &:hover {
+    .action-image-buttons {
+      opacity: 1;
+    }
+  }
 }
 
-.galerie-items img{
+.galerie-items img {
   width: 100%;
   height: 190px;
   object-fit: cover;
   display: block;
 }
+
 .action-image-buttons {
   opacity: 0;
   position: absolute;
   bottom: 16px;
   left: 16px;
-
   display: flex;
   gap: 10px;
-
   z-index: 2;
 }
 
-//je neutralise bootstrap pour rendre visible les icons sur mes images
 .action-image-buttons .btn {
-   width: 42px;
+  width: 42px;
   height: 42px;
   padding: 0;
   display: grid;
   place-items: center;
-
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.35);
-
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(6px);
-
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
   transition: transform 0.2s ease, background 0.2s ease;
 }
@@ -351,33 +377,31 @@ footer.footer {
   background: rgba(0, 0, 0, 0.60);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
   opacity: 1;
- 
 }
 
 .action-image-buttons i {
   font-size: 1.1rem;
   line-height: 1;
-  color: #fff; // force la lisibilité même si btn-outline-dark traîne
+  color: #fff;
 }
-
 
 .galerie__cta {
   font-family: var(--font-ui);
 }
 
+/* =========================
+   CONTACT
+========================= */
 
-//fond + voile
 .contact__hero {
   position: relative;
-  flex: 1 0 auto;        
-  min-height: 520px;     
+  flex: 1 0 auto;
+  min-height: 520px;
   width: 100%;
-
   background-image: url("../assets/board-contact.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -387,7 +411,7 @@ footer.footer {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.18); //voile sombre
+  background: rgba(0, 0, 0, 0.18);
   z-index: 1;
   pointer-events: none;
 }
@@ -404,12 +428,10 @@ footer.footer {
   width: min(650px, 85%);
   padding: 20px 10px;
   border-radius: 60px;
-
   background: var(--card-green);
   color: #fff;
   text-align: center;
-
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(2px);
 }
 
@@ -437,17 +459,15 @@ footer.footer {
   border: 0;
   outline: none;
   border-radius: 10px;
-
   padding: 14px 16px;
-  background: rgba(255,255,255,0.45);
+  background: rgba(255, 255, 255, 0.45);
   color: #fff;
-
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .field textarea {
@@ -459,7 +479,6 @@ footer.footer {
   justify-self: center;
   margin-top: 8px;
   padding: 10px 26px;
-  
 }
 
 @media (max-width: 768px) {
@@ -469,18 +488,75 @@ footer.footer {
   }
 
   .field label {
-    text-align: left; /* sur mobile c’est plus lisible */
+    text-align: left;
   }
 }
 
+/* =========================
+   PAGES MENUS
+========================= */
+
 .section-menus,
-.section-classique{ 
-  position: relative;   
+.section-menu {
+  position: relative;
   width: 100%;
   background: rgba(163, 220, 94, 0.70);
-  padding: 0 1.5rem;
-  min-height: calc(100vh - 180px); /* ajuste 160px selon le header/footer */
-  padding-bottom: 1rem;
+  padding: 0 1.5rem 1rem;
+  min-height: calc(100vh - 180px);
+}
+
+.section-menus::after,
+.section-menu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.section-menus > *,
+.section-menu > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-menu .menu-intro,
+.section-menu .menu-details p {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-menu ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.section-menu h1,
+.section-menu h2,
+.section-menu h3 {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-ui);
+  text-align: center;
+  color: #fff;
+}
+
+.section-menu .menu-block {
+  margin-bottom: 2rem;
+}
+
+.section-menu .menu-price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.section-menu .menu-block.allergenes p {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .section-classique__content {
@@ -495,124 +571,67 @@ footer.footer {
   line-height: 1.7;
 }
 
-/* Titres des articles */
 .section-classique__content .cgu-title {
   font-weight: 600;
   padding-top: 2rem;
   padding-bottom: 0.5rem;
 }
 
-/* Texte qui suit un titre */
 .section-classique__content .cgu-title + p {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+.text-justify {
+  text-align: justify;
+  color: #000;
+}
+
+.menus__cta {
+  font-family: var(--font-ui);
+}
+
+.form-label {
+  color: #fff;
+  font-family: var(--font-body);
+}
 
 @media (max-width: 768px) {
   .section-menus,
-  .section-classique {
-    padding: 0 1.25rem;
+  .section-menu {
+    padding: 0 1.25rem 1rem;
   }
+
   .section-classique__content {
     text-align: left;
   }
 }
 
-
-
-//pour le voile
-.section-menus::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.25);
-}
-//avec le voile
-.section-menus > * {
-  position: relative;
-  z-index: 1;
-}
-
-.text-justify {
-  text-align: justify;
-  
-  color:#000;
-}
-
-.menus__cta{
-  font-family: var(--font-ui);
-}
-
-.form-label{
-  color: #fff;
-  font-family: var(--font-body);
-}
-
-//pour le voile
-.section-classique::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.25);
-}
-//avec le voile
-.section-classique > * {
-  position: relative;
-  z-index: 1;
-}
-.section-classique .menu-intro,
-.section-classique .menu-details p{
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.section-classique ul{
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-  text-align: center;
-}
-
-.section-classique h1,
-.section-classique h2,
-.section-classique h3{
-  text-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  font-family: var(--font-ui);
-  text-align: center;
-  color: #fff;
-}
-
-.section-classique .menu-block.allergenes p {
-  max-width: 500px;
-  margin: 0 auto;
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
+/* =========================
+   SIGNIN
+========================= */
 
 .signin-hero {
   position: relative;
-  flex: 1 0 auto;        
-  min-height: 520px;     
+  flex: 1 0 auto;
+  min-height: 520px;
   width: 100%;
   background: url("../assets/mousse-mangue-galerie.jpg") center / cover no-repeat;
   font-family: var(--font-ui);
   color: #fff;
 }
 
-//le voile foncé
 .signin-hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.35);
+  background: rgba(0, 0, 0, .35);
 }
 
 .signin-card {
   background: rgba(163, 220, 94, .75);
   border-radius: 32px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
-  color:#fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
+  color: #fff;
 }
 
 .signin-card .form-control {
@@ -620,12 +639,12 @@ footer.footer {
   color: #000;
   border: 1px solid #ddd;
   border-radius: 10px;
- 
 }
 
 .signin-card .form-control::placeholder {
   color: #999;
 }
+
 .signin-card .form-control:focus {
   background-color: #fff;
   color: #000;
@@ -633,38 +652,40 @@ footer.footer {
   box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
 }
 
-.signin-link-light{
+.signin-link-light {
   color: #fff;
 }
+
 .signin-link-light:hover {
   color: #000;
   text-decoration: none;
 }
 
+/* =========================
+   SIGNUP
+========================= */
+
 .signup-hero {
   position: relative;
-  flex: 1 0 auto;        
-  min-height: 520px;     
+  flex: 1 0 auto;
+  min-height: 520px;
   width: 100%;
   background: url("../assets/pancake-galerie.jpg") center / cover no-repeat;
   font-family: var(--font-ui);
   color: #fff;
 }
 
-//le voile foncé
 .signup-hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.35);
+  background: rgba(0, 0, 0, .35);
 }
 
 .signup-card {
   background: rgba(163, 220, 94, .75);
-
   border-radius: 32px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
   color: #fff;
- 
 }
 
 .signup-card .form-control {
@@ -674,7 +695,7 @@ footer.footer {
   border-radius: 10px;
   width: 100%;
   max-width: 350px;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 
 .signup-card label {
@@ -686,13 +707,13 @@ footer.footer {
 .signup-card .form-control::placeholder {
   color: #999;
 }
+
 .signup-card .form-control:focus {
   background-color: #fff;
   color: #000;
   border-color: var(--bs-success);
   box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.25);
 }
-
 
 .signup-link {
   color: #fff;
@@ -705,6 +726,10 @@ footer.footer {
   text-decoration: none;
 }
 
+/* =========================
+   COMMANDES
+========================= */
+
 .allorders {
   a {
     display: block;
@@ -713,27 +738,29 @@ footer.footer {
     border-radius: 8px;
 
     &:hover {
-      background: rgba(0,0,0,0.06);
+      background: rgba(0, 0, 0, 0.06);
     }
   }
 }
 
+/* =========================
+   ENGAGEMENTS
+========================= */
+
 .engagements__card {
-    position: relative;
-    margin: 60px auto;
-
-     /* max-width keeps the card readable on desktop, width makes it responsive */
-    max-width: 1100px;
-    width: 90%;
-    padding: 40px 40px;
-    background: var(--card-green);
-    border-radius: 61px;
-    color:#fff;
-    text-align:center;
-
-    z-index:10;
-    isolation:isolate;  
+  position: relative;
+  margin: 60px auto;
+  max-width: 1100px;
+  width: 90%;
+  padding: 40px 40px;
+  background: var(--card-green);
+  border-radius: 61px;
+  color: #fff;
+  text-align: center;
+  z-index: 10;
+  isolation: isolate;
 }
+
 .engagements__card p {
   max-width: 1000px;
   margin-left: auto;
@@ -741,17 +768,17 @@ footer.footer {
 }
 
 .title-eng {
-  margin-top: 2.5rem;  /* très aéré*/
+  margin-top: 2.5rem;
   margin-bottom: 0.75rem;
   text-align: center;
 }
+
 .title-eng.conclusion {
   font-size: 1.8rem;
   text-align: center;
   margin-top: 3rem;
 }
 
-/*mobile*/
 @media (max-width: 576px) {
   .engagements__card {
     width: 94%;
@@ -759,4 +786,54 @@ footer.footer {
     padding: 22px 18px;
     border-radius: 32px;
   }
+}
+
+.section-menu .menu-intro {
+  margin-bottom: 3rem;
+}
+
+.section-menu .menu-block {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-menu .menu-line {
+  font-size: 1.05rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.section-menu .menu-label {
+  font-weight: 700;
+  color: #4f6f2f;
+  min-width: 80px;
+}
+
+.section-menu .menu-value {
+  color: #1f1f1f;
+  font-size: 1.1rem;
+}
+.section-menu .menu-price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+.section-menu h2 {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.section-menu h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #4f6f2f;
+  margin: 10px auto 0;
+  border-radius: 2px;
 }

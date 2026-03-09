@@ -7,18 +7,21 @@ const inputValidationPassword = document.getElementById("ValidatePasswordInput")
 const btnValidation = document.getElementById("btn-validation-inscription");
 const formInscrition = document.getElementById("formulaireInscrition");
 
-inputNom.addEventListener("keyup", validateForm); 
+// bouton désactivé au départ
+btnValidation.disabled = true;
+
+// écouteurs
+inputNom.addEventListener("keyup", validateForm);
 inputPrenom.addEventListener("keyup", validateForm);
 inputTelephone.addEventListener("keyup", validateForm);
 inputMail.addEventListener("keyup", validateForm);
 inputPassword.addEventListener("keyup", validateForm);
 inputValidationPassword.addEventListener("keyup", validateForm);
 
-btnValidation.addEventListener("click", InscrireUtilisateur);
+btnValidation.addEventListener("click", inscrireUtilisateur);
 
-
-//Function permettant de valider tout le formulaire
-function validateForm(){
+// Validation globale du formulaire
+function validateForm() {
     const nomOk = validateRequired(inputNom);
     const prenomOk = validateRequired(inputPrenom);
     const telephoneOk = validateRequired(inputTelephone);
@@ -26,122 +29,97 @@ function validateForm(){
     const passwordOk = validatePassword(inputPassword);
     const passwordConfirmOk = validateConfirmationPassword(inputPassword, inputValidationPassword);
 
-    if(nomOk && prenomOk && telephoneOk && mailOk && passwordOk && passwordConfirmOk) {
-        btnValidation.disabled = false;
-    }
-    else {
-        btnValidation.disabled=true;
-    }
+    btnValidation.disabled = !(nomOk && prenomOk && telephoneOk && mailOk && passwordOk && passwordConfirmOk);
 }
 
-
-
-function validateMail(input){
+function validateMail(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const mailUser = input.value;
-    if(mailUser.match(emailRegex)){
+    const mailUser = input.value.trim();
+
+    if (emailRegex.test(mailUser)) {
         input.classList.add("is-valid");
-        input.classList.remove("is-invalid"); 
+        input.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         return false;
     }
 }
 
-function validateConfirmationPassword(inputPwd, inputConfirmPwd){
-    if(inputPwd.value == inputConfirmPwd.value){
-        inputConfirmPwd.classList.add("is-valid");
-        inputConfirmPwd.classList.remove("is-invalid");
-        return true;
-    }
-    else{
-        inputConfirmPwd.classList.add("is-invalid");
-        inputConfirmPwd.classList.remove("is-valid");
-        return false;
-    }
-}
-
-function validatePassword(input){
-    //Définir mon regex
+function validatePassword(input) {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
     const passwordUser = input.value;
-    if(passwordUser.match(passwordRegex)){
+
+    if (passwordRegex.test(passwordUser)) {
         input.classList.add("is-valid");
-        input.classList.remove("is-invalid"); 
+        input.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         return false;
     }
 }
 
-function validateConfirmationPassword(inputPwd, inputConfirmPwd){
-    if(inputPwd.value == inputConfirmPwd.value){
+function validateConfirmationPassword(inputPwd, inputConfirmPwd) {
+    if (inputPwd.value === inputConfirmPwd.value && inputConfirmPwd.value !== "") {
         inputConfirmPwd.classList.add("is-valid");
         inputConfirmPwd.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         inputConfirmPwd.classList.add("is-invalid");
         inputConfirmPwd.classList.remove("is-valid");
         return false;
     }
 }
 
-
-function validateRequired(input){
-    if(input.value != ''){
+function validateRequired(input) {
+    if (input.value.trim() !== "") {
         input.classList.add("is-valid");
-        input.classList.remove("is-invalid"); 
+        input.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         return false;
     }
 }
 
-//fetch
-function InscrireUtilisateur() {
-    let dataForm = new FormData(formInscrition);
+// Fetch inscription
+function inscrireUtilisateur() {
+    const dataForm = new FormData(formInscrition);
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    let raw = JSON.stringify({
-        "firstName": dataForm.get("nom"),
-        "lastName": dataForm.get("prenom"),
-        "telephone" : dataForm.get("telephone"),
-        "email": dataForm.get("email"),
-        "password": dataForm.get("mdp"),
+    const raw = JSON.stringify({
+        firstName: dataForm.get("prenom"),
+        lastName: dataForm.get("nom"),
+        telephone: dataForm.get("telephone"),
+        email: dataForm.get("email"),
+        password: dataForm.get("mdp"),
     });
 
-    let requestOptions = {
+    fetch(apiUrl + "registration", {
         method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: raw
+    })
+        .then(async (response) => {
+            const result = await response.json();
 
-fetch(apiUrl+"registration", requestOptions)
-  .then(response => {
-        if(response.ok){
-            return response.json();
-        }
-        else{
-            alert("Erreur lors de l'inscription");
-        }
-  })
-  .then(result => {
-        alert("Bravo "+dataForm.get("prenom")+", vous êtes maintenant inscrit, vous pouvez vous connecter !");
-        document.location.href="/signin";
-  })
+            if (!response.ok) {
+                throw new Error(result.message || "Erreur lors de l'inscription");
+            }
 
-  .catch((error) => console.error(error));
+            return result;
+        })
+        .then((result) => {
+            alert("Bravo " + dataForm.get("prenom") + ", vous êtes maintenant inscrit(e), vous pouvez vous connecter !");
+            document.location.href = "#/signin";
+        })
+        .catch((error) => {
+            console.error(error);
+            alert(error.message);
+        });
 }

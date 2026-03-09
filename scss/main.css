@@ -1,17 +1,5 @@
 @charset "UTF-8";
 @import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
-body {
-  font-family: var(--font-body);
-}
-
-nav, button, .btn, .menu, .nav-link {
-  font-family: var(--font-ui);
-}
-
-.brand, .logo, .site-title {
-  font-family: var(--font-brand);
-}
-
 :root {
   --font-body: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --font-ui: "Righteous", "Roboto", sans-serif;
@@ -12004,6 +11992,42 @@ textarea.form-control-lg {
   --card-green: rgba(163, 220, 94, 0.70);
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+}
+
+nav,
+button,
+.btn,
+.menu,
+.nav-link {
+  font-family: var(--font-ui);
+}
+
+.brand,
+.logo,
+.site-title {
+  font-family: var(--font-brand);
+}
+
+#main-page {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   BOUTONS
+========================= */
 .btn-outline-success {
   --bs-btn-color: var(--bs-success);
   --bs-btn-border-color: var(--bs-success);
@@ -12027,17 +12051,9 @@ textarea.form-control-lg {
   transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
+/* =========================
+   NAVBAR
+========================= */
 .navbar {
   background-color: #fff;
   border-bottom: 1px solid #e5e5e5;
@@ -12089,12 +12105,9 @@ body {
     margin-top: 0;
   }
 }
-#main-page {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
+/* =========================
+   FOOTER
+========================= */
 footer.footer {
   background: #fff;
   color: #222;
@@ -12148,6 +12161,18 @@ footer.footer {
     margin-top: 10px;
   }
 }
+/* =========================
+   TITRES
+========================= */
+.text-title {
+  font-family: var(--font-ui);
+  text-align: center;
+  color: #fff;
+}
+
+/* =========================
+   HERO COMMUN
+========================= */
 .hero-bg, .engagements, .sandwiches {
   position: relative;
   flex: 1 0 auto;
@@ -12177,6 +12202,9 @@ footer.footer {
   background-image: url("../assets/table-menus.jpg");
 }
 
+/* =========================
+   HOME HERO
+========================= */
 .sandwiches__card {
   position: absolute;
   top: 45%;
@@ -12192,26 +12220,13 @@ footer.footer {
   isolation: isolate;
 }
 
-@media (max-width: 768px) {
-  .sandwiches__card,
-  .engagements__card {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 24px auto;
-    width: 90%;
-    border-radius: 32px;
-  }
-}
-/* Bouton centré en bas sur l'image */
 .sandwiches__cta {
   position: absolute;
   font-family: var(--font-ui);
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 11; /* au-dessus du voile */
+  z-index: 11;
 }
 
 .sandwiches__bulles-img {
@@ -12226,10 +12241,23 @@ footer.footer {
 }
 
 @media (max-width: 768px) {
+  .sandwiches__card,
+  .engagements__card {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 24px auto;
+    width: 90%;
+    border-radius: 32px;
+  }
   .sandwiches__bulles-img {
     display: none;
   }
 }
+/* =========================
+   GALERIE
+========================= */
 .section-galerie {
   position: relative;
   width: 100%;
@@ -12246,12 +12274,6 @@ footer.footer {
 .section-galerie > * {
   position: relative;
   z-index: 1;
-}
-
-.text-title {
-  font-family: var(--font-ui);
-  text-align: center;
-  color: #fff;
 }
 
 .galerie-grid {
@@ -12312,8 +12334,7 @@ footer.footer {
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: rgba(0, 0, 0, 0.45);
-  -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
   transition: transform 0.2s ease, background 0.2s ease;
 }
@@ -12335,6 +12356,9 @@ footer.footer {
   font-family: var(--font-ui);
 }
 
+/* =========================
+   CONTACT
+========================= */
 .contact__hero {
   position: relative;
   flex: 1 0 auto;
@@ -12374,8 +12398,7 @@ footer.footer {
   color: #fff;
   text-align: center;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
 
 .contact__card h2, .contact__card .h2 {
@@ -12434,17 +12457,75 @@ footer.footer {
     border-radius: 32px;
   }
   .field label {
-    text-align: left; /* sur mobile c’est plus lisible */
+    text-align: left;
   }
 }
+/* =========================
+   PAGES MENUS
+========================= */
 .section-menus,
-.section-classique {
+.section-menu {
   position: relative;
   width: 100%;
   background: rgba(163, 220, 94, 0.7);
-  padding: 0 1.5rem;
-  min-height: calc(100vh - 180px); /* ajuste 160px selon le header/footer */
-  padding-bottom: 1rem;
+  padding: 0 1.5rem 1rem;
+  min-height: calc(100vh - 180px);
+}
+
+.section-menus::after,
+.section-menu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.section-menus > *,
+.section-menu > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-menu .menu-intro,
+.section-menu .menu-details p {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-menu ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.section-menu h1, .section-menu .h1,
+.section-menu h2,
+.section-menu .h2,
+.section-menu h3,
+.section-menu .h3 {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-ui);
+  text-align: center;
+  color: #fff;
+}
+
+.section-menu .menu-block {
+  margin-bottom: 2rem;
+}
+
+.section-menu .menu-price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.section-menu .menu-block.allergenes p {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .section-classique__content {
@@ -12459,38 +12540,15 @@ footer.footer {
   line-height: 1.7;
 }
 
-/* Titres des articles */
 .section-classique__content .cgu-title {
   font-weight: 600;
   padding-top: 2rem;
   padding-bottom: 0.5rem;
 }
 
-/* Texte qui suit un titre */
 .section-classique__content .cgu-title + p {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-@media (max-width: 768px) {
-  .section-menus,
-  .section-classique {
-    padding: 0 1.25rem;
-  }
-  .section-classique__content {
-    text-align: left;
-  }
-}
-.section-menus::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.section-menus > * {
-  position: relative;
-  z-index: 1;
 }
 
 .text-justify {
@@ -12507,50 +12565,18 @@ footer.footer {
   font-family: var(--font-body);
 }
 
-.section-classique::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.25);
+@media (max-width: 768px) {
+  .section-menus,
+  .section-menu {
+    padding: 0 1.25rem 1rem;
+  }
+  .section-classique__content {
+    text-align: left;
+  }
 }
-
-.section-classique > * {
-  position: relative;
-  z-index: 1;
-}
-
-.section-classique .menu-intro,
-.section-classique .menu-details p {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.section-classique ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-  text-align: center;
-}
-
-.section-classique h1, .section-classique .h1,
-.section-classique h2,
-.section-classique .h2,
-.section-classique h3,
-.section-classique .h3 {
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  font-family: var(--font-ui);
-  text-align: center;
-  color: #fff;
-}
-
-.section-classique .menu-block.allergenes p {
-  max-width: 500px;
-  margin: 0 auto;
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
+/* =========================
+   SIGNIN
+========================= */
 .signin-hero {
   position: relative;
   flex: 1 0 auto;
@@ -12605,6 +12631,9 @@ footer.footer {
   text-decoration: none;
 }
 
+/* =========================
+   SIGNUP
+========================= */
 .signup-hero {
   position: relative;
   flex: 1 0 auto;
@@ -12670,6 +12699,9 @@ footer.footer {
   text-decoration: none;
 }
 
+/* =========================
+   COMMANDES
+========================= */
 .allorders a {
   display: block;
   padding: 10px;
@@ -12680,10 +12712,12 @@ footer.footer {
   background: rgba(0, 0, 0, 0.06);
 }
 
+/* =========================
+   ENGAGEMENTS
+========================= */
 .engagements__card {
   position: relative;
   margin: 60px auto;
-  /* max-width keeps the card readable on desktop, width makes it responsive */
   max-width: 1100px;
   width: 90%;
   padding: 40px 40px;
@@ -12702,7 +12736,7 @@ footer.footer {
 }
 
 .title-eng {
-  margin-top: 2.5rem; /* très aéré*/
+  margin-top: 2.5rem;
   margin-bottom: 0.75rem;
   text-align: center;
 }
@@ -12713,7 +12747,6 @@ footer.footer {
   margin-top: 3rem;
 }
 
-/*mobile*/
 @media (max-width: 576px) {
   .engagements__card {
     width: 94%;
@@ -12721,4 +12754,55 @@ footer.footer {
     padding: 22px 18px;
     border-radius: 32px;
   }
+}
+.section-menu .menu-intro {
+  margin-bottom: 3rem;
+}
+
+.section-menu .menu-block {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-menu .menu-line {
+  font-size: 1.05rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.section-menu .menu-label {
+  font-weight: 700;
+  color: #4f6f2f;
+  min-width: 80px;
+}
+
+.section-menu .menu-value {
+  color: #1f1f1f;
+  font-size: 1.1rem;
+}
+
+.section-menu .menu-price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.section-menu h2, .section-menu .h2 {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.section-menu h2::after, .section-menu .h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #4f6f2f;
+  margin: 10px auto 0;
+  border-radius: 2px;
 }/*# sourceMappingURL=main.css.map */
