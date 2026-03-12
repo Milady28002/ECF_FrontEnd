@@ -1,4 +1,3 @@
-@import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
 @import "custom";
 
 :root {
@@ -93,7 +92,7 @@ button,
   color: #222;
 }
 
-.navbar .signup__cta:hover {
+.navbar .signup_cta:hover {
   color: #fff;
 }
 
@@ -141,45 +140,45 @@ footer.footer {
   font-family: var(--font-body);
 }
 
-.footer__brand,
-.footer__tagline {
+.footer_brand,
+.footer_tagline {
   font-family: var(--font-brand);
   color: var(--bs-success);
 }
 
-.footer__brand {
+.footer_brand {
   font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 0.25rem;
 }
 
-.footer__tagline {
+.footer_tagline {
   font-size: 1.5rem;
   letter-spacing: 0.5px;
   margin-bottom: 0.5rem;
 }
 
-.footer__reviews {
+.footer_reviews {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 14px;
 }
 
-.footer__stars {
+.footer_stars {
   height: 45px;
   width: auto;
   display: block;
 }
 
-.footer__badge {
+.footer_badge {
   height: 65px;
   width: auto;
   display: block;
 }
 
 @media (max-width: 768px) {
-  .footer__reviews {
+  .footer_reviews {
     justify-content: center;
     margin-top: 10px;
   }
@@ -234,7 +233,7 @@ footer.footer {
    HOME HERO
 ========================= */
 
-.sandwiches__card {
+.sandwiches_card {
   position: absolute;
   top: 45%;
   left: 50%;
@@ -249,7 +248,7 @@ footer.footer {
   isolation: isolate;
 }
 
-.sandwiches__cta {
+.sandwiches_cta {
   position: absolute;
   font-family: var(--font-ui);
   bottom: 32px;
@@ -258,7 +257,7 @@ footer.footer {
   z-index: 11;
 }
 
-.sandwiches__bulles-img {
+.sandwiches_bulles-img {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -270,8 +269,8 @@ footer.footer {
 }
 
 @media (max-width: 768px) {
-  .sandwiches__card,
-  .engagements__card {
+  .sandwiches_card,
+  .engagements_card {
     position: relative;
     top: auto;
     left: auto;
@@ -281,7 +280,7 @@ footer.footer {
     border-radius: 32px;
   }
 
-  .sandwiches__bulles-img {
+  .sandwiches_bulles-img {
     display: none;
   }
 }
@@ -385,7 +384,7 @@ footer.footer {
   color: #fff;
 }
 
-.galerie__cta {
+.galerie_cta {
   font-family: var(--font-ui);
 }
 
@@ -393,7 +392,7 @@ footer.footer {
    CONTACT
 ========================= */
 
-.contact__hero {
+.contact_hero {
   position: relative;
   flex: 1 0 auto;
   min-height: 520px;
@@ -407,7 +406,7 @@ footer.footer {
   overflow: hidden;
 }
 
-.contact__hero::after {
+.contact_hero::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -416,7 +415,7 @@ footer.footer {
   pointer-events: none;
 }
 
-.contact__hero > .container {
+.contact_hero > .container {
   position: relative;
   z-index: 10;
   display: flex;
@@ -424,7 +423,7 @@ footer.footer {
   align-items: center;
 }
 
-.contact__card {
+.contact_card {
   width: min(650px, 85%);
   padding: 20px 10px;
   border-radius: 60px;
@@ -435,7 +434,7 @@ footer.footer {
   backdrop-filter: blur(2px);
 }
 
-.contact__card h2 {
+.contact_card h2 {
   margin-bottom: 28px;
   font-family: var(--font-ui);
   font-weight: 600;
@@ -482,7 +481,7 @@ footer.footer {
 }
 
 @media (max-width: 768px) {
-  .contact__card {
+  .contact_card {
     padding: 28px 20px;
     border-radius: 32px;
   }
@@ -559,25 +558,25 @@ footer.footer {
   line-height: 1.5;
 }
 
-.section-classique__content {
+.section-classique_content {
   max-width: 100ch;
   margin: 0 auto;
   text-align: justify;
 }
 
-.section-classique__content p {
+.section-classique_content p {
   margin: 0;
   padding: 1.25rem 0;
   line-height: 1.7;
 }
 
-.section-classique__content .cgu-title {
+.section-classique_content .cgu-title {
   font-weight: 600;
   padding-top: 2rem;
   padding-bottom: 0.5rem;
 }
 
-.section-classique__content .cgu-title + p {
+.section-classique_content .cgu-title + p {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -587,7 +586,7 @@ footer.footer {
   color: #000;
 }
 
-.menus__cta {
+.menus_cta {
   font-family: var(--font-ui);
 }
 
@@ -596,13 +595,75 @@ footer.footer {
   font-family: var(--font-body);
 }
 
+
+/* ---------- Catalogue menus ---------- */
+
+#menus-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.menu-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+}
+
+.menu-card_image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.menu-card_content {
+  padding: 1.5rem;
+}
+
+.menu-card_content h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.menu-card_description {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.menu-card_price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.menu-card_btn {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.menu-card .menu-card_btn {
+  margin-top: 1rem;
+  width: 100%;
+  align-self: stretch;
+}
+
 @media (max-width: 768px) {
   .section-menus,
   .section-menu {
     padding: 0 1.25rem 1rem;
   }
 
-  .section-classique__content {
+  .section-classique_content {
     text-align: left;
   }
 }
@@ -621,7 +682,7 @@ footer.footer {
   color: #fff;
 }
 
-.signin-hero__overlay {
+.signin-hero_overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, .35);
@@ -675,7 +736,7 @@ footer.footer {
   color: #fff;
 }
 
-.signup-hero__overlay {
+.signup-hero_overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, .35);
@@ -747,7 +808,7 @@ footer.footer {
    ENGAGEMENTS
 ========================= */
 
-.engagements__card {
+.engagements_card {
   position: relative;
   margin: 60px auto;
   max-width: 1100px;
@@ -761,7 +822,7 @@ footer.footer {
   isolation: isolate;
 }
 
-.engagements__card p {
+.engagements_card p {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
@@ -780,7 +841,7 @@ footer.footer {
 }
 
 @media (max-width: 576px) {
-  .engagements__card {
+  .engagements_card {
     width: 94%;
     margin: 32px auto;
     padding: 22px 18px;
@@ -810,7 +871,7 @@ footer.footer {
 
 .section-menu .menu-label {
   font-weight: 700;
-  color: #4f6f2f;
+  color: var(--card-green);
   min-width: 80px;
 }
 
@@ -836,4 +897,124 @@ footer.footer {
   background: #4f6f2f;
   margin: 10px auto 0;
   border-radius: 2px;
+}
+.section-menu-detail {
+  position: relative;
+  width: 100%;
+  background: rgba(163, 220, 94, 0.70);
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 180px);
+}
+
+.section-menu-detail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.25);
+}
+
+.section-menu-detail > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+.menu-detail-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+.menu-detail-card_image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.menu-detail-card_content {
+  padding: 2rem;
+  font-family: var(--font-ui);
+}
+
+.menu-detail-card_content h1 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.menu-detail-card_description {
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem; 
+}
+
+.menu-detail-card_infos p {
+  margin: 0.3rem 0;
+}
+
+.menu-detail-card_content h2 {
+  margin-top: 30px;
+}
+
+.menu-detail-card_plats {
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+}
+
+.menu-detail-card_plats li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  position: relative;
+  padding-left: 20px;
+}
+.menu-detail-card_plats li::before {
+  content: "🍽";
+  position: absolute;
+  left: 0;
+}
+.menu-detail-card_content p {
+  margin-bottom: 20px;
+  font-family: var(--font-body);
+}
+
+.menu-detail-card_content strong {
+  color: rgba(163, 220, 94, 0.70);
+}
+
+.menu-detail-card .btn {
+  display: block;
+  width: fit-content;
+  margin: 1.5rem auto 0;
+}
+
+.menu-detail-card .btn:hover {
+  color: #000;
+}
+
+.menu-detail-price {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #4f6f2f;
+  margin-top: 10px;
+}
+
+.menu-detail-card_conditions {
+  background: #fff3cd;
+  border-left: 5px solid #ffc107;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+}
+
+.menu-detail-card_conditions h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.menu-detail-card_actions {
+  margin-top: 1.8rem;
+  display: flex;
+  gap: 1rem;
 }

@@ -26,7 +26,8 @@ const getCurrentPath = () => {
 };
 
 const LoadContentPage = async () => {
-  const path = getCurrentPath();
+  const fullPath = getCurrentPath();
+  const path = fullPath.split("?")[0];
   const actualRoute = getRouteByUrl(path);
 
   const allRolesArray = actualRoute.authorize;
