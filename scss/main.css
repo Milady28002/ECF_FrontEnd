@@ -12560,7 +12560,7 @@ footer.footer {
 }
 
 .form-label {
-  color: #fff;
+  color: var(--bs-success);
   font-family: var(--font-body);
 }
 
@@ -12988,7 +12988,142 @@ footer.footer {
 }
 
 .menu-detail-card_actions {
-  margin-top: 1.8rem;
+  margin-top: 25px;
   display: flex;
-  gap: 1rem;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.menus-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.menus-filters input,
+.menus-filters select {
+  min-width: 180px;
+}
+
+.menu-detail-card_plats {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0 2rem;
+}
+
+.menu-detail-card_plats small, .menu-detail-card_plats .small {
+  display: inline-block;
+  margin-top: 6px;
+  color: #555;
+}
+
+.plat-type {
+  color: #4f6f2f;
+  font-style: italic;
+}
+
+.plat_item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.plat_title {
+  font-weight: 600;
+  color: #4f6f2f;
+}
+
+.plat_allergenes {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.section-commander {
+  position: relative;
+  width: 100%;
+  background: rgba(163, 220, 94, 0.7);
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 180px);
+}
+
+.section-commander::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.section-commander > * {
+  position: relative;
+  z-index: 1;
+}
+
+.commande-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.commande-card h1, .commande-card .h1 {
+  margin-bottom: 1.5rem;
+}
+
+.commande-card_resume {
+  margin-bottom: 2rem;
+}
+
+.commande-stock-alert {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid #d35400;
+  background: #fff1e6;
+  color: #8a3b12;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.commande-card_actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.commande-resume {
+  background: #f8f8f8;
+  border-left: 4px solid #a3dc5e;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  margin: 1.5rem 0 2rem;
+}
+
+.commande-resume h2, .commande-resume .h2 {
+  margin-bottom: 1rem;
+}
+
+.commande-resume p {
+  margin-bottom: 0.5rem;
+}
+
+.commande-form h2, .commande-form .h2 {
+  margin: 2rem 0 1rem;
+}
+
+.commande-form .form-label {
+  color: #222;
+  font-weight: 600;
+}
+
+.commande-form .form-control {
+  border-radius: 10px;
+}
+
+.commande-total {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4f6f2f;
+  margin: 1rem 0 1.5rem;
 }/*# sourceMappingURL=main.css.map */

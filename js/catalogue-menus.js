@@ -66,7 +66,7 @@ function renderMenus(menus) {
         <p><strong>Minimum :</strong> ${menu.nombre_personne_minimum} personnes</p>
         <p><strong>Stock disponible :</strong> ${menu.quantite_restante}</p>
 
-        <p class="menu-card_price">${menu.prix_par_personne.toFixed(2)} € / personne</p>
+        <p class="menu-card_price">${menu.prix_par_personne.toFixed(2).replace(".", ",")} € / personne</p>
 
         <a href="#/menu-detail?id=${menu.id}" class="btn btn-primary menu-card_btn">Voir le détail</a>
       </div>

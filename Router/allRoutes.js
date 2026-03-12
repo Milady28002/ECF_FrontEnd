@@ -13,7 +13,7 @@ export const allRoutes = [
   new Route("/commandes", "Mes commandes", "./pages/commandes.html", ["client"]),
   new Route("/modifPassword", "Mot de passe oublié", "./pages/auth/modifPassword.html", ["client", "admin", "employe"]),
   new Route("/classique", "Classique", "./pages/nos-menus/classique.html", [], "/js/menu.js"),
-  new Route("/commander", "Commander", "./pages/order/commander.html", ["client"]),
+  new Route("/commander", "Commander", "./pages/order/commander.html", [], "/js/commander.js"),
   new Route("/cgv", "Conditions generales", "./pages/footer/cgv.html", []),
   new Route("/mentions-legales", "Mentions légales", "./pages/footer/mentions-legales.html", []),
   new Route("/engagements", "Nos engagements", "./pages/engagements.html", []),
