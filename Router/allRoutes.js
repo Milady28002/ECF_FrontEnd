@@ -10,7 +10,7 @@ export const allRoutes = [
   new Route("/signin", "Se connecter", "./pages/auth/signin.html", ["disconnected"], "/js/auth/signin.js"),
   new Route("/signup", "S'inscrire", "./pages/auth/signup.html", ["disconnected"], "/js/auth/signup.js"),
   new Route("/account", "Mon compte", "./pages/auth/account.html", ["client", "admin", "employe"]),
-  new Route("/commandes", "Mes commandes", "./pages/commandes.html", ["client"]),
+  new Route("/mes-commandes", "Mes commandes", "./pages/mes-commandes.html", [], "/js/mes-commandes.js"),
   new Route("/modifPassword", "Mot de passe oublié", "./pages/auth/modifPassword.html", ["client", "admin", "employe"]),
   new Route("/classique", "Classique", "./pages/nos-menus/classique.html", [], "/js/menu.js"),
   new Route("/commander", "Commander", "./pages/order/commander.html", [], "/js/commander.js"),

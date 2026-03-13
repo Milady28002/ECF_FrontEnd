@@ -22,6 +22,8 @@ function setToken(token){
 function getToken(){
     return getCookie(tokenCookieName);
 }
+window.getToken = getToken;
+window.setToken = setToken;
 
 function setCookie(name,value,days) {
     var expires = "";

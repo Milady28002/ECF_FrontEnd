@@ -50,18 +50,18 @@ const LoadContentPage = async () => {
   const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
   document.getElementById("main-page").innerHTML = html;
 
-  if (actualRoute.pathJS !== "") {
-    const oldScript = document.getElementById("page-script");
-    if (oldScript) {
-      oldScript.remove();
-    }
-
-    const scriptTag = document.createElement("script");
-    scriptTag.setAttribute("type", "text/javascript");
-    scriptTag.setAttribute("src", actualRoute.pathJS);
-    scriptTag.setAttribute("id", "page-script");
-    document.querySelector("body").appendChild(scriptTag);
+  const oldScript = document.getElementById("page-script");
+  if (oldScript) {
+    oldScript.remove();
   }
+
+  if (actualRoute.pathJS !== "") {
+  const scriptTag = document.createElement("script");
+  scriptTag.setAttribute("type", "module");
+  scriptTag.setAttribute("src", `${actualRoute.pathJS}?v=${Date.now()}`);
+  scriptTag.setAttribute("id", "page-script");
+  document.querySelector("body").appendChild(scriptTag);
+}
 
   document.title = `${actualRoute.title} - ${websiteName}`;
   showAndHideElementsForRoles();
