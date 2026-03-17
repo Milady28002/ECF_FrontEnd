@@ -1,3 +1,5 @@
+console.log("commander.js chargé");
+
 function getMenuIdFromUrl() {
   const hash = window.location.hash || "";
   const queryString = hash.includes("?") ? hash.split("?")[1] : "";
@@ -11,6 +13,10 @@ function formatPrice(price) {
 
 function formatTotal(amount) {
   return `${Number(amount).toFixed(2).replace(".", ",")} €`;
+}
+
+function getToken() {
+  return localStorage.getItem("token");
 }
 
 async function loadCommandeMenu() {
@@ -33,7 +39,6 @@ async function loadCommandeMenu() {
 
     const menu = await response.json();
     renderCommandeMenu(menu);
-
   } catch (error) {
     console.error("Erreur chargement commande :", error);
     container.innerHTML = "<p>Impossible de charger le menu sélectionné.</p>";
@@ -46,16 +51,13 @@ function renderCommandeMenu(menu) {
 
   const stockDisponible = Number(menu.quantite_restante) > 0;
 
-
   container.innerHTML = `
     <article class="commande-card">
-
       <h1>Commander ce menu</h1>
 
       <div class="commande-card_resume">
         <h2>${menu.titre}</h2>
         <p>${menu.description ?? "Aucune description disponible."}</p>
-
         <p><strong>Prix :</strong> ${formatPrice(menu.prix_par_personne)}</p>
         <p><strong>Minimum :</strong> ${menu.nombre_personne_minimum} personnes</p>
         <p><strong>Stock disponible :</strong> ${menu.quantite_restante}</p>
@@ -64,13 +66,9 @@ function renderCommandeMenu(menu) {
       ${
         stockDisponible
           ? `
-          <form class="commande-form">
-
+          <form class="commande-form" id="commande-form">
             <div class="mb-3">
-              <label for="nb-personnes" class="form-label">
-                Nombre de personnes
-              </label>
-
+              <label for="nb-personnes" class="form-label">Nombre de personnes</label>
               <input
                 type="number"
                 id="nb-personnes"
@@ -78,6 +76,7 @@ function renderCommandeMenu(menu) {
                 min="${menu.nombre_personne_minimum}"
                 max="${menu.quantite_restante}"
                 value="${menu.nombre_personne_minimum}"
+                required
               >
             </div>
 
@@ -90,64 +89,35 @@ function renderCommandeMenu(menu) {
 
             <div class="commande-resume">
               <h2>Résumé de la commande</h2>
-
               <p><strong>Menu :</strong> ${menu.titre}</p>
-
-              <p>
-                <strong>Prix par personne :</strong>
-                ${formatPrice(menu.prix_par_personne)}
-              </p>
-
-              <p>
-                <strong>Nombre de personnes :</strong>
-                <span id="resume-nb-personnes">
-                  ${menu.nombre_personne_minimum}
-                </span>
-              </p>
-
-              <p>
-                <strong>Total :</strong>
-                <span id="resume-total">
-                  ${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}
-                </span>
-              </p>
-            </div>
-
-            <h2>Vos informations</h2>
-
-            <div class="mb-3">
-              <label for="nom-client" class="form-label">Nom</label>
-              <input type="text" id="nom-client" class="form-control" required>
+              <p><strong>Prix par personne :</strong> ${formatPrice(menu.prix_par_personne)}</p>
+              <p><strong>Nombre de personnes :</strong> <span id="resume-nb-personnes">${menu.nombre_personne_minimum}</span></p>
+              <p><strong>Total :</strong> <span id="resume-total">${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}</span></p>
             </div>
 
             <div class="mb-3">
-              <label for="prenom-client" class="form-label">Prénom</label>
-              <input type="text" id="prenom-client" class="form-control" required>
+              <label for="adresse-prestation" class="form-label">Adresse de la prestation</label>
+              <input
+                type="text"
+                id="adresse-prestation"
+                class="form-control"
+                placeholder="Ex. 12 rue des Lilas, 33000 Bordeaux"
+                required
+              >
             </div>
 
             <div class="mb-3">
-              <label for="email-client" class="form-label">Email</label>
-              <input type="email" id="email-client" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="telephone-client" class="form-label">Téléphone</label>
-              <input type="tel" id="telephone-client" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="date-evenement" class="form-label">
-                Date de l’événement
-              </label>
-
+              <label for="date-evenement" class="form-label">Date de l’événement</label>
               <input type="date" id="date-evenement" class="form-control" required>
             </div>
 
             <div class="mb-3">
-              <label for="message-client" class="form-label">
-                Message
-              </label>
+              <label for="heure-livraison" class="form-label">Heure de livraison souhaitée</label>
+              <input type="time" id="heure-livraison" class="form-control" required>
+            </div>
 
+            <div class="mb-3">
+              <label for="message-client" class="form-label">Message</label>
               <textarea
                 id="message-client"
                 class="form-control"
@@ -156,10 +126,11 @@ function renderCommandeMenu(menu) {
               ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" id="submit-commande-btn">
               Valider la commande
             </button>
 
+            <div id="commande-feedback" class="mt-3"></div>
           </form>
           `
           : `
@@ -174,7 +145,6 @@ function renderCommandeMenu(menu) {
           ← Retour au détail
         </a>
       </div>
-
     </article>
   `;
 
@@ -183,13 +153,11 @@ function renderCommandeMenu(menu) {
       Number(menu.prix_par_personne),
       Number(menu.nombre_personne_minimum)
     );
-
-    initCommandeForm();
+    initCommandeForm(menu);
   }
 }
 
 function initCommandeTotal(prixParPersonne, minimum) {
-
   const input = document.getElementById("nb-personnes");
   const totalValue = document.getElementById("commande-total-value");
   const resumeNbPersonnes = document.getElementById("resume-nb-personnes");
@@ -198,7 +166,6 @@ function initCommandeTotal(prixParPersonne, minimum) {
   if (!input || !totalValue || !resumeNbPersonnes || !resumeTotal) return;
 
   const updateTotal = () => {
-
     let nbPersonnes = Number(input.value);
 
     if (Number.isNaN(nbPersonnes) || nbPersonnes < minimum) {
@@ -207,28 +174,149 @@ function initCommandeTotal(prixParPersonne, minimum) {
     }
 
     const total = nbPersonnes * prixParPersonne;
-
     totalValue.textContent = formatTotal(total);
     resumeNbPersonnes.textContent = nbPersonnes;
     resumeTotal.textContent = formatTotal(total);
   };
 
   input.addEventListener("input", updateTotal);
-
   updateTotal();
 }
 
-function initCommandeForm() {
+function showFeedback(message, isError = true) {
+  const feedback = document.getElementById("commande-feedback");
+  if (!feedback) return;
 
-  const form = document.querySelector(".commande-form");
+  feedback.innerHTML = `
+    <div class="alert ${isError ? "alert-danger" : "alert-success"}" role="alert">
+      ${message}
+    </div>
+  `;
+}
 
-  if (!form) return;
+function getErrorMessageFromResponse(data, fallbackMessage) {
+  if (data && typeof data === "object" && data.message) {
+    return data.message;
+  }
+  return fallbackMessage;
+}
 
-  form.addEventListener("submit", (event) => {
+function initCommandeForm(menu) {
+  console.log("initCommandeForm appelée", menu);
 
+  const form = document.getElementById("commande-form");
+  if (!form) {
+    console.error("Formulaire introuvable");
+    return;
+  }
+
+  form.addEventListener("submit", async (event) => {
+    console.log("submit intercepté");
     event.preventDefault();
 
-    alert("Commande enregistrée côté front pour démonstration.");
+    const token = window.getToken ? window.getToken() : getToken();
+    console.log("token commande =", token);
+
+    if (!token) {
+      console.error("Aucun token trouvé");
+      window.location.hash = "#/signin";
+      return;
+    }
+
+    const submitButton = document.getElementById("submit-commande-btn");
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Envoi en cours...";
+    }
+
+    try {
+      const nombrePersonnes = Number(document.getElementById("nb-personnes")?.value);
+      const dateEvenement = document.getElementById("date-evenement")?.value.trim();
+      const heureLivraison = document.getElementById("heure-livraison")?.value.trim();
+      const adressePrestation = document.getElementById("adresse-prestation")?.value.trim();
+      const messageClient = document.getElementById("message-client")?.value.trim();
+
+      if (!dateEvenement) {
+        showFeedback("La date de l’événement est obligatoire.");
+        return;
+      }
+
+      if (!heureLivraison) {
+        showFeedback("L’heure de livraison est obligatoire.");
+        return;
+      }
+
+      if (!adressePrestation) {
+        showFeedback("L’adresse de la prestation est obligatoire.");
+        return;
+      }
+
+      const payload = {
+        menu_id: Number(menu.id),
+        nombre_personnes: nombrePersonnes,
+        date_prestation: dateEvenement,
+        heure_livraison: heureLivraison,
+        prix_livraison: 0,
+        pret_materiel: false,
+        restitution_materiel: false,
+        adresse_prestation: adressePrestation,
+        message: messageClient || null
+      };
+
+      console.log("payload envoyé :", payload);
+
+      const response = await fetch("http://127.0.0.1:8000/api/commandes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-AUTH-TOKEN": token
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json().catch(() => null);
+      console.log("réponse POST :", response.status, data);
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          window.location.hash = "#/signin";
+          return;
+        }
+
+        if (response.status === 403) {
+          showFeedback("Accès refusé.");
+          return;
+        }
+
+        if (response.status === 404) {
+          showFeedback(getErrorMessageFromResponse(data, "Menu introuvable."));
+          return;
+        }
+
+        if (response.status === 422) {
+          showFeedback(getErrorMessageFromResponse(data, "Données invalides."));
+          return;
+        }
+
+        showFeedback(getErrorMessageFromResponse(data, "Erreur lors de l’enregistrement de la commande."));
+        return;
+      }
+
+      showFeedback("Commande enregistrée avec succès.", false);
+
+      setTimeout(() => {
+        window.location.hash = "#/mes-commandes";
+      }, 1200);
+
+    } catch (error) {
+      console.error("Erreur envoi commande :", error);
+      showFeedback("Une erreur réseau est survenue.");
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Valider la commande";
+      }
+    }
   });
 }
 

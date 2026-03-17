@@ -9,16 +9,14 @@ export const allRoutes = [
   new Route("/contact", "Nous contacter", "./pages/contact.html", []),
   new Route("/signin", "Se connecter", "./pages/auth/signin.html", ["disconnected"], "/js/auth/signin.js"),
   new Route("/signup", "S'inscrire", "./pages/auth/signup.html", ["disconnected"], "/js/auth/signup.js"),
-  new Route("/account", "Mon compte", "./pages/auth/account.html", ["client", "admin", "employe"]),
-  new Route("/mes-commandes", "Mes commandes", "./pages/mes-commandes.html", [], "/js/mes-commandes.js"),
-  new Route("/modifPassword", "Mot de passe oublié", "./pages/auth/modifPassword.html", ["client", "admin", "employe"]),
-  new Route("/classique", "Classique", "./pages/nos-menus/classique.html", [], "/js/menu.js"),
-  new Route("/commander", "Commander", "./pages/order/commander.html", [], "/js/commander.js"),
+  new Route("/account", "Mon compte", "./pages/auth/account.html", ["ROLE_USER"]),
+  new Route("/mes-commandes", "Mes commandes", "./pages/mes-commandes.html", ["ROLE_USER"], "/js/mes-commandes.js"),
+  new Route("/commande-detail", "Détail commande", "./pages/commande-detail.html", ["ROLE_USER"], "/js/commande-detail.js"),
+  new Route("/modifPassword", "Mot de passe oublié", "./pages/auth/modifPassword.html", ["disconnected"]),
+  new Route("/commander", "Commander", "./pages/order/commander.html", ["ROLE_USER"], "/js/commander.js"),
   new Route("/cgv", "Conditions generales", "./pages/footer/cgv.html", []),
   new Route("/mentions-legales", "Mentions légales", "./pages/footer/mentions-legales.html", []),
   new Route("/engagements", "Nos engagements", "./pages/engagements.html", []),
-  new Route("/noel-paques", "Noel / Paques", "./pages/nos-menus/noel-paques.html", [], "/js/menu.js"),
-  new Route("/evenements", "Evenements", "./pages/nos-menus/evenement.html", [], "/js/menu.js"),
 
 ];
 

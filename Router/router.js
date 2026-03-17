@@ -38,7 +38,13 @@ const LoadContentPage = async () => {
         window.location.hash = "/";
         return;
       }
-    } else {
+      } else {
+      if (!isConnected()) {
+        window.location.hash = "#/signin";
+        return;
+      }
+
+
       const roleUser = getRole();
       if (!allRolesArray.includes(roleUser)) {
         window.location.hash = "/";

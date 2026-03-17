@@ -1152,3 +1152,198 @@ footer.footer {
   color: #4f6f2f;
   margin: 1rem 0 1.5rem;
 }
+
+.section-mes-commandes {
+  min-height: calc(100vh - 180px);
+  background: rgba(163, 220, 94, 0.15);
+}
+
+.mes-commandes-header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.mes-commandes-subtitle {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #555;
+}
+
+.orders-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.commande-user-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(163, 220, 94, 0.25);
+}
+
+.commande-user-card_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.commande-user-card_label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.commande-user-card_title {
+  margin: 0.2rem 0 0;
+  font-size: 1.6rem;
+}
+
+.commande-user-card_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.commande-info-item {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  border: 1px solid #eee;
+}
+
+.commande-info-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 0.35rem;
+}
+
+.commande-info-value {
+  font-weight: 600;
+  color: #222;
+}
+
+.commande-info-price {
+  color: #7bbd2f;
+  font-size: 1.1rem;
+}
+
+.commande-user-card_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.badge-pending {
+  background: #fff4d6;
+  color: #9a6a00;
+}
+
+.badge-accepted {
+  background: #dff6df;
+  color: #1f7a1f;
+}
+
+.badge-preparing {
+  background: #e7f0ff;
+  color: #2d5db3;
+}
+
+.badge-delivery {
+  background: #ede4ff;
+  color: #6e3ccf;
+}
+
+.badge-delivered {
+  background: #dff6df;
+  color: #1f7a1f;
+}
+
+.badge-warning {
+  background: #fff1e6;
+  color: #b85b00;
+}
+
+.badge-finished {
+  background: #e8f7e8;
+  color: #2b7b2b;
+}
+
+.badge-cancelled {
+  background: #fde2e2;
+  color: #b42318;
+}
+
+.commande-empty-state {
+  background: #fff;
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.section-commande-detail {
+  min-height: calc(100vh - 180px);
+  background: rgba(163, 220, 94, 0.15);
+}
+
+.commande-detail-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(163, 220, 94, 0.25);
+}
+
+.commande-detail-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.commande-detail-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.commande-detail-title {
+  margin: 0.25rem 0 0;
+  font-size: 2rem;
+}
+
+.commande-detail-section + .commande-detail-section {
+  margin-top: 2rem;
+}
+
+.commande-detail-section h2 {
+  margin-bottom: 1rem;
+}
+
+.commande-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.commande-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
