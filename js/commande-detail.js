@@ -29,6 +29,15 @@ function formatDate(dateString) {
   return date.toLocaleDateString("fr-FR");
 }
 
+function formatDateForInput(dateString) {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return date.toISOString().split("T")[0];
+}
+
 function formatPrice(amount) {
   return `${Number(amount).toFixed(2).replace(".", ",")} €`;
 }
@@ -84,6 +93,64 @@ function showMessage(container, message, isError = true) {
   container.insertAdjacentHTML("beforeend", messageHtml);
 }
 
+function getStatusSteps() {
+  return [
+    "en_attente",
+    "acceptee",
+    "en_preparation",
+    "en_livraison",
+    "livree",
+    "retour_materiel",
+    "terminee"
+  ];
+}
+
+function getStepLabel(step) {
+  const labels = {
+    en_attente: "Commande reçue",
+    acceptee: "Commande acceptée",
+    en_preparation: "En préparation",
+    en_livraison: "En cours de livraison",
+    livree: "Livrée",
+    retour_materiel: "Retour matériel",
+    terminee: "Terminée"
+  };
+
+  return labels[step] || step;
+}
+
+function renderStatusTimeline(currentStatus) {
+  if (currentStatus === "annulee") {
+    return `
+      <div class="commande-timeline cancelled">
+        <div class="timeline-step is-active is-cancelled">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">Commande annulée</div>
+        </div>
+      </div>
+    `;
+  }
+
+  const steps = getStatusSteps();
+  const currentIndex = steps.indexOf(currentStatus);
+
+  return `
+    <div class="commande-timeline">
+      ${steps.map((step, index) => {
+        const isDone = index < currentIndex;
+        const isActive = index === currentIndex;
+
+        return `
+          <div class="timeline-step ${isDone ? "is-done" : ""} ${isActive ? "is-active" : ""}">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">${getStepLabel(step)}</div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
 function renderCommandeDetail(commande) {
   const container = document.getElementById("commande-detail-container");
   if (!container) return;
@@ -132,10 +199,25 @@ function renderCommandeDetail(commande) {
           </div>
 
           <div class="commande-info-item">
+            <span class="commande-info-label">Adresse de livraison</span>
+            <span class="commande-info-value">${commande.adresse_livraison || "Non renseignée"}</span>
+          </div>
+
+          <div class="commande-info-item">
+            <span class="commande-info-label">Prêt de matériel</span>
+            <span class="commande-info-value">${commande.pret_materiel ? "Oui" : "Non"}</span>
+          </div>
+
+          <div class="commande-info-item">
             <span class="commande-info-label">Prix total</span>
             <span class="commande-info-value commande-info-price">${formatPrice(commande.prix_total)}</span>
           </div>
         </div>
+      </div>
+
+      <div class="commande-detail-section">
+        <h2>Suivi de la commande</h2>
+        ${renderStatusTimeline(commande.statut)}
       </div>
 
       <div class="commande-detail-section">
@@ -189,7 +271,7 @@ function renderCommandeDetail(commande) {
                       type="date"
                       id="edit-date-prestation"
                       class="form-control"
-                      value="${commande.date_prestation || ""}"
+                      value="${formatDateForInput(commande.date_prestation)}"
                       required
                     >
                   </div>
@@ -203,6 +285,29 @@ function renderCommandeDetail(commande) {
                       value="${commande.heure_livraison || ""}"
                       required
                     >
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="edit-adresse-livraison" class="form-label">Adresse de livraison</label>
+                    <input
+                      type="text"
+                      id="edit-adresse-livraison"
+                      class="form-control"
+                      value="${commande.adresse_livraison || ""}"
+                      required
+                    >
+                  </div>
+
+                  <div class="mb-3 form-check align-self-end">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="edit-pret-materiel"
+                      ${commande.pret_materiel ? "checked" : ""}
+                    >
+                    <label class="form-check-label" for="edit-pret-materiel">
+                      Prêt de matériel demandé
+                    </label>
                   </div>
                 </div>
 
@@ -328,7 +433,9 @@ async function initEditForm(commandeId) {
     const payload = {
       nombre_personnes: Number(document.getElementById("edit-nombre-personnes")?.value),
       date_prestation: document.getElementById("edit-date-prestation")?.value,
-      heure_livraison: document.getElementById("edit-heure-livraison")?.value
+      heure_livraison: document.getElementById("edit-heure-livraison")?.value,
+      adresse_livraison: document.getElementById("edit-adresse-livraison")?.value.trim(),
+      pret_materiel: document.getElementById("edit-pret-materiel")?.checked || false
     };
 
     try {
@@ -349,7 +456,7 @@ async function initEditForm(commandeId) {
         return;
       }
 
-      showMessage(container, "☑️Commande modifiée avec succès.", false);
+      showMessage(container, "☑️ Commande modifiée avec succès.", false);
 
       setTimeout(() => {
         window.location.hash = `#/commande-detail?id=${commandeId}`;

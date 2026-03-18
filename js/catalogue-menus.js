@@ -39,6 +39,15 @@ async function loadMenus() {
   }
 }
 
+function getRegimeIcon(regime) {
+  const icons = {
+    Standard: "💙",
+    "Végétarien": "💛",
+    Vegan: "💚"
+  };
+
+  return icons[regime] || "🤍";
+}
 function renderMenus(menus) {
   const container = document.getElementById("menus-container");
   if (!container) return;
@@ -62,7 +71,12 @@ function renderMenus(menus) {
         <p class="menu-card_description">${menu.description}</p>
 
         <p><strong>Thème :</strong> ${menu.theme ? menu.theme.libelle : "Non renseigné"}</p>
-        <p><strong>Régime :</strong> ${menu.regime ? menu.regime.libelle : "Non renseigné"}</p>
+        <p>
+          <strong>Régime :</strong>
+          <span class="menu-regime">
+            ${menu.regime ? `${getRegimeIcon(menu.regime.libelle)} ${menu.regime.libelle}` : "Non renseigné"}
+          </span>
+        </p>
         <p><strong>Minimum :</strong> ${menu.nombre_personne_minimum} personnes</p>
         <p><strong>Stock disponible :</strong> ${menu.quantite_restante}</p>
 

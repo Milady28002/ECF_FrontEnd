@@ -1,5 +1,3 @@
-console.log("commander.js chargé");
-
 function getMenuIdFromUrl() {
   const hash = window.location.hash || "";
   const queryString = hash.includes("?") ? hash.split("?")[1] : "";
@@ -92,6 +90,8 @@ function renderCommandeMenu(menu) {
               <p><strong>Menu :</strong> ${menu.titre}</p>
               <p><strong>Prix par personne :</strong> ${formatPrice(menu.prix_par_personne)}</p>
               <p><strong>Nombre de personnes :</strong> <span id="resume-nb-personnes">${menu.nombre_personne_minimum}</span></p>
+              <p><strong>Adresse :</strong> <span id="resume-adresse">Non renseignée</span></p>
+              <p><strong>Prêt de matériel :</strong> <span id="resume-pret-materiel">Non</span></p>
               <p><strong>Total :</strong> <span id="resume-total">${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}</span></p>
             </div>
 
@@ -114,6 +114,13 @@ function renderCommandeMenu(menu) {
             <div class="mb-3">
               <label for="heure-livraison" class="form-label">Heure de livraison souhaitée</label>
               <input type="time" id="heure-livraison" class="form-control" required>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="pret-materiel">
+              <label class="form-check-label" for="pret-materiel">
+                Je souhaite une réservation / un prêt de matériel
+              </label>
             </div>
 
             <div class="mb-3">
@@ -162,6 +169,10 @@ function initCommandeTotal(prixParPersonne, minimum) {
   const totalValue = document.getElementById("commande-total-value");
   const resumeNbPersonnes = document.getElementById("resume-nb-personnes");
   const resumeTotal = document.getElementById("resume-total");
+  const adresseInput = document.getElementById("adresse-prestation");
+  const resumeAdresse = document.getElementById("resume-adresse");
+  const pretMaterielInput = document.getElementById("pret-materiel");
+  const resumePretMateriel = document.getElementById("resume-pret-materiel");
 
   if (!input || !totalValue || !resumeNbPersonnes || !resumeTotal) return;
 
@@ -174,13 +185,30 @@ function initCommandeTotal(prixParPersonne, minimum) {
     }
 
     const total = nbPersonnes * prixParPersonne;
+
     totalValue.textContent = formatTotal(total);
     resumeNbPersonnes.textContent = nbPersonnes;
     resumeTotal.textContent = formatTotal(total);
   };
 
+  const updateAdresseResume = () => {
+    if (!adresseInput || !resumeAdresse) return;
+    const adresse = adresseInput.value.trim();
+    resumeAdresse.textContent = adresse || "Non renseignée";
+  };
+
+  const updatePretMaterielResume = () => {
+    if (!pretMaterielInput || !resumePretMateriel) return;
+    resumePretMateriel.textContent = pretMaterielInput.checked ? "Oui" : "Non";
+  };
+
   input.addEventListener("input", updateTotal);
+  adresseInput?.addEventListener("input", updateAdresseResume);
+  pretMaterielInput?.addEventListener("change", updatePretMaterielResume);
+
   updateTotal();
+  updateAdresseResume();
+  updatePretMaterielResume();
 }
 
 function showFeedback(message, isError = true) {
@@ -202,8 +230,6 @@ function getErrorMessageFromResponse(data, fallbackMessage) {
 }
 
 function initCommandeForm(menu) {
-  console.log("initCommandeForm appelée", menu);
-
   const form = document.getElementById("commande-form");
   if (!form) {
     console.error("Formulaire introuvable");
@@ -211,14 +237,11 @@ function initCommandeForm(menu) {
   }
 
   form.addEventListener("submit", async (event) => {
-    console.log("submit intercepté");
     event.preventDefault();
 
     const token = window.getToken ? window.getToken() : getToken();
-    console.log("token commande =", token);
 
     if (!token) {
-      console.error("Aucun token trouvé");
       window.location.hash = "#/signin";
       return;
     }
@@ -233,8 +256,9 @@ function initCommandeForm(menu) {
       const nombrePersonnes = Number(document.getElementById("nb-personnes")?.value);
       const dateEvenement = document.getElementById("date-evenement")?.value.trim();
       const heureLivraison = document.getElementById("heure-livraison")?.value.trim();
-      const adressePrestation = document.getElementById("adresse-prestation")?.value.trim();
+      const adresseLivraison = document.getElementById("adresse-prestation")?.value.trim();
       const messageClient = document.getElementById("message-client")?.value.trim();
+      const pretMateriel = document.getElementById("pret-materiel")?.checked || false;
 
       if (!dateEvenement) {
         showFeedback("La date de l’événement est obligatoire.");
@@ -246,7 +270,7 @@ function initCommandeForm(menu) {
         return;
       }
 
-      if (!adressePrestation) {
+      if (!adresseLivraison) {
         showFeedback("L’adresse de la prestation est obligatoire.");
         return;
       }
@@ -257,13 +281,11 @@ function initCommandeForm(menu) {
         date_prestation: dateEvenement,
         heure_livraison: heureLivraison,
         prix_livraison: 0,
-        pret_materiel: false,
+        pret_materiel: pretMateriel,
         restitution_materiel: false,
-        adresse_prestation: adressePrestation,
+        adresse_livraison: adresseLivraison,
         message: messageClient || null
       };
-
-      console.log("payload envoyé :", payload);
 
       const response = await fetch("http://127.0.0.1:8000/api/commandes", {
         method: "POST",
@@ -275,7 +297,6 @@ function initCommandeForm(menu) {
       });
 
       const data = await response.json().catch(() => null);
-      console.log("réponse POST :", response.status, data);
 
       if (!response.ok) {
         if (response.status === 401) {
