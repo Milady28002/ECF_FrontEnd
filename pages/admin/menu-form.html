@@ -1,0 +1,79 @@
+<section class="section-menu-form">
+  <div class="container py-4">
+    <h1 id="form-title">Créer un menu</h1>
+
+    <form id="menu-form" class="menu-form">
+
+      <div class="mb-3">
+        <label for="titre" class="form-label">Titre</label>
+        <input type="text" id="titre" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" class="form-control" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="prix" class="form-label">Prix par personne</label>
+        <input type="number" id="prix" class="form-control" step="0.01" min="0" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="min-personnes" class="form-label">Nombre minimum de personnes</label>
+        <input type="number" id="min-personnes" class="form-control" min="1" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="stock" class="form-label">Stock</label>
+        <input type="number" id="stock" class="form-control" min="0" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image (URL)</label>
+        <input type="text" id="image" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Aperçu de l’image</label>
+        <div class="menu-image-preview">
+          <img id="preview-image" src="" alt="Aperçu image du menu" />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="conditions" class="form-label">Conditions</label>
+        <textarea id="conditions" class="form-control"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="regime" class="form-label">Régime</label>
+        <select id="regime" class="form-select" required>
+          <option value="">Choisir un régime</option>
+          <option value="1">Standard</option>
+          <option value="2">Végétarien</option>
+          <option value="3">Vegan</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="theme" class="form-label">Thème</label>
+        <select id="theme" class="form-select" required>
+          <option value="">Choisir un thème</option>
+          <option value="1">Classique</option>
+          <option value="2">Noël / Pâques</option>
+          <option value="3">Événement</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Plats</label>
+        <div id="plats-checkboxes" class="plats-checkboxes"></div>
+      </div>
+
+      <button type="submit" class="btn btn-success">
+        Enregistrer
+      </button>
+    </form>
+  </div>
+</section>

@@ -9,27 +9,63 @@ function formatPrice(price) {
   return `${Number(price).toFixed(2).replace(".", ",")} € / personne`;
 }
 
-function renderPlatList(plats) {
-  if (!plats || plats.length === 0) {
-    return "<li>Aucun plat renseigné.</li>";
+function getPlatsByType(plats, type) {
+  return plats.filter((plat) => Number(plat.type_plat) === type);
+}
+
+function renderAllergenes(plat) {
+  if (!plat) {
+    return "Allergènes : aucun";
   }
 
-  return plats.map((plat) => `
-    <li class="plat_item">
-      <div class="plat_title">
-        ${plat.titre}
-        ${plat.type_plat ? `<span class="plat-type"> (${plat.type_plat})</span>` : ""}
-      </div>
+  if (Array.isArray(plat.allergenes) && plat.allergenes.length > 0) {
+    return `Allergènes : ${plat.allergenes.map((a) => a.libelle).join(", ")}`;
+  }
 
-      <div class="plat_allergenes">
-        ${
-          plat.allergenes && plat.allergenes.length > 0
-            ? `Allergènes : ${plat.allergenes.map((a) => a.libelle).join(", ")}`
-            : "Allergènes : aucun"
-        }
+  return "Allergènes : aucun";
+}
+
+function renderPlatItem(plat, fallbackImage) {
+  const imageSrc = plat.image_url || fallbackImage || "";
+
+  return `
+    <div class="menu-plat-item">
+      ${
+        imageSrc
+          ? `
+            <div class="menu-plat-image">
+              <img src="${imageSrc}" alt="${plat.titre}">
+            </div>
+          `
+          : ""
+      }
+
+      <div class="menu-plat-content">
+        <p class="menu-plat-title">${plat.titre}</p>
+        <p class="menu-plat-allergenes">${renderAllergenes(plat)}</p>
       </div>
-    </li>
-  `).join("");
+    </div>
+  `;
+}
+
+function renderPlatSection(title, plats, fallbackImage) {
+  if (!plats.length) {
+    return `
+      <div class="menu-plat-block">
+        <h3>${title}</h3>
+        <p>Aucun ${title.toLowerCase()} renseigné.</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="menu-plat-block">
+      <h3>${title}</h3>
+      <div class="menu-plat-list">
+        ${plats.map((plat) => renderPlatItem(plat, fallbackImage)).join("")}
+      </div>
+    </div>
+  `;
 }
 
 async function loadMenuDetail() {
@@ -45,12 +81,12 @@ async function loadMenuDetail() {
 
   try {
     const response = await fetch(`http://127.0.0.1:8000/api/menus/${menuId}`);
+    const menu = await response.json().catch(() => null);
 
-    if (!response.ok) {
+    if (!response.ok || !menu) {
       throw new Error("Erreur lors du chargement du menu");
     }
 
-    const menu = await response.json();
     renderMenuDetail(menu);
   } catch (error) {
     console.error("Erreur chargement détail menu :", error);
@@ -62,14 +98,23 @@ function renderMenuDetail(menu) {
   const container = document.getElementById("menu-detail-container");
   if (!container) return;
 
+  const plats = Array.isArray(menu.plats) ? menu.plats : [];
+
+  const entrees = getPlatsByType(plats, 1);
+  const platsPrincipaux = getPlatsByType(plats, 2);
+  const desserts = getPlatsByType(plats, 3);
+
   container.innerHTML = `
-  
     <article class="menu-detail-card">
-      ${menu.image ? `
-        <div class="menu-detail-card_image">
-          <img src="${menu.image}" alt="${menu.titre}">
-        </div>
-      ` : ""}
+      ${
+        menu.image
+          ? `
+            <div class="menu-detail-card_image">
+              <img src="${menu.image}" alt="${menu.titre}">
+            </div>
+          `
+          : ""
+      }
 
       <div class="menu-detail-card_content">
         <h1>${menu.titre}</h1>
@@ -91,10 +136,15 @@ function renderMenuDetail(menu) {
           <p>${menu.conditions_menu || "Aucune condition particulière pour ce menu."}</p>
         </div>
 
-        <h2>Plats inclus</h2>
-        <ul class="menu-detail-card_plats">
-          ${renderPlatList(menu.plats)}
-        </ul>
+        <div class="menu-detail-card_plats-section">
+          <h2>Plats inclus</h2>
+
+          <div class="menu-detail-card_plats-grid">
+            ${renderPlatSection("Entrées", entrees, menu.image)}
+            ${renderPlatSection("Plats", platsPrincipaux, menu.image)}
+            ${renderPlatSection("Desserts", desserts, menu.image)}
+          </div>
+        </div>
 
         <div class="menu-detail-card_actions">
           <a href="#/commander?id=${menu.id}" class="btn btn-primary">
@@ -104,6 +154,7 @@ function renderMenuDetail(menu) {
             ← Retour aux menus
           </a>
         </div>
+      </div>
     </article>
   `;
 }

@@ -326,7 +326,7 @@ function initCommandeForm(menu) {
       showFeedback("Commande enregistrée avec succès.", false);
 
       setTimeout(() => {
-        window.location.hash = "#/mes-commandes";
+        window.location.hash = `#/commande-detail?id=${data.numero_commande}`;
       }, 1200);
 
     } catch (error) {

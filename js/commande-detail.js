@@ -323,14 +323,14 @@ function renderCommandeDetail(commande) {
       }
 
       <div class="commande-detail-actions">
-        <a href="#/mes-commandes" class="btn btn-outline-success" onclick="route()">
+        <a href="#/mes-commandes" class="btn btn-outline-success">
           ← Retour à mes commandes
         </a>
 
         ${
           commande.statut === "en_attente" && !editable
             ? `
-              <a href="#/commande-detail?id=${commande.numero_commande}&mode=edit" class="btn btn-outline-primary" onclick="route()">
+              <a href="#/commande-detail?id=${commande.numero_commande}&mode=edit" class="btn btn-outline-primary">
                 Modifier
               </a>
             `
