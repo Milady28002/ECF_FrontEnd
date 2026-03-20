@@ -416,8 +416,7 @@ async function loadCommandeDetail() {
     container.innerHTML = `<p>Une erreur est survenue.</p>`;
   }
 }
-
-async function initEditForm(commandeId) {
+function initEditForm(commandeId) {
   const form = document.getElementById("edit-commande-form");
   if (!form) return;
 
