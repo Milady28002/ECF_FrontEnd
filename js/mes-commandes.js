@@ -1,9 +1,22 @@
+function getCookie(name) {
+  const cookies = document.cookie.split("; ");
+
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split("=");
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+
+  return "";
+}
+
 function getTokenSafe() {
   if (window.getToken && typeof window.getToken === "function") {
     return window.getToken();
   }
 
-  return localStorage.getItem("token");
+  return getCookie("accesstoken");
 }
 
 function formatDate(dateString) {
@@ -244,13 +257,15 @@ async function loadMesCommandes() {
   container.innerHTML = `<p class="text-center">Chargement de vos commandes...</p>`;
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/commandes/me", {
+    const response = await fetch("http://127.0.0.1:8000/api/commandes", {
       method: "GET",
       headers: {
         "X-AUTH-TOKEN": token,
         "Content-Type": "application/json"
       }
     });
+
+    const data = await response.json().catch(() => null);
 
     if (response.status === 401) {
       container.innerHTML = `
@@ -271,13 +286,11 @@ async function loadMesCommandes() {
     }
 
     if (!response.ok) {
-      container.innerHTML = `<p class="text-center">Erreur lors du chargement des commandes.</p>`;
+      container.innerHTML = `<p class="text-center">${data?.message || "Erreur lors du chargement des commandes."}</p>`;
       return;
     }
 
-    const commandes = await response.json();
-    renderOrders(commandes);
-
+    renderOrders(data);
   } catch (error) {
     console.error("Erreur mes commandes :", error);
     container.innerHTML = `<p class="text-center">Une erreur est survenue.</p>`;

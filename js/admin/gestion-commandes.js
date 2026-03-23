@@ -1,9 +1,22 @@
+function getCookie(name) {
+  const cookies = document.cookie.split("; ");
+
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split("=");
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+
+  return "";
+}
+
 function getTokenSafe() {
   if (window.getToken && typeof window.getToken === "function") {
     return window.getToken();
   }
 
-  return localStorage.getItem("token");
+  return getCookie("accesstoken");
 }
 
 function formatDate(dateString) {
@@ -15,8 +28,18 @@ function formatDate(dateString) {
   return date.toLocaleDateString("fr-FR");
 }
 
+function formatDateTime(dateString) {
+  if (!dateString) return "Date inconnue";
+
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return dateString;
+
+  return date.toLocaleString("fr-FR");
+}
+
 function formatStatusLabel(status) {
   const labels = {
+    creation: "Création de la commande",
     en_attente: "En attente",
     acceptee: "Acceptée",
     en_preparation: "En préparation",
@@ -33,6 +56,7 @@ function formatStatusLabel(status) {
 async function loadAllCommandes() {
   const container = document.getElementById("commandes-container");
   const statut = document.getElementById("filter-statut")?.value || "";
+  const clientSearch = document.getElementById("filter-client")?.value.trim().toLowerCase() || "";
 
   if (!container) return;
 
@@ -63,8 +87,25 @@ async function loadAllCommandes() {
       return;
     }
 
-    renderCommandes(data);
+    let commandesFiltrees = data;
 
+    if (clientSearch) {
+      commandesFiltrees = data.filter((cmd) => {
+        const user = cmd.utilisateur || {};
+
+        const nom = (user.name || "").toLowerCase();
+        const prenom = (user.firstname || "").toLowerCase();
+        const email = (user.email || "").toLowerCase();
+
+        return (
+          nom.includes(clientSearch) ||
+          prenom.includes(clientSearch) ||
+          email.includes(clientSearch)
+        );
+      });
+    }
+
+    renderCommandes(commandesFiltrees);
   } catch (error) {
     console.error("Erreur chargement commandes :", error);
     container.innerHTML = "<p>Erreur réseau</p>";
@@ -86,6 +127,44 @@ function getStatusBadgeClass(status) {
   return classes[status] || "badge-status";
 }
 
+function renderHistoriqueStatuts(historiqueStatuts = []) {
+  if (!historiqueStatuts.length) {
+    return `
+      <div class="commande-historique">
+        <h3>Historique des statuts</h3>
+        <p class="commande-admin-no-action">Aucun historique disponible.</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="commande-historique">
+      <h3>Historique des statuts</h3>
+      <ul class="commande-historique-list">
+        ${historiqueStatuts.map((item) => `
+          <li class="commande-historique-item">
+            <span>
+              <strong>${formatStatusLabel(item.ancien_statut)}</strong>
+              →
+              <strong>${formatStatusLabel(item.nouveau_statut)}</strong>
+            </span>
+            <br>
+            <small>
+              ${formatDateTime(item.date_changement)}
+              ${
+                item.utilisateur
+                  ? ` — par ${item.utilisateur.firstname || ""} ${item.utilisateur.name || ""}`.trim()
+                  : ""
+              }
+            </small>
+          </li>
+        `).join("")}
+      </ul>
+    </div>
+  `;
+}
+
+
 function renderCommandes(commandes) {
   const container = document.getElementById("commandes-container");
   if (!container) return;
@@ -99,63 +178,69 @@ function renderCommandes(commandes) {
     return;
   }
 
-  container.innerHTML = commandes.map(cmd => `
-    <article class="commande-admin-card">
-      <div class="commande-admin-card_top">
-        <div>
-          <p class="commande-admin-card_label">Commande</p>
-          <h2>${cmd.numero_commande}</h2>
+  container.innerHTML = commandes.map(cmd => {
+    console.log("commande complète :", cmd);
+
+    return `
+      <article class="commande-admin-card">
+        <div class="commande-admin-card_top">
+          <div>
+            <p class="commande-admin-card_label">Commande</p>
+            <h2>${cmd.numero_commande}</h2>
+          </div>
+
+          <span class="${getStatusBadgeClass(cmd.statut)}">
+            ${formatStatusLabel(cmd.statut)}
+          </span>
         </div>
 
-        <span class="${getStatusBadgeClass(cmd.statut)}">
-          ${formatStatusLabel(cmd.statut)}
-        </span>
-      </div>
+        <div class="commande-admin-card_grid">
+          <div class="commande-admin-info">
+            <span class="commande-admin-info_label">Client</span>
+            <span class="commande-admin-info_value">${cmd.utilisateur?.name || "Non renseigné"}</span>
+          </div>
 
-      <div class="commande-admin-card_grid">
-        <div class="commande-admin-info">
-          <span class="commande-admin-info_label">Client</span>
-          <span class="commande-admin-info_value">${cmd.utilisateur?.name || "Non renseigné"}</span>
+          <div class="commande-admin-info">
+            <span class="commande-admin-info_label">Menu</span>
+            <span class="commande-admin-info_value">${cmd.menus?.[0]?.titre || "Non renseigné"}</span>
+          </div>
+
+          <div class="commande-admin-info">
+            <span class="commande-admin-info_label">Date de prestation</span>
+            <span class="commande-admin-info_value">${formatDate(cmd.date_prestation)}</span>
+          </div>
+
+          <div class="commande-admin-info">
+            <span class="commande-admin-info_label">Adresse</span>
+            <span class="commande-admin-info_value">${cmd.adresse_livraison || "Non renseignée"}</span>
+          </div>
         </div>
 
-        <div class="commande-admin-info">
-          <span class="commande-admin-info_label">Menu</span>
-          <span class="commande-admin-info_value">${cmd.menus?.[0]?.titre || "Non renseigné"}</span>
+        ${renderHistoriqueStatuts(cmd.historique_statuts)}
+
+        <div class="commande-admin-card_actions">
+          ${
+            cmd.statut !== "annulee" && cmd.statut !== "terminee"
+              ? `
+                <div class="commande-admin-action-group">
+                  <label class="form-label">Mettre à jour le statut</label>
+                  <select class="form-select" onchange="updateStatus('${cmd.numero_commande}', this.value)">
+                    ${getStatusOptions(cmd.statut)}
+                  </select>
+                </div>
+
+                <button class="btn btn-outline-danger" onclick="cancelCommande('${cmd.numero_commande}')">
+                  Annuler
+                </button>
+              `
+              : `
+                <p class="commande-admin-no-action">Aucune action disponible</p>
+              `
+          }
         </div>
-
-        <div class="commande-admin-info">
-          <span class="commande-admin-info_label">Date de prestation</span>
-          <span class="commande-admin-info_value">${formatDate(cmd.date_prestation)}</span>
-        </div>
-
-        <div class="commande-admin-info">
-          <span class="commande-admin-info_label">Adresse</span>
-          <span class="commande-admin-info_value">${cmd.adresse_livraison || "Non renseignée"}</span>
-        </div>
-      </div>
-
-      <div class="commande-admin-card_actions">
-        ${
-          cmd.statut !== "annulee" && cmd.statut !== "terminee"
-            ? `
-              <div class="commande-admin-action-group">
-                <label class="form-label">Mettre à jour le statut</label>
-                <select class="form-select" onchange="updateStatus('${cmd.numero_commande}', this.value)">
-                  ${getStatusOptions(cmd.statut)}
-                </select>
-              </div>
-
-              <button class="btn btn-outline-danger" onclick="cancelCommande('${cmd.numero_commande}')">
-                Annuler
-              </button>
-            `
-            : `
-              <p class="commande-admin-no-action">Aucune action disponible</p>
-            `
-        }
-      </div>
-    </article>
-  `).join("");
+      </article>
+    `;
+  }).join("");
 }
 
 function getStatusOptions(current) {
@@ -205,7 +290,6 @@ async function updateStatus(id, statut) {
 
     alert("Statut mis à jour avec succès.");
     loadAllCommandes();
-
   } catch (error) {
     console.error("Erreur updateStatus :", error);
     alert("Erreur réseau lors de la mise à jour du statut.");
@@ -242,7 +326,6 @@ async function cancelCommande(id) {
     }
 
     loadAllCommandes();
-
   } catch (error) {
     console.error("Erreur cancelCommande :", error);
     alert("Erreur réseau lors de l’annulation.");
@@ -250,6 +333,7 @@ async function cancelCommande(id) {
 }
 
 document.getElementById("filter-statut")?.addEventListener("change", loadAllCommandes);
+document.getElementById("filter-client")?.addEventListener("input", loadAllCommandes);
 
 window.updateStatus = updateStatus;
 window.cancelCommande = cancelCommande;

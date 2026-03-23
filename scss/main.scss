@@ -1042,19 +1042,71 @@ footer.footer {
   justify-content: flex-end;
   gap: 12px;
 }
+
 .menus-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
   background-color: #fff;
-  border-radius: 12px;
-  border: 3px solid var(--bs-success);
+  border: 2px solid var(--bs-success);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 .menus-filters input,
 .menus-filters select {
-  min-width: 180px;
+  min-width: 200px;
+  height: 46px;
+  padding: 0 0.85rem;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #212529;
+}
+
+.menus-filters input:focus,
+.menus-filters select:focus {
+  outline: none;
+  border-color: var(--bs-success);
+  box-shadow: 0 0 0 0.2rem rgba(163, 220, 94, 0.2);
+}
+.menus-filters:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+.menus-filters button {
+  background-color: var(--bs-success);
+  color: white;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.menus-filters button:hover {
+  background-color: #6bbf3a;
+}
+
+@media (max-width: 768px) {
+  .menus-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menus-filters input,
+  .menus-filters select,
+  .menus-filters button {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+.menus-filters-title {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2a37;
 }
 
 .menu-detail-card_plats {
@@ -1870,4 +1922,25 @@ footer.footer {
   max-width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+.commande-historique {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 12px;
+}
+
+.commande-historique h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.commande-historique-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.commande-historique-item {
+  margin-bottom: 0.75rem;
 }

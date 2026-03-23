@@ -38,7 +38,7 @@ function checkCredentials() {
             setToken(token);
 
             // stockage du rôle
-            setCookie(RoleCookieName, result.roles[0], 7);
+            setCookie(roleCookieName, result.roles[0], 7);
 
             // nettoyage visuel si succès
             mailInput.classList.remove("is-invalid");

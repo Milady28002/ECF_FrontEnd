@@ -13,8 +13,82 @@ function formatTotal(amount) {
   return `${Number(amount).toFixed(2).replace(".", ",")} €`;
 }
 
+function isValidAdresseLivraison(adresse) {
+  if (!adresse) return false;
+
+  const adresseNettoyee = adresse.trim();
+  const regex = /^\d+\s+.+,\s*\d{5}\s+.+$/i;
+
+  return regex.test(adresseNettoyee);
+}
+
+function calculateLivraison(adresse) {
+  if (!adresse) return 0;
+
+  const a = adresse.toLowerCase();
+
+  if (a.includes("bordeaux") || a.includes("33000")) return 0;
+
+  let distanceKm = 10;
+
+  if (a.includes("merignac") || a.includes("33700")) {
+    distanceKm = 8;
+  } else if (a.includes("pessac") || a.includes("33600")) {
+    distanceKm = 7;
+  } else if (a.includes("talence") || a.includes("33400")) {
+    distanceKm = 6;
+  } else if (a.includes("eysines") || a.includes("33320")) {
+    distanceKm = 9;
+  } else if (a.includes("blanquefort") || a.includes("33290")) {
+    distanceKm = 12;
+  } else if (a.includes("le bouscat") || a.includes("33110")) {
+    distanceKm = 5;
+  }
+
+  return 5 + (distanceKm * 0.59);
+}
+
+function getCookie(name) {
+  const cookies = document.cookie.split("; ");
+
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split("=");
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+
+  return "";
+}
+
 function getToken() {
-  return localStorage.getItem("token");
+  return getCookie("accesstoken");
+}
+
+function showAdresseFeedback(message = "") {
+  const feedback = document.getElementById("adresse-feedback");
+  if (!feedback) return;
+
+  feedback.textContent = message;
+}
+
+function showFeedback(message, isError = true) {
+  const feedback = document.getElementById("commande-feedback");
+  if (!feedback) return;
+
+  feedback.innerHTML = `
+    <div class="alert ${isError ? "alert-danger" : "alert-success"}" role="alert">
+      ${message}
+    </div>
+  `;
+}
+
+function getErrorMessageFromResponse(data, fallbackMessage) {
+  if (data && typeof data === "object" && data.message) {
+    return data.message;
+  }
+
+  return fallbackMessage;
 }
 
 async function loadCommandeMenu() {
@@ -65,6 +139,54 @@ function renderCommandeMenu(menu) {
         stockDisponible
           ? `
           <form class="commande-form" id="commande-form">
+            <div class="commande-client-infos mb-4">
+              <h2>Informations client</h2>
+
+              <div class="mb-3">
+                <label for="client-nom" class="form-label">Nom</label>
+                <input
+                  type="text"
+                  id="client-nom"
+                  class="form-control"
+                  readonly
+                  placeholder="Nom"
+                >
+              </div>
+
+              <div class="mb-3">
+                <label for="client-prenom" class="form-label">Prénom</label>
+                <input
+                  type="text"
+                  id="client-prenom"
+                  class="form-control"
+                  readonly
+                  placeholder="Prénom"
+                >
+              </div>
+
+              <div class="mb-3">
+                <label for="client-email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="client-email"
+                  class="form-control"
+                  readonly
+                  placeholder="Email"
+                >
+              </div>
+
+              <div class="mb-3">
+                <label for="client-telephone" class="form-label">Téléphone</label>
+                <input
+                  type="text"
+                  id="client-telephone"
+                  class="form-control"
+                  readonly
+                  placeholder="Téléphone"
+                >
+              </div>
+            </div>
+
             <div class="mb-3">
               <label for="nb-personnes" class="form-label">Nombre de personnes</label>
               <input
@@ -92,6 +214,8 @@ function renderCommandeMenu(menu) {
               <p><strong>Nombre de personnes :</strong> <span id="resume-nb-personnes">${menu.nombre_personne_minimum}</span></p>
               <p><strong>Adresse :</strong> <span id="resume-adresse">Non renseignée</span></p>
               <p><strong>Prêt de matériel :</strong> <span id="resume-pret-materiel">Non</span></p>
+              <p><strong>Prix menu :</strong> <span id="resume-prix-menu">${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}</span></p>
+              <p><strong>Prix livraison :</strong> <span id="resume-prix-livraison">0,00 €</span></p>
               <p><strong>Total :</strong> <span id="resume-total">${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}</span></p>
             </div>
 
@@ -101,9 +225,10 @@ function renderCommandeMenu(menu) {
                 type="text"
                 id="adresse-prestation"
                 class="form-control"
-                placeholder="Ex. 12 rue des Lilas, 33000 Bordeaux"
+                placeholder="Ex. 18 rue Pompon, 33600 Pessac"
                 required
               >
+              <div id="adresse-feedback" class="form-text text-danger"></div>
             </div>
 
             <div class="mb-3">
@@ -161,6 +286,7 @@ function renderCommandeMenu(menu) {
       Number(menu.nombre_personne_minimum)
     );
     initCommandeForm(menu);
+    prefillUserInfos();
   }
 }
 
@@ -168,6 +294,8 @@ function initCommandeTotal(prixParPersonne, minimum) {
   const input = document.getElementById("nb-personnes");
   const totalValue = document.getElementById("commande-total-value");
   const resumeNbPersonnes = document.getElementById("resume-nb-personnes");
+  const resumePrixMenu = document.getElementById("resume-prix-menu");
+  const resumePrixLivraison = document.getElementById("resume-prix-livraison");
   const resumeTotal = document.getElementById("resume-total");
   const adresseInput = document.getElementById("adresse-prestation");
   const resumeAdresse = document.getElementById("resume-adresse");
@@ -184,17 +312,43 @@ function initCommandeTotal(prixParPersonne, minimum) {
       input.value = minimum;
     }
 
-    const total = nbPersonnes * prixParPersonne;
+    let prixMenu = nbPersonnes * prixParPersonne;
 
-    totalValue.textContent = formatTotal(total);
+    if (nbPersonnes >= minimum + 5) {
+      prixMenu = prixMenu * 0.9;
+    }
+
+    const adresse = adresseInput?.value.trim() || "";
+    const prixLivraison = calculateLivraison(adresse);
+    const totalFinal = prixMenu + prixLivraison;
+
+    totalValue.textContent = formatTotal(totalFinal);
     resumeNbPersonnes.textContent = nbPersonnes;
-    resumeTotal.textContent = formatTotal(total);
+
+    if (resumePrixMenu) {
+      resumePrixMenu.textContent = formatTotal(prixMenu);
+    }
+
+    if (resumePrixLivraison) {
+      resumePrixLivraison.textContent = formatTotal(prixLivraison);
+    }
+
+    resumeTotal.textContent = formatTotal(totalFinal);
   };
 
   const updateAdresseResume = () => {
     if (!adresseInput || !resumeAdresse) return;
+
     const adresse = adresseInput.value.trim();
     resumeAdresse.textContent = adresse || "Non renseignée";
+
+    if (adresse && !isValidAdresseLivraison(adresse)) {
+      showAdresseFeedback("Veuillez saisir une adresse complète au format : numéro + voie, code postal, ville.");
+    } else {
+      showAdresseFeedback("");
+    }
+
+    updateTotal();
   };
 
   const updatePretMaterielResume = () => {
@@ -211,22 +365,40 @@ function initCommandeTotal(prixParPersonne, minimum) {
   updatePretMaterielResume();
 }
 
-function showFeedback(message, isError = true) {
-  const feedback = document.getElementById("commande-feedback");
-  if (!feedback) return;
+async function prefillUserInfos() {
+  const token = getToken();
 
-  feedback.innerHTML = `
-    <div class="alert ${isError ? "alert-danger" : "alert-success"}" role="alert">
-      ${message}
-    </div>
-  `;
-}
-
-function getErrorMessageFromResponse(data, fallbackMessage) {
-  if (data && typeof data === "object" && data.message) {
-    return data.message;
+  if (!token) {
+    return;
   }
-  return fallbackMessage;
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/account/me", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-AUTH-TOKEN": token
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Impossible de récupérer les informations utilisateur");
+    }
+
+    const user = await response.json();
+
+    const nomInput = document.getElementById("client-nom");
+    const prenomInput = document.getElementById("client-prenom");
+    const emailInput = document.getElementById("client-email");
+    const telephoneInput = document.getElementById("client-telephone");
+
+    if (nomInput) nomInput.value = user.name || "";
+    if (prenomInput) prenomInput.value = user.firstname || "";
+    if (emailInput) emailInput.value = user.email || "";
+    if (telephoneInput) telephoneInput.value = user.telephone || "";
+  } catch (error) {
+    console.error("Erreur pré-remplissage utilisateur :", error);
+  }
 }
 
 function initCommandeForm(menu) {
@@ -252,6 +424,8 @@ function initCommandeForm(menu) {
       submitButton.textContent = "Envoi en cours...";
     }
 
+    showAdresseFeedback("");
+
     try {
       const nombrePersonnes = Number(document.getElementById("nb-personnes")?.value);
       const dateEvenement = document.getElementById("date-evenement")?.value.trim();
@@ -275,12 +449,20 @@ function initCommandeForm(menu) {
         return;
       }
 
+      if (!isValidAdresseLivraison(adresseLivraison)) {
+        showAdresseFeedback("Veuillez saisir une adresse complète au format : numéro + voie, code postal ville.");
+        showFeedback("L’adresse de la prestation doit être complète.");
+        return;
+      }
+
+      const prixLivraison = calculateLivraison(adresseLivraison);
+
       const payload = {
         menu_id: Number(menu.id),
         nombre_personnes: nombrePersonnes,
         date_prestation: dateEvenement,
         heure_livraison: heureLivraison,
-        prix_livraison: 0,
+        prix_livraison: prixLivraison,
         pret_materiel: pretMateriel,
         restitution_materiel: false,
         adresse_livraison: adresseLivraison,
