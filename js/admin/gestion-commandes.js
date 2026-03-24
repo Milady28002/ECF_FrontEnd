@@ -56,7 +56,7 @@ function formatStatusLabel(status) {
 async function loadAllCommandes() {
   const container = document.getElementById("commandes-container");
   const statut = document.getElementById("filter-statut")?.value || "";
-  const clientSearch = document.getElementById("filter-client")?.value.trim().toLowerCase() || "";
+  const clientSearch = document.getElementById("filter-client")?.value.trim() || "";
 
   if (!container) return;
 
@@ -68,11 +68,19 @@ async function loadAllCommandes() {
   }
 
   try {
-    const url = statut
-      ? `http://127.0.0.1:8000/api/commandes?statut=${encodeURIComponent(statut)}`
-      : "http://127.0.0.1:8000/api/commandes";
+    const params = new URLSearchParams();
 
-    console.log("token gestion-commandes =", token);
+    if (statut) {
+      params.append("statut", statut);
+    }
+
+    if (clientSearch) {
+      params.append("client", clientSearch);
+    }
+
+    const url = `http://127.0.0.1:8000/api/commandes${params.toString() ? `?${params.toString()}` : ""}`;
+
+    console.log("URL appelée :", url);
 
     const response = await fetch(url, {
       headers: {
@@ -87,25 +95,7 @@ async function loadAllCommandes() {
       return;
     }
 
-    let commandesFiltrees = data;
-
-    if (clientSearch) {
-      commandesFiltrees = data.filter((cmd) => {
-        const user = cmd.utilisateur || {};
-
-        const nom = (user.name || "").toLowerCase();
-        const prenom = (user.firstname || "").toLowerCase();
-        const email = (user.email || "").toLowerCase();
-
-        return (
-          nom.includes(clientSearch) ||
-          prenom.includes(clientSearch) ||
-          email.includes(clientSearch)
-        );
-      });
-    }
-
-    renderCommandes(commandesFiltrees);
+    renderCommandes(data);
   } catch (error) {
     console.error("Erreur chargement commandes :", error);
     container.innerHTML = "<p>Erreur réseau</p>";
@@ -197,8 +187,11 @@ function renderCommandes(commandes) {
         <div class="commande-admin-card_grid">
           <div class="commande-admin-info">
             <span class="commande-admin-info_label">Client</span>
-            <span class="commande-admin-info_value">${cmd.utilisateur?.name || "Non renseigné"}</span>
+            <span class="commande-admin-info_value">
+              ${cmd.utilisateur ? `${cmd.utilisateur.firstname || ""} ${cmd.utilisateur.name || ""}`.trim() : "Non renseigné"}
+            </span>
           </div>
+ 
 
           <div class="commande-admin-info">
             <span class="commande-admin-info_label">Menu</span>
