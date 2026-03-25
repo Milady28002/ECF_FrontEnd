@@ -12189,7 +12189,7 @@ footer.footer {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.18);
+  background: linear-gradient(90deg, rgba(20, 20, 20, 0.52) 0%, rgba(20, 20, 20, 0.32) 45%, rgba(20, 20, 20, 0.42) 100%);
   z-index: 1;
 }
 
@@ -12201,31 +12201,59 @@ footer.footer {
   background-image: url("../assets/table-menus.jpg");
 }
 
-/* =========================
-   HOME HERO
-========================= */
 .sandwiches_card {
   position: absolute;
-  top: 45%;
-  left: 30%;
+  top: 50%;
+  left: 29%;
   transform: translate(-50%, -50%);
-  width: min(520px, 90%);
-  padding: 36px 32px;
-  background: var(--card-green);
-  border-radius: 61px;
-  color: #fff;
+  width: min(540px, 88%);
+  padding: 42px 38px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(163, 220, 94, 0.18);
+  border-radius: 36px;
+  color: #333;
   text-align: center;
   z-index: 10;
   isolation: isolate;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+}
+
+.sandwiches_card h1, .sandwiches_card .h1,
+.sandwiches_card h2,
+.sandwiches_card .h2,
+.sandwiches_card h3,
+.sandwiches_card .h3 {
+  color: #1f1f1f;
+  font-family: var(--font-ui);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.sandwiches_card p {
+  color: #2f2f2f;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  margin-bottom: 1.1rem;
 }
 
 .sandwiches_cta {
   position: absolute;
-  font-family: var(--font-ui);
-  bottom: 32px;
-  left: 30%;
+  bottom: 34px;
+  left: 29%;
   transform: translateX(-50%);
   z-index: 11;
+  font-family: var(--font-ui);
+}
+
+.sandwiches_cta .btn,
+.sandwiches_cta.btn,
+.sandwiches_cta a {
+  border-radius: 999px;
+  padding: 10px 26px;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(163, 220, 94, 0.4);
 }
 
 @media (max-width: 768px) {
@@ -12240,9 +12268,6 @@ footer.footer {
     border-radius: 32px;
   }
 }
-/* =========================
-   GALERIE
-========================= */
 .section-galerie {
   position: relative;
   width: 100%;
@@ -13923,4 +13948,170 @@ footer.footer {
 
 .commande-historique-item {
   margin-bottom: 0.75rem;
+}
+
+.intro-avis-layout {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) 430px;
+  gap: 56px;
+  align-items: center;
+  min-height: 520px;
+  width: 100%;
+  padding: 70px 70px 90px;
+}
+
+.avis-side-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  max-width: 430px;
+}
+
+.avis-title {
+  margin: 0 0 22px;
+  text-align: left;
+  color: var(--bs-success);
+  font-size: 2rem;
+  line-height: 1.05;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.18);
+}
+
+.avis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.avis-card {
+  background: rgba(255, 252, 247, 0.96);
+  padding: 20px 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(163, 220, 94, 0.14);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.avis-card:nth-child(2) {
+  margin-left: 22px;
+  transform: translateX(20px);
+}
+
+.avis-card:nth-child(3) {
+  margin-left: 44px;
+  transform: translateX(40px);
+}
+
+.avis-card:nth-child(1):hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.avis-card:nth-child(2):hover {
+  transform: translateX(20px) translateY(-6px) scale(1.02);
+}
+
+.avis-card:nth-child(3):hover {
+  transform: translateX(40px) translateY(-6px) scale(1.02);
+}
+
+.avis-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+}
+
+.avis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.avis-user {
+  font-size: 1.05rem;
+}
+
+.avis-date {
+  font-size: 0.92rem;
+  color: #5f5f5f;
+}
+
+.avis-stars {
+  margin-bottom: 12px;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+}
+
+.avis-comment {
+  margin: 0;
+  font-style: italic;
+  color: #353535;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .intro-avis-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 42px 22px 80px;
+  }
+  .sandwiches_card {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .sandwiches_cta {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    margin: 18px auto 0;
+    display: flex;
+    justify-content: center;
+  }
+  .avis-side-block {
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .avis-title {
+    text-align: center;
+    font-size: 2.4rem;
+  }
+  .avis-card:nth-child(2),
+  .avis-card:nth-child(3) {
+    margin-left: 0;
+  }
+}
+@media (max-width: 768px) {
+  .sandwiches_card {
+    padding: 28px 22px;
+    border-radius: 26px;
+  }
+  .sandwiches_card p {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .avis-title {
+    font-size: 2rem;
+  }
+  .avis-card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+  .avis-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
 }/*# sourceMappingURL=main.css.map */

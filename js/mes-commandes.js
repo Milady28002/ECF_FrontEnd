@@ -94,6 +94,7 @@ function renderOrders(commandes) {
   container.innerHTML = commandes.map((commande) => {
     const canEdit = commande.statut === "en_attente";
     const canCancel = commande.statut === "en_attente";
+    const canReview = commande.statut === "terminee";
 
     return `
       <article class="commande-user-card">
@@ -177,12 +178,26 @@ function renderOrders(commandes) {
               `
               : ""
           }
+
+          ${
+            canReview
+              ? `
+                <button
+                  class="btn btn-outline-warning review-order-btn"
+                  data-id="${commande.numero_commande}"
+                >
+                  Laisser un avis
+                </button>
+              `
+              : ""
+          }
         </div>
       </article>
     `;
   }).join("");
 
   initCancelButtons();
+  initReviewButtons();
 }
 
 async function cancelOrder(orderId) {
@@ -222,6 +237,63 @@ async function cancelOrder(orderId) {
   }
 }
 
+async function submitReview(orderId) {
+  const token = getTokenSafe();
+
+  if (!token) {
+    window.location.hash = "#/signin";
+    return;
+  }
+
+  const noteInput = window.prompt("Donnez une note de 1 à 5 pour cette commande :");
+  if (noteInput === null) return;
+
+  const note = Number(noteInput);
+
+  if (!Number.isInteger(note) || note < 1 || note > 5) {
+    alert("La note doit être un entier compris entre 1 et 5.");
+    return;
+  }
+
+  const description = window.prompt("Laissez un commentaire sur votre commande :");
+  if (description === null) return;
+
+  const commentaire = description.trim();
+
+  if (commentaire === "") {
+    alert("Le commentaire est obligatoire.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/avis", {
+      method: "POST",
+      headers: {
+        "X-AUTH-TOKEN": token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        commande_numero: orderId,
+        note,
+        description: commentaire
+      })
+    });
+
+    const data = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      alert(data?.message || "Impossible d’enregistrer votre avis.");
+      return;
+    }
+
+    alert("Votre avis a bien été enregistré et est en attente de validation.");
+    await loadMesCommandes();
+  } catch (error) {
+    console.error("Erreur envoi avis :", error);
+    alert("Une erreur réseau est survenue.");
+  }
+}
+
 function initCancelButtons() {
   const buttons = document.querySelectorAll(".cancel-order-btn");
 
@@ -231,6 +303,19 @@ function initCancelButtons() {
       if (!orderId) return;
 
       cancelOrder(orderId);
+    });
+  });
+}
+
+function initReviewButtons() {
+  const buttons = document.querySelectorAll(".review-order-btn");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const orderId = button.dataset.id;
+      if (!orderId) return;
+
+      submitReview(orderId);
     });
   });
 }

@@ -80,8 +80,6 @@ async function loadAllCommandes() {
 
     const url = `http://127.0.0.1:8000/api/commandes${params.toString() ? `?${params.toString()}` : ""}`;
 
-    console.log("URL appelée :", url);
-
     const response = await fetch(url, {
       headers: {
         "X-AUTH-TOKEN": token
@@ -98,6 +96,38 @@ async function loadAllCommandes() {
     renderCommandes(data);
   } catch (error) {
     console.error("Erreur chargement commandes :", error);
+    container.innerHTML = "<p>Erreur réseau</p>";
+  }
+}
+
+async function loadAvisModeration() {
+  const container = document.getElementById("avis-container");
+  if (!container) return;
+
+  const token = getTokenSafe();
+
+  if (!token) {
+    container.innerHTML = "<p>Accès refusé</p>";
+    return;
+  }
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/avis/moderation?statut=en_attente", {
+      headers: {
+        "X-AUTH-TOKEN": token
+      }
+    });
+
+    const data = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      container.innerHTML = `<p>${data?.message || "Erreur chargement avis"}</p>`;
+      return;
+    }
+
+    renderAvis(data);
+  } catch (error) {
+    console.error("Erreur chargement avis :", error);
     container.innerHTML = "<p>Erreur réseau</p>";
   }
 }
@@ -154,7 +184,6 @@ function renderHistoriqueStatuts(historiqueStatuts = []) {
   `;
 }
 
-
 function renderCommandes(commandes) {
   const container = document.getElementById("commandes-container");
   if (!container) return;
@@ -169,8 +198,6 @@ function renderCommandes(commandes) {
   }
 
   container.innerHTML = commandes.map(cmd => {
-    console.log("commande complète :", cmd);
-
     return `
       <article class="commande-admin-card">
         <div class="commande-admin-card_top">
@@ -191,7 +218,6 @@ function renderCommandes(commandes) {
               ${cmd.utilisateur ? `${cmd.utilisateur.firstname || ""} ${cmd.utilisateur.name || ""}`.trim() : "Non renseigné"}
             </span>
           </div>
- 
 
           <div class="commande-admin-info">
             <span class="commande-admin-info_label">Menu</span>
@@ -236,6 +262,76 @@ function renderCommandes(commandes) {
   }).join("");
 }
 
+function renderAvis(avisList) {
+  const container = document.getElementById("avis-container");
+  if (!container) return;
+
+  if (!avisList.length) {
+    container.innerHTML = `
+      <div class="commande-empty">
+        <p>Aucun avis en attente de modération.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = avisList.map((avis) => `
+    <article class="commande-admin-card">
+      <div class="commande-admin-card_top">
+        <div>
+          <p class="commande-admin-card_label">Avis</p>
+          <h2>#${avis.id}</h2>
+        </div>
+
+        <span class="badge-status badge-pending">
+          ${avis.statut}
+        </span>
+      </div>
+
+      <div class="commande-admin-card_grid">
+        <div class="commande-admin-info">
+          <span class="commande-admin-info_label">Client</span>
+          <span class="commande-admin-info_value">
+            ${avis.utilisateur ? `${avis.utilisateur.firstname || ""} ${avis.utilisateur.name || ""}`.trim() : "Non renseigné"}
+          </span>
+        </div>
+
+        <div class="commande-admin-info">
+          <span class="commande-admin-info_label">Commande</span>
+          <span class="commande-admin-info_value">
+            ${avis.commande?.numero_commande || "Non renseignée"}
+          </span>
+        </div>
+
+        <div class="commande-admin-info">
+          <span class="commande-admin-info_label">Note</span>
+          <span class="commande-admin-info_value">${avis.note}/5</span>
+        </div>
+
+        <div class="commande-admin-info">
+          <span class="commande-admin-info_label">Date</span>
+          <span class="commande-admin-info_value">${formatDateTime(avis.date_creation)}</span>
+        </div>
+      </div>
+
+      <div class="commande-historique">
+        <h3>Commentaire</h3>
+        <p>${avis.description}</p>
+      </div>
+
+      <div class="commande-admin-card_actions">
+        <button class="btn btn-outline-success" onclick="validateAvis(${avis.id})">
+          Valider
+        </button>
+
+        <button class="btn btn-outline-danger" onclick="rejectAvis(${avis.id})">
+          Refuser
+        </button>
+      </div>
+    </article>
+  `).join("");
+}
+
 function getStatusOptions(current) {
   const transitions = {
     en_attente: ["en_attente", "acceptee"],
@@ -260,8 +356,6 @@ function getStatusOptions(current) {
 async function updateStatus(id, statut) {
   const token = getTokenSafe();
 
-  console.log("updateStatus appelé :", id, statut);
-
   try {
     const response = await fetch(`http://127.0.0.1:8000/api/commandes/employe/${id}/status`, {
       method: "PATCH",
@@ -273,8 +367,6 @@ async function updateStatus(id, statut) {
     });
 
     const data = await response.json().catch(() => null);
-
-    console.log("réponse updateStatus :", response.status, data);
 
     if (!response.ok) {
       alert(data?.message || "Impossible de mettre à jour le statut.");
@@ -325,10 +417,65 @@ async function cancelCommande(id) {
   }
 }
 
+async function validateAvis(id) {
+  const token = getTokenSafe();
+
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/avis/${id}/validate`, {
+      method: "PATCH",
+      headers: {
+        "X-AUTH-TOKEN": token
+      }
+    });
+
+    const data = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      alert(data?.message || "Impossible de valider l’avis.");
+      return;
+    }
+
+    alert("Avis validé avec succès.");
+    await loadAvisModeration();
+  } catch (error) {
+    console.error("Erreur validation avis :", error);
+    alert("Erreur réseau lors de la validation.");
+  }
+}
+
+async function rejectAvis(id) {
+  const token = getTokenSafe();
+
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/avis/${id}/reject`, {
+      method: "PATCH",
+      headers: {
+        "X-AUTH-TOKEN": token
+      }
+    });
+
+    const data = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      alert(data?.message || "Impossible de refuser l’avis.");
+      return;
+    }
+
+    alert("Avis refusé avec succès.");
+    await loadAvisModeration();
+  } catch (error) {
+    console.error("Erreur refus avis :", error);
+    alert("Erreur réseau lors du refus.");
+  }
+}
+
 document.getElementById("filter-statut")?.addEventListener("change", loadAllCommandes);
 document.getElementById("filter-client")?.addEventListener("input", loadAllCommandes);
 
 window.updateStatus = updateStatus;
 window.cancelCommande = cancelCommande;
+window.validateAvis = validateAvis;
+window.rejectAvis = rejectAvis;
 
 loadAllCommandes();
+loadAvisModeration();
