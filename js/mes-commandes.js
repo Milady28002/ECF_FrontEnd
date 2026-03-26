@@ -94,7 +94,7 @@ function renderOrders(commandes) {
   container.innerHTML = commandes.map((commande) => {
     const canEdit = commande.statut === "en_attente";
     const canCancel = commande.statut === "en_attente";
-    const canReview = commande.statut === "terminee";
+    const canReview = commande.statut === "terminee" && !commande.avis_deja_laisse;
 
     return `
       <article class="commande-user-card">
