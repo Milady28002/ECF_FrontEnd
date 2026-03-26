@@ -1,65 +1,101 @@
-<section class="section-galerie">
-    <h1 class="text-title">Galerie</h1>
-   
-         <div class="galerie-grid" id="allImages">
-        </div>
-     <div class="text-center">
-        <a href="#/catalogue-menus" class="btn btn-primary galerie_cta">Commander</a>
+<section class="section-galerie py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="commandes-label mb-2">Notre univers culinaire</p>
+      <h1 class="text-title mb-3">Galerie</h1>
+      <p class="galerie-intro mx-auto">
+        Découvrez un aperçu de nos créations salées et sucrées, pensées pour
+        éveiller l’appétit et sublimer vos événements.
+      </p>
     </div>
-    
+
+    <div class="galerie-filters mb-4 text-center">
+      <button class="btn btn-outline-success galerie-filter-btn active" data-filter="all">Tous</button>
+      <button class="btn btn-outline-success galerie-filter-btn" data-filter="sale">Salé</button>
+      <button class="btn btn-outline-success galerie-filter-btn" data-filter="sucre">Sucré</button>
+      <button class="btn btn-outline-success galerie-filter-btn" data-filter="cocktail">Cocktail</button>
+    </div>
+
+    <div class="text-center mb-4" id="add-image-wrapper">
+      <button
+        type="button"
+        class="btn btn-success"
+        id="OpenAddImageModalButton"
+        data-bs-toggle="modal"
+        data-bs-target="#EditionPhotoModal"
+      >
+        Ajouter une image
+      </button>
+    </div>
+
+    <div class="galerie-grid" id="allImages"></div>
+
+    <div class="text-center mt-4">
+      <a href="#/catalogue-menus" class="btn btn-primary galerie_cta" onclick="route(event)">Commander</a>
+    </div>
+  </div>
 </section>
 
-    <!-- Modal édition-->
+<!-- Modal édition / ajout -->
 <div class="modal fade" id="EditionPhotoModal" tabindex="-1" aria-labelledby="EditionPhotoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title fs-5" id="EditionPhotoModalLabel">Edition Photo</h2>
+        <h2 class="modal-title fs-5" id="EditionPhotoModalLabel">Édition photo</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-         <form>
-              <div class="mb-3">
-                <label for="NamePhotoInput" class="form-label">Titre photo</label>
-                <input type="text" class="form-control" id="NamePhotoInput" placeholder="Titre de la photo"> 
-              </div>
+        <form>
+          <div class="mb-3">
+            <label for="NamePhotoInput" class="form-label">Titre photo</label>
+            <input type="text" class="form-control" id="NamePhotoInput" placeholder="Titre de la photo">
+          </div>
 
-              <div class="mb-3">
-                <label for="ImageInput" class="form-label">Image</label>
-                <input type="file" class="form-control" id="ImageInput">
-              </div>
+          <div class="mb-3">
+            <label for="ImageInput" class="form-label">Image</label>
+            <input type="text" class="form-control" id="ImageInput" placeholder="../assets/mon-image.jpg">
+          </div>
 
-              <div class="text-center">
-                <button type="button" class="btn btn-primary">Enregistrer</button>
-              </div>
-            </form>
+          <div class="mb-3">
+            <label for="CategorieInput" class="form-label">Catégorie</label>
+            <select class="form-control" id="CategorieInput">
+              <option value="sale">Salé</option>
+              <option value="sucre">Sucré</option>
+              <option value="cocktail">Cocktail</option>
+            </select>
+          </div>
+
+          <div class="text-center d-flex justify-content-center gap-2 flex-wrap">
+            <button type="button" class="btn btn-primary" id="SaveImageButton">Enregistrer</button>
+            <button type="button" class="btn btn-success" id="AddImageButton">Ajouter</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
- <!-- Modal suppression-->
+<!-- Modal suppression -->
 <div class="modal fade" id="DeletePhotoModal" tabindex="-1" aria-labelledby="DeletePhotoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title fs-5" id="DeletePhotoModalLabel">Etes-vous sûr de vouloir supprimer cette photo ?</h2>
+        <h2 class="modal-title fs-5" id="DeletePhotoModalLabel">Êtes-vous sûr de vouloir supprimer cette photo ?</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-         <form>
-              <div class="mb-3">
-                <p id="DeleteTitle">Titre</p>
-                <img id="DeleteImg" class="w-100 rounded" src="../assets/asperges-galerie.jpg" alt="asperges et canard">
-              </div>
+        <form>
+          <div class="mb-3">
+            <p id="DeleteTitle">Titre</p>
+            <img id="DeleteImg" class="w-100 rounded" src="../assets/asperges-galerie.jpg" alt="aperçu photo">
+          </div>
 
-              <div class="text-center">
-                <button type="button" class="btn btn-danger">Supprimer</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-              </div>
-            </form>
+          <div class="text-center">
+            <button type="button" class="btn btn-danger" id="ConfirmDeleteButton">Supprimer</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
-
