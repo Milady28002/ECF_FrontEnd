@@ -12,7 +12,6 @@ export const allRoutes = [
   new Route("/account", "Mon compte", "./pages/auth/account.html", ["ROLE_USER", "ROLE_ADMIN", "ROLE_EMPLOYE"], "/js/auth/account.js"),
   new Route("/mes-commandes", "Mes commandes", "./pages/mes-commandes.html", ["ROLE_USER"], "/js/mes-commandes.js"),
   new Route("/commande-detail", "Détail commande", "./pages/commande-detail.html", ["ROLE_USER"], "/js/commande-detail.js"),
-  new Route("/modifPassword", "Mot de passe oublié", "./pages/auth/modifPassword.html", ["disconnected"]),
   new Route("/commander", "Commander", "./pages/order/commander.html", ["ROLE_USER"], "/js/commander.js"),
   new Route("/cgv", "Conditions generales", "./pages/footer/cgv.html", []),
   new Route("/mentions-legales", "Mentions légales", "./pages/footer/mentions-legales.html", []),
@@ -25,6 +24,8 @@ export const allRoutes = [
   new Route("/edit-menu", "Modifier un menu", "./pages/admin/menu-form.html", ["ROLE_ADMIN", "ROLE_EMPLOYE"], "/js/admin/menu-form.js"),
   new Route("/create-plat", "Créer un plat", "./pages/admin/plat-form.html", ["ROLE_ADMIN", "ROLE_EMPLOYE"], "/js/admin/plat-form.js"),
   new Route("/edit-plat", "Modifier un plat", "./pages/admin/plat-form.html", ["ROLE_ADMIN", "ROLE_EMPLOYE"], "/js/admin/plat-form.js"),
+  new Route("/forgot-password", "Mot de passe oublié", "./pages/auth/forgot-password.html", ["disconnected"], "/js/auth/forgot-password.js"),
+  new Route("/reset-password", "Réinitialiser mot de passe", "./pages/auth/reset-password.html", [], "/js/auth/reset-password.js"),
 ];
 
 
