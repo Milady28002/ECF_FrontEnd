@@ -214,6 +214,13 @@ function renderCommandeMenu(menu) {
               <p><strong>Nombre de personnes :</strong> <span id="resume-nb-personnes">${menu.nombre_personne_minimum}</span></p>
               <p><strong>Adresse :</strong> <span id="resume-adresse">Non renseignée</span></p>
               <p><strong>Prêt de matériel :</strong> <span id="resume-pret-materiel">Non</span></p>
+              <p><strong>Prix menu brut :</strong> <span id="resume-prix-menu-brut">${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}</span></p>
+              <p id="resume-remise-ligne" style="display: none;">
+                <strong>Remise 10 % :</strong> <span id="resume-remise">0,00 €</span>
+              </p>
+              <p id="resume-remise-info" class="text-muted small" style="display: none;">
+                Remise de 10 % appliquée à partir de X personnes
+              </p>
               <p><strong>Prix menu :</strong> <span id="resume-prix-menu">${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}</span></p>
               <p><strong>Prix livraison :</strong> <span id="resume-prix-livraison">0,00 €</span></p>
               <p><strong>Total :</strong> <span id="resume-total">${formatTotal(menu.prix_par_personne * menu.nombre_personne_minimum)}</span></p>
@@ -294,6 +301,9 @@ function initCommandeTotal(prixParPersonne, minimum) {
   const input = document.getElementById("nb-personnes");
   const totalValue = document.getElementById("commande-total-value");
   const resumeNbPersonnes = document.getElementById("resume-nb-personnes");
+  const resumePrixMenuBrut = document.getElementById("resume-prix-menu-brut");
+  const resumeRemiseLigne = document.getElementById("resume-remise-ligne");
+  const resumeRemise = document.getElementById("resume-remise");
   const resumePrixMenu = document.getElementById("resume-prix-menu");
   const resumePrixLivraison = document.getElementById("resume-prix-livraison");
   const resumeTotal = document.getElementById("resume-total");
@@ -301,6 +311,7 @@ function initCommandeTotal(prixParPersonne, minimum) {
   const resumeAdresse = document.getElementById("resume-adresse");
   const pretMaterielInput = document.getElementById("pret-materiel");
   const resumePretMateriel = document.getElementById("resume-pret-materiel");
+  const resumeRemiseInfo = document.getElementById("resume-remise-info");
 
   if (!input || !totalValue || !resumeNbPersonnes || !resumeTotal) return;
 
@@ -312,18 +323,46 @@ function initCommandeTotal(prixParPersonne, minimum) {
       input.value = minimum;
     }
 
-    let prixMenu = nbPersonnes * prixParPersonne;
+    const prixMenuBrut = nbPersonnes * prixParPersonne;
+    let montantRemise = 0;
 
     if (nbPersonnes >= minimum + 5) {
-      prixMenu = prixMenu * 0.9;
+      montantRemise = prixMenuBrut * 0.10;
     }
 
+    const prixMenu = prixMenuBrut - montantRemise;
     const adresse = adresseInput?.value.trim() || "";
     const prixLivraison = calculateLivraison(adresse);
     const totalFinal = prixMenu + prixLivraison;
 
     totalValue.textContent = formatTotal(totalFinal);
     resumeNbPersonnes.textContent = nbPersonnes;
+
+    if (resumePrixMenuBrut) {
+      resumePrixMenuBrut.textContent = formatTotal(prixMenuBrut);
+    }
+
+    if (resumeRemise && resumeRemiseLigne) {
+      if (montantRemise > 0) {
+        if (resumeRemise && resumeRemiseLigne && resumeRemiseInfo) {
+        if (montantRemise > 0) {
+          resumeRemise.textContent = `- ${formatTotal(montantRemise)}`;
+          resumeRemiseLigne.style.display = "block";
+          resumeRemiseInfo.style.display = "block";
+          resumeRemiseInfo.textContent = "Remise de 10 % appliquée ✔️";
+        } else {
+          resumeRemise.textContent = "0,00 €";
+          resumeRemiseLigne.style.display = "none";
+          resumeRemiseInfo.style.display = "none";
+        }
+      }
+        resumeRemise.textContent = `- ${formatTotal(montantRemise)}`;
+        resumeRemiseLigne.style.display = "block";
+      } else {
+        resumeRemise.textContent = "0,00 €";
+        resumeRemiseLigne.style.display = "none";
+      }
+    }
 
     if (resumePrixMenu) {
       resumePrixMenu.textContent = formatTotal(prixMenu);
