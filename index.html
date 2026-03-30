@@ -115,6 +115,10 @@ Mon compte
   <a class="dropdown-item" href="#/mes-commandes">Mes commandes</a>
 </li>
 
+<li data-show="employe">
+  <a class="dropdown-item" href="#/horaires-admin">Gérer les horaires</a>
+</li>
+
 <li>
 <hr class="dropdown-divider">
 </li>
@@ -172,68 +176,40 @@ S’inscrire
 </main>
 
 <footer class="footer bg-white text-dark border-top">
+  <div class="container-fluid">
+    <div class="row footer-row">
 
-<div class="container-fluid">
+      <div class="col-12 col-md-6 col-lg-4 footer-brand-col">
+        <p class="footer_tagline">
+          Authentique - Familial - Convivial
+        </p>
 
-<div class="row align-items-center">
+        <p class="footer_brand">
+          VITE & GOURMAND
+        </p>
+      </div>
 
-<div class="col-6 col-lg-4">
+      <div class="col-6 col-md-3 col-lg-2 footer-link-col">
+        <a href="#/cgv" onclick="route()" class="footer-link">
+          Conditions générales
+        </a>
+      </div>
 
-<p class="footer_tagline">
-Authentique – Familial – Convivial
-</p>
+      <div class="col-6 col-md-3 col-lg-2 footer-link-col">
+        <a href="#/mentions-legales" onclick="route()" class="footer-link">
+          Mentions légales
+        </a>
+      </div>
 
-<p class="footer_brand">
-VITE & GOURMAND
-</p>
+      <div class="col-12 col-lg-4 footer-horaires">
+        <h3>Horaires</h3>
+        <ul id="footer-horaires-list" class="list-unstyled mb-0">
+          <li>Chargement des horaires...</li>
+        </ul>
+      </div>
 
-</div>
-
-<div class="col-6 col-lg-2">
-
-<a
-href="#/cgv"
-onclick="route()"
-class="footer-link">
-
-Conditions générales
-
-</a>
-
-</div>
-
-<div class="col-6 col-lg-2">
-
-<a
-href="#/mentions-legales"
-onclick="route()"
-class="footer-link">
-
-Mentions légales
-
-</a>
-
-</div>
-
-<div class="col-6 col-lg-2">
-
-<h3 class="text-primary">
-Nos horaires
-</h3>
-
-<p>
-Du lundi au samedi<br>
-De 10h à 17h
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
+  </div>
 </footer>
 
 <script type="module" src="./Router/router.js"></script>

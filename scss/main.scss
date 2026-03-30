@@ -158,31 +158,56 @@ footer.footer {
   margin-bottom: 0.5rem;
 }
 
-.footer_reviews {
-  display: flex;
-  justify-content: flex-end;
+.footer {
+  padding: 1.5rem 1rem;
+}
+
+.footer-row {
   align-items: center;
-  gap: 14px;
 }
 
-.footer_stars {
-  height: 45px;
-  width: auto;
-  display: block;
+.footer-brand-col,
+.footer-link-col,
+.footer-horaires {
+  margin-bottom: 1rem;
 }
 
-.footer_badge {
-  height: 65px;
-  width: auto;
-  display: block;
+.footer_tagline {
+  margin-bottom: 0.35rem;
+  font-size: 1.1rem;
+  line-height: 1.3;
 }
 
-@media (max-width: 768px) {
-  .footer_reviews {
-    justify-content: center;
-    margin-top: 10px;
-  }
+.footer_brand {
+  margin-bottom: 0;
+  font-size: 1.2rem;
 }
+
+.footer-link-col {
+  display: flex;
+  align-items: center;
+}
+
+.footer-link {
+  display: inline-block;
+}
+
+.footer-horaires h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-horaires ul {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-horaires li {
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
 
 /* =========================
    TITRES
@@ -2182,4 +2207,12 @@ footer.footer {
     align-items: flex-start;
     gap: 6px;
   }
+}
+
+.section-horaires-admin h1 {
+  margin-bottom: 0.5rem;
+}
+
+.horaire-admin-form {
+  border-radius: 1rem;
 }

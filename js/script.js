@@ -125,3 +125,92 @@ function sanitizeHtml(text) {
 }
 
 showAndHideElementsForRoles();
+
+async function loadFooterHoraires() {
+    const horairesList = document.getElementById("footer-horaires-list");
+
+    if (!horairesList) return;
+
+    try {
+        const response = await fetch(`${apiUrl}horaires`);
+
+        if (!response.ok) {
+            throw new Error("Erreur lors du chargement des horaires");
+        }
+
+        const horaires = await response.json();
+
+        if (!Array.isArray(horaires) || horaires.length === 0) {
+            horairesList.innerHTML = "<li>Aucun horaire disponible.</li>";
+            return;
+        }
+
+        const joursOrdre = [
+            "Lundi",
+            "Mardi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi",
+            "Samedi",
+            "Dimanche"
+        ];
+
+        const horairesTries = [...horaires].sort(
+            (a, b) => joursOrdre.indexOf(a.jour) - joursOrdre.indexOf(b.jour)
+        );
+
+        const groupes = [];
+        let groupeCourant = null;
+
+        horairesTries.forEach((horaire) => {
+            const ouverture = horaire.heure_ouverture;
+            const fermeture = horaire.heure_fermeture;
+
+            const texteHoraire =
+                ouverture.toLowerCase() === "fermé" || fermeture.toLowerCase() === "fermé"
+                    ? "Fermé"
+                    : `${ouverture} - ${fermeture}`;
+
+            if (
+                groupeCourant &&
+                groupeCourant.texteHoraire === texteHoraire &&
+                joursOrdre.indexOf(horaire.jour) === joursOrdre.indexOf(groupeCourant.fin) + 1
+            ) {
+                groupeCourant.fin = horaire.jour;
+            } else {
+                if (groupeCourant) {
+                    groupes.push(groupeCourant);
+                }
+
+                groupeCourant = {
+                    debut: horaire.jour,
+                    fin: horaire.jour,
+                    texteHoraire
+                };
+            }
+        });
+
+        if (groupeCourant) {
+            groupes.push(groupeCourant);
+        }
+
+        horairesList.innerHTML = groupes.map((groupe) => {
+            const libelleJour =
+                groupe.debut === groupe.fin
+                    ? groupe.debut
+                    : `${groupe.debut} au ${groupe.fin}`;
+
+            return `
+                <li>
+                    <strong>${sanitizeHtml(libelleJour)} :</strong> ${sanitizeHtml(groupe.texteHoraire)}
+                </li>
+            `;
+        }).join("");
+    } catch (error) {
+        console.error("Erreur footer horaires :", error);
+        horairesList.innerHTML = "<li>Impossible de charger les horaires.</li>";
+    }
+}
+
+loadFooterHoraires();
+window.loadFooterHoraires = loadFooterHoraires;

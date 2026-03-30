@@ -26,6 +26,7 @@ export const allRoutes = [
   new Route("/edit-plat", "Modifier un plat", "./pages/admin/plat-form.html", ["ROLE_ADMIN", "ROLE_EMPLOYE"], "/js/admin/plat-form.js"),
   new Route("/forgot-password", "Mot de passe oublié", "./pages/auth/forgot-password.html", ["disconnected"], "/js/auth/forgot-password.js"),
   new Route("/reset-password", "Réinitialiser mot de passe", "./pages/auth/reset-password.html", [], "/js/auth/reset-password.js"),
+  new Route("/horaires-admin","Gestion des horaires","./pages/admin/horaires-admin.html",["ROLE_EMPLOYE", "ROLE_ADMIN"],"/js/admin/horaires-admin.js"),
 ];
 
 
