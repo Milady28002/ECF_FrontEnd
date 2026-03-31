@@ -72,20 +72,26 @@ const form = document.getElementById("create-employee-form");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("employee-email").value;
+  const lastname = document.getElementById("employee-lastname").value.trim();
+  const firstname = document.getElementById("employee-firstname").value.trim();
+  const email = document.getElementById("employee-email").value.trim();
   const password = document.getElementById("employee-password").value;
   const feedback = document.getElementById("create-employee-feedback");
 
   const token = getToken();
 
   try {
-    const response = await fetch(`${apiUrl}admin/employees`, {
+    const response = await fetch(`${apiUrl}admin/employees`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-AUTH-TOKEN": token
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ 
+        lastName: lastname,
+        firstName: firstname,
+        email, 
+        password })
     });
 
     const data = await response.json();
