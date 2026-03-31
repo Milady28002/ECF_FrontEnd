@@ -134,4 +134,19 @@ async function loadAccountInfos() {
   }
 }
 
+    const btnEmployes = document.getElementById("btn-employes");
+    const btnHoraires = document.getElementById("btn-horaires");
+
+    if (btnEmployes) {
+        btnEmployes.addEventListener("click", () => {
+            window.location.href = "#/admin/employes";
+        });
+    }
+
+    if (btnHoraires) {
+        btnHoraires.addEventListener("click", () => {
+            window.location.href = "#/admin/horaires";
+        });
+    }
+
 loadAccountInfos();
