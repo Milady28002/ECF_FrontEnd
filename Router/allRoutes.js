@@ -28,6 +28,7 @@ export const allRoutes = [
   new Route("/reset-password", "Réinitialiser mot de passe", "./pages/auth/reset-password.html", [], "/js/auth/reset-password.js"),
   new Route("/admin/horaires-admin","Gestion des horaires","./pages/admin/horaires-admin.html",["ROLE_EMPLOYE", "ROLE_ADMIN"],"/js/admin/horaires-admin.js"),
   new Route("/admin/employes", "Gestion employés", "./pages/admin/employes.html", ["ROLE_ADMIN"], "/js/admin/employes.js"),
+  new Route("/admin/stats", "Stats", "./pages/admin/stats.html", ["ROLE_ADMIN"], "/js/admin/stats.js"),
 ];
 
 

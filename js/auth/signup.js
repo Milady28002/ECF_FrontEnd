@@ -1,5 +1,6 @@
 const inputNom = document.getElementById("NomInput");
 const inputPrenom = document.getElementById("PrenomInput");
+const inputAdressePostale = document.getElementById("AdressePostaleInput");
 const inputTelephone = document.getElementById("TelephoneInput");
 const inputMail = document.getElementById("EmailInput");
 const inputPassword = document.getElementById("PasswordInput");
@@ -7,12 +8,11 @@ const inputValidationPassword = document.getElementById("ValidatePasswordInput")
 const btnValidation = document.getElementById("btn-validation-inscription");
 const formInscrition = document.getElementById("formulaireInscrition");
 
-// bouton désactivé au départ
 btnValidation.disabled = true;
 
-// écouteurs
 inputNom.addEventListener("keyup", validateForm);
 inputPrenom.addEventListener("keyup", validateForm);
+inputAdressePostale.addEventListener("keyup", validateForm);
 inputTelephone.addEventListener("keyup", validateForm);
 inputMail.addEventListener("keyup", validateForm);
 inputPassword.addEventListener("keyup", validateForm);
@@ -20,19 +20,19 @@ inputValidationPassword.addEventListener("keyup", validateForm);
 
 formInscrition.addEventListener("submit", inscrireUtilisateur);
 
-// Validation globale du formulaire
 function validateForm() {
     const nomOk = validateRequired(inputNom);
     const prenomOk = validateRequired(inputPrenom);
+    const adressePostaleOk = validateRequired(inputAdressePostale);
     const telephoneOk = validateRequired(inputTelephone);
     const mailOk = validateMail(inputMail);
     const passwordOk = validatePassword(inputPassword);
     const passwordConfirmOk = validateConfirmationPassword(inputPassword, inputValidationPassword);
 
-    btnValidation.disabled = !(nomOk && prenomOk && telephoneOk && mailOk && passwordOk && passwordConfirmOk);
+    btnValidation.disabled = !(nomOk && prenomOk && telephoneOk && adressePostaleOk && mailOk && passwordOk && passwordConfirmOk);
 
-    return nomOk && prenomOk && telephoneOk && mailOk && passwordOk && passwordConfirmOk;
-}
+    return nomOk && prenomOk && telephoneOk && adressePostaleOk && mailOk && passwordOk && passwordConfirmOk;
+    }
 
 function validateMail(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,7 +50,7 @@ function validateMail(input) {
 }
 
 function validatePassword(input) {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$/;
     const passwordUser = input.value;
 
     if (passwordRegex.test(passwordUser)) {
@@ -88,9 +88,9 @@ function validateRequired(input) {
     }
 }
 
-// Fetch inscription
 function inscrireUtilisateur(event) {
     event.preventDefault();
+    console.log("submit inscription déclenché");
 
     if (!validateForm()) {
         alert("Veuillez corriger le formulaire avant de continuer.");
@@ -100,12 +100,17 @@ function inscrireUtilisateur(event) {
     const dataForm = new FormData(formInscrition);
 
     const raw = JSON.stringify({
-        firstName: dataForm.get("prenom"),
-        lastName: dataForm.get("nom"),
+        name: dataForm.get("nom"),
+        firstname: dataForm.get("prenom"),
+        adresse_postale: dataForm.get("adresse_postale"),
         telephone: dataForm.get("telephone"),
         email: dataForm.get("email"),
         password: dataForm.get("mdp"),
+        ville: "",
+        pays: "",
     });
+
+    console.log("payload envoyé :", raw);
 
     fetch(apiUrl + "registration", {
         method: "POST",
@@ -116,6 +121,8 @@ function inscrireUtilisateur(event) {
     })
         .then(async (response) => {
             const result = await response.json();
+            console.log("status:", response.status);
+            console.log("réponse API:", result);
 
             if (!response.ok) {
                 throw new Error(result.message || "Erreur lors de l'inscription");
@@ -128,7 +135,7 @@ function inscrireUtilisateur(event) {
             document.location.href = "#/signin";
         })
         .catch((error) => {
-            console.error(error);
+            console.error("erreur inscription :", error);
             alert(error.message);
         });
 }

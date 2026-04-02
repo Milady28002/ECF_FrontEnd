@@ -1,5 +1,3 @@
-console.log("catalogue-menus.js chargé");
-
 async function loadMenus() {
   console.log("loadMenus lancé");
 
