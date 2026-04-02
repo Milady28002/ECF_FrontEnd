@@ -38,6 +38,18 @@ function formatDateForInput(dateString) {
   return date.toISOString().split("T")[0];
 }
 
+function formatDateTime(dateString) {
+  if (!dateString) return "Non renseignée";
+
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return dateString;
+
+  return date.toLocaleString("fr-FR", {
+    dateStyle: "short",
+    timeStyle: "short"
+  });
+}
+
 function formatPrice(amount) {
   return `${Number(amount).toFixed(2).replace(".", ",")} €`;
 }
@@ -119,6 +131,17 @@ function getStepLabel(step) {
   return labels[step] || step;
 }
 
+function canShowTracking(status) {
+  return [
+    "acceptee",
+    "en_preparation",
+    "en_livraison",
+    "livree",
+    "retour_materiel",
+    "terminee"
+  ].includes(status);
+}
+
 function renderStatusTimeline(currentStatus) {
   if (currentStatus === "annulee") {
     return `
@@ -147,6 +170,27 @@ function renderStatusTimeline(currentStatus) {
           </div>
         `;
       }).join("")}
+    </div>
+  `;
+}
+
+function renderHistoriqueStatuts(historiqueStatuts) {
+  if (!historiqueStatuts || historiqueStatuts.length === 0) {
+    return `<p class="mb-0">Aucun historique de statut disponible.</p>`;
+  }
+
+  return `
+    <div class="commande-history-list">
+      ${historiqueStatuts.map((item) => `
+        <div class="commande-history-item">
+          <div class="commande-history-status">
+            ${formatStatusLabel(item.nouveau_statut)}
+          </div>
+          <div class="commande-history-date">
+            ${formatDateTime(item.date_changement)}
+          </div>
+        </div>
+      `).join("")}
     </div>
   `;
 }
@@ -181,12 +225,35 @@ function renderAvisForm() {
         </div>
 
         <div class="commande-detail-actions mt-3">
-          <button type="submit" class="btn btn-primary">Envoyer mon avis</button>
+          <button type="submit" class="btn btn-primary" id="submit-avis-btn">Envoyer mon avis</button>
           <button type="button" class="btn btn-outline-secondary" id="cancel-avis-btn">Annuler</button>
         </div>
 
         <div id="avis-message" class="mt-3"></div>
       </form>
+    </div>
+  `;
+}
+
+function renderTrackingSection(commande) {
+  if (!canShowTracking(commande.statut)) {
+    return `
+      <div class="commande-detail-section">
+        <h2>Suivi de la commande</h2>
+        <p>Le suivi détaillé sera disponible une fois la commande acceptée.</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="commande-detail-section">
+      <h2>Suivi de la commande</h2>
+      ${renderStatusTimeline(commande.statut)}
+
+      <div class="mt-4">
+        <h3 class="h5">Historique des modifications</h3>
+        ${renderHistoriqueStatuts(commande.historique_statuts)}
+      </div>
     </div>
   `;
 }
@@ -255,10 +322,7 @@ function renderCommandeDetail(commande) {
         </div>
       </div>
 
-      <div class="commande-detail-section">
-        <h2>Suivi de la commande</h2>
-        ${renderStatusTimeline(commande.statut)}
-      </div>
+      ${renderTrackingSection(commande)}
 
       <div class="commande-detail-section">
         <h2>Informations client</h2>
@@ -451,6 +515,7 @@ function initAvisForm(commandeId) {
   const cancelButton = document.getElementById("cancel-avis-btn");
   const messageBox = document.getElementById("avis-message");
   const wrapper = document.getElementById("avis-form-wrapper");
+  const submitButton = document.getElementById("submit-avis-btn");
 
   if (!form || !messageBox || !wrapper) return;
 
@@ -482,6 +547,11 @@ function initAvisForm(commandeId) {
       return;
     }
 
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Envoi...";
+    }
+
     try {
       const response = await fetch("http://127.0.0.1:8000/api/avis", {
         method: "POST",
@@ -490,10 +560,10 @@ function initAvisForm(commandeId) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-        commande_numero: commandeId,
-        note: note,
-        description: commentaire
-      })
+          commande_numero: commandeId,
+          note: note,
+          description: commentaire
+        })
       });
 
       const data = await response.json().catch(() => null);
@@ -504,6 +574,11 @@ function initAvisForm(commandeId) {
             ${data?.message || data?.error || "Impossible d'envoyer l'avis."}
           </div>
         `;
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = "Envoyer mon avis";
+        }
         return;
       }
 
@@ -525,6 +600,11 @@ function initAvisForm(commandeId) {
           Une erreur réseau est survenue.
         </div>
       `;
+
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Envoyer mon avis";
+      }
     }
   });
 }
