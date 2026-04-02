@@ -151,6 +151,46 @@ function renderStatusTimeline(currentStatus) {
   `;
 }
 
+function renderAvisForm() {
+  return `
+    <div class="commande-detail-section" id="avis-section">
+      <h2>Laisser un avis</h2>
+
+      <form id="avis-form" class="commande-edit-form">
+        <div class="mb-3">
+          <label for="avis-note" class="form-label">Note</label>
+          <select id="avis-note" class="form-control" required>
+            <option value="">Choisir une note</option>
+            <option value="5">5 / 5</option>
+            <option value="4">4 / 5</option>
+            <option value="3">3 / 5</option>
+            <option value="2">2 / 5</option>
+            <option value="1">1 / 5</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="avis-commentaire" class="form-label">Commentaire</label>
+          <textarea
+            id="avis-commentaire"
+            class="form-control"
+            rows="5"
+            placeholder="Partagez votre expérience..."
+            required
+          ></textarea>
+        </div>
+
+        <div class="commande-detail-actions mt-3">
+          <button type="submit" class="btn btn-primary">Envoyer mon avis</button>
+          <button type="button" class="btn btn-outline-secondary" id="cancel-avis-btn">Annuler</button>
+        </div>
+
+        <div id="avis-message" class="mt-3"></div>
+      </form>
+    </div>
+  `;
+}
+
 function renderCommandeDetail(commande) {
   const container = document.getElementById("commande-detail-container");
   if (!container) return;
@@ -322,6 +362,20 @@ function renderCommandeDetail(commande) {
           : ""
       }
 
+      ${
+        commande.statut === "terminee" && commande.avis_deja_laisse
+          ? `
+            <div class="commande-detail-section">
+              <div class="alert alert-success mb-0" role="alert">
+                Merci, vous avez déjà laissé un avis pour cette commande.
+              </div>
+            </div>
+          `
+          : ""
+      }
+
+      <div id="avis-form-wrapper"></div>
+
       <div class="commande-detail-actions">
         <a href="#/mes-commandes" class="btn btn-outline-success">
           ← Retour à mes commandes
@@ -346,6 +400,16 @@ function renderCommandeDetail(commande) {
             `
             : ""
         }
+
+        ${
+          commande.statut === "terminee" && !commande.avis_deja_laisse
+            ? `
+              <button class="btn btn-primary" id="leave-review-btn">
+                Laisser un avis
+              </button>
+            `
+            : ""
+        }
       </div>
     </article>
   `;
@@ -357,6 +421,112 @@ function renderCommandeDetail(commande) {
   if (commande.statut === "en_attente") {
     initCancelButton(commande.numero_commande);
   }
+
+  if (commande.statut === "terminee" && !commande.avis_deja_laisse) {
+    initAvisButton(commande);
+  }
+}
+
+function initAvisButton(commande) {
+  const button = document.getElementById("leave-review-btn");
+  const wrapper = document.getElementById("avis-form-wrapper");
+
+  if (!button || !wrapper) return;
+
+  button.addEventListener("click", () => {
+    wrapper.innerHTML = renderAvisForm();
+    button.remove();
+
+    initAvisForm(commande.numero_commande);
+
+    const avisSection = document.getElementById("avis-section");
+    if (avisSection) {
+      avisSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+}
+
+function initAvisForm(commandeId) {
+  const form = document.getElementById("avis-form");
+  const cancelButton = document.getElementById("cancel-avis-btn");
+  const messageBox = document.getElementById("avis-message");
+  const wrapper = document.getElementById("avis-form-wrapper");
+
+  if (!form || !messageBox || !wrapper) return;
+
+  if (cancelButton) {
+    cancelButton.addEventListener("click", () => {
+      wrapper.innerHTML = "";
+      loadCommandeDetail();
+    });
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const token = getTokenSafe();
+    if (!token) {
+      window.location.hash = "#/signin";
+      return;
+    }
+
+    const note = Number(document.getElementById("avis-note")?.value);
+    const commentaire = document.getElementById("avis-commentaire")?.value.trim();
+
+    if (!note || !commentaire) {
+      messageBox.innerHTML = `
+        <div class="alert alert-danger" role="alert">
+          Tous les champs sont obligatoires.
+        </div>
+      `;
+      return;
+    }
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/avis", {
+        method: "POST",
+        headers: {
+          "X-AUTH-TOKEN": token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+        commande_numero: commandeId,
+        note: note,
+        description: commentaire
+      })
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        messageBox.innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            ${data?.message || data?.error || "Impossible d'envoyer l'avis."}
+          </div>
+        `;
+        return;
+      }
+
+      messageBox.innerHTML = `
+        <div class="alert alert-success" role="alert">
+          Merci, votre avis a bien été envoyé.
+        </div>
+      `;
+
+      setTimeout(() => {
+        loadCommandeDetail();
+      }, 1200);
+
+    } catch (error) {
+      console.error("Erreur envoi avis :", error);
+
+      messageBox.innerHTML = `
+        <div class="alert alert-danger" role="alert">
+          Une erreur réseau est survenue.
+        </div>
+      `;
+    }
+  });
 }
 
 async function loadCommandeDetail() {
@@ -416,6 +586,7 @@ async function loadCommandeDetail() {
     container.innerHTML = `<p>Une erreur est survenue.</p>`;
   }
 }
+
 function initEditForm(commandeId) {
   const form = document.getElementById("edit-commande-form");
   if (!form) return;
