@@ -27,7 +27,7 @@ function renderAvis(avisList) {
     return;
   }
 
-  const avisToShow = avisList.slice(0, 3);
+  const avisToShow = avisList.slice(0, 2);
 
   container.innerHTML = avisToShow.map((avis) => `
     <article class="avis-card">

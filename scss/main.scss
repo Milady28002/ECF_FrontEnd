@@ -259,72 +259,6 @@ footer.footer {
   background-image: url("../assets/table-menus.jpg");
 }
 
-.sandwiches_card {
-  position: absolute;
-  top: 50%;
-  left: 29%;
-  transform: translate(-50%, -50%);
-  width: min(540px, 88%);
-  padding: 42px 38px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(163, 220, 94, 0.18);
-  border-radius: 36px;
-  color: #333;
-  text-align: center;
-  z-index: 10;
-  isolation: isolate;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
-}
-
-.sandwiches_card h1,
-.sandwiches_card h2,
-.sandwiches_card h3 {
-  color: #1f1f1f;
-  font-family: var(--font-ui);
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-}
-
-.sandwiches_card p {
-  color: #2f2f2f;
-  font-size: 1.08rem;
-  line-height: 1.75;
-  margin-bottom: 1.1rem;
-}
-
-.sandwiches_cta {
-  position: absolute;
-  bottom: 34px;
-  left: 29%;
-  transform: translateX(-50%);
-  z-index: 11;
-  font-family: var(--font-ui);
-}
-
-.sandwiches_cta .btn,
-.sandwiches_cta.btn,
-.sandwiches_cta a {
-  border-radius: 999px;
-  padding: 10px 26px;
-  font-weight: 600;
-  box-shadow: 0 6px 20px rgba(163, 220, 94, 0.4);
-}
-
-@media (max-width: 768px) {
-  .sandwiches_card,
-  .engagements_card {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 24px auto;
-    width: 90%;
-    border-radius: 32px;
-  }
-}
-
 
 .section-galerie {
   position: relative;
@@ -2030,25 +1964,7 @@ footer.footer {
   margin-bottom: 0.75rem;
 }
 
-.intro-avis-layout {
-  position: relative;
-  z-index: 5;
-  display: grid;
-  grid-template-columns: minmax(320px, 1fr) 430px;
-  gap: 56px;
-  align-items: center;
-  min-height: 520px;
-  width: 100%;
-  padding: 70px 70px 90px;
-}
 
-.avis-side-block {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center;
-  max-width: 430px;
-}
 
 .avis-title {
   margin: 0 0 22px;
@@ -2138,38 +2054,6 @@ footer.footer {
   font-size: 1rem;
 }
 
-@media (max-width: 1100px) {
-  .intro-avis-layout {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 42px 22px 80px;
-  }
-
-  .sandwiches_card {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  .sandwiches_cta {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    transform: none;
-    margin: 18px auto 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .avis-side-block {
-    max-width: 760px;
-    width: 100%;
-    margin: 0 auto;
-  }
 
   .avis-title {
     text-align: center;
@@ -2180,18 +2064,7 @@ footer.footer {
   .avis-card:nth-child(3) {
     margin-left: 0;
   }
-}
 
-@media (max-width: 768px) {
-  .sandwiches_card {
-    padding: 28px 22px;
-    border-radius: 26px;
-  }
-
-  .sandwiches_card p {
-    font-size: 1rem;
-    line-height: 1.65;
-  }
 
   .avis-title {
     font-size: 2rem;
@@ -2207,7 +2080,7 @@ footer.footer {
     align-items: flex-start;
     gap: 6px;
   }
-}
+
 
 .section-horaires-admin h1 {
   margin-bottom: 0.5rem;
@@ -2270,4 +2143,208 @@ footer.footer {
 .commande-history-date {
   color: #4b5563;
   font-size: 0.95rem;
+}
+
+.home-hero {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 760px;
+  width: 100%;
+  background-image: url("../assets/sandwiches.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(20, 20, 20, 0.56) 0%,
+    rgba(20, 20, 20, 0.28) 42%,
+    rgba(20, 20, 20, 0.48) 100%
+  );
+  z-index: 1;
+}
+
+.home-hero-centered {
+  position: relative;
+  min-height: 760px;
+  width: 100%;
+  background-image: url("../assets/sandwiches.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 15, 15, 0.48) 0%,
+    rgba(15, 15, 15, 0.28) 42%,
+    rgba(15, 15, 15, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+.home-hero-content {
+  position: relative;
+  z-index: 2;
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+}
+
+.home-centered-wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 0 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.home-presentation-card-centered {
+  max-width: 760px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(163, 220, 94, 0.16);
+  border-radius: 34px;
+  padding: 42px 40px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(8px);
+  text-align: center;
+}
+
+.home-kicker {
+  margin-bottom: 0.85rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7bbd2f;
+  font-family: var(--font-ui);
+}
+
+.home-presentation-card-centered h1 {
+  margin-bottom: 1.2rem;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  line-height: 1.03;
+  font-weight: 700;
+  color: #1d1d1d;
+  font-family: var(--font-ui);
+}
+
+.home-lead {
+  font-size: 1.18rem;
+  line-height: 1.7;
+  color: #2e2e2e;
+  margin-bottom: 1rem;
+}
+
+.home-text {
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: #474747;
+  margin-bottom: 1.6rem;
+}
+
+.home-cta-group-centered {
+  justify-content: center;
+  display: flex;
+}
+
+.home-cta-btn {
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(163, 220, 94, 0.35);
+}
+
+.home-avis-row {
+  width: 100%;
+  max-width: 980px;
+}
+
+.avis-title-centered {
+  text-align: center;
+  margin: 0 0 18px;
+  color: #a3dc5e;
+  font-size: 2rem;
+  line-height: 1.05;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.avis-list-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.avis-card {
+  background: rgba(255, 252, 247, 0.97);
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(163, 220, 94, 0.14);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.avis-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+}
+
+.avis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.avis-user {
+  font-size: 1rem;
+}
+
+.avis-date {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.avis-stars {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+}
+
+.avis-comment {
+  margin: 0;
+  font-style: italic;
+  color: #3a3a3a;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .home-presentation-card-centered {
+    padding: 30px 22px;
+    border-radius: 24px;
+  }
+
+  .avis-list-row {
+    grid-template-columns: 1fr;
+  }
 }
