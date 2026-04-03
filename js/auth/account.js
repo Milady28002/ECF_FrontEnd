@@ -61,6 +61,12 @@ function renderAccountActions(role) {
         Gérer les plats
       </a>
     `);
+
+    actions.push(`
+      <a href="#/admin/horaires-admin" class="btn btn-success account-action-btn">
+        Modifier les horaires
+      </a>
+    `);
   }
 
   if (role === "ROLE_ADMIN") {
@@ -393,7 +399,7 @@ if (btnEmployes) {
 
 if (btnHoraires) {
   btnHoraires.addEventListener("click", () => {
-    window.location.href = "#/admin/horaires";
+    window.location.href = "#/admin/horaires-admin";
   });
 }
 

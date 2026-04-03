@@ -61,7 +61,7 @@ function formatStatusLabel(status) {
     en_preparation: "En préparation",
     en_livraison: "En livraison",
     livree: "Livrée",
-    retour_materiel: "Retour matériel",
+    retour_materiel: "En attente du retour de matériel",
     terminee: "Terminée",
     annulee: "Annulée"
   };
@@ -124,7 +124,7 @@ function getStepLabel(step) {
     en_preparation: "En préparation",
     en_livraison: "En cours de livraison",
     livree: "Livrée",
-    retour_materiel: "Retour matériel",
+    retour_materiel: "En attente du retour de matériel",
     terminee: "Terminée"
   };
 

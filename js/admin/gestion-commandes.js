@@ -45,7 +45,7 @@ function formatStatusLabel(status) {
     en_preparation: "En préparation",
     en_livraison: "En livraison",
     livree: "Livrée",
-    retour_materiel: "Retour matériel",
+    retour_materiel: "En attente du retour de matériel",
     terminee: "Terminée",
     annulee: "Annulée"
   };
