@@ -75,6 +75,7 @@ L'application nécessite que le backend Symfony soit lancé pour fonctionner cor
 --- 
 
 ## Comptes de test
+
 -	Utilisateur :
 email : dana.scully@user.com
 mot de passe : Azerty@123
@@ -90,6 +91,7 @@ mot de passe : Admin123!
 ---
 
 ## Accessibilité
+
 L’interface a été développée en intégrant des bonnes pratiques d’accessibilité :
 - Structure HTML sémantique 
 - Hiérarchie des titres respectée 
@@ -102,10 +104,12 @@ L’interface a été développée en intégrant des bonnes pratiques d’access
 ---
 
 ## Sécurité (côté frontend)
+
 - Gestion des rôles utilisateur 
 - Protection des routes selon authentification 
 - Redirection automatique en cas d’accès non autorisé 
 - Gestion des tokens d’authentification
+
 
 ## 👩‍💻 Autrice
 Projet réalisé par Sylvie Mendez alias Milady
