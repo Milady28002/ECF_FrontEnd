@@ -1,30 +1,41 @@
 <section class="section-menus">
   <div class="container">
+    <h1 class="menus-title">Nos menus</h1>
+    <fieldset class="menus-filters mb-4">
+      <legend class="menus-filters-title">Filtrer les menus</legend>
 
-    <h2 class="menus-filters-title">Filtrer les menus</h2>
+      <label for="prixMin">Prix minimum</label>
+      <input type="number" id="prixMin" placeholder="Ex : 10">
 
-  <div class="menus-filters mb-4">
-    <input type="number" id="prixMin" placeholder="Prix minimum">
-    <input type="number" id="prixMax" placeholder="Prix maximum">
+      <label for="prixMax">Prix maximum</label>
+      <input type="number" id="prixMax" placeholder="Ex : 50">
 
-  <select id="theme">
-    <option value="">Tous les thèmes</option>
-    <option value="Classique">Classique</option>
-    <option value="Noel / Paques">Noel / Paques</option>
-    <option value="Evenement">Evenement</option>
-  </select>
+      <label for="theme">Thème</label>
+      <select id="theme">
+        <option value="">Tous les thèmes</option>
+        <option value="Classique">Classique</option>
+        <option value="Noel / Paques">Noël / Pâques</option>
+        <option value="Evenement">Événement</option>
+      </select>
 
-  <select id="regime">
-    <option value="">Tous les régimes</option>
-    <option value="Standard">🩵 Standard</option>
-    <option value="Vegetarien">💛 Végétarien</option>
-    <option value="Vegan">💚 Vegan</option>
-  </select>
+      <label for="regime">Régime</label>
+      <select id="regime">
+        <option value="">Tous les régimes</option>
+        <option value="Standard">Standard</option>
+        <option value="Vegetarien">Végétarien</option>
+        <option value="Vegan">Vegan</option>
+      </select>
 
-  <input type="number" id="personnesMin" placeholder="Nombre minimum de personnes">
-  <button id="resetFilters" class="btn btn-outline-secondary">Réinitialiser</button>
+      <label for="personnesMin">Nombre minimum de personnes</label>
+      <input type="number" id="personnesMin" placeholder="Ex : 5">
+
+      <button type="button" id="resetFilters" class="btn btn-outline-secondary">
+        Réinitialiser
+      </button>
+
+    </fieldset>
+
+    <section id="menus-container" aria-live="polite"></section>
+
   </div>
-
-  <section id="menus-container"></section>
-</div>
 </section>

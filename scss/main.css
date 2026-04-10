@@ -14318,4 +14318,30 @@ footer.footer {
   .avis-list-row {
     grid-template-columns: 1fr;
   }
+}
+:focus {
+  outline: 2px solid #6f00ff;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #fff;
+  color: #000;
+  padding: 8px 12px;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.contact-title {
+  font-family: "Righteous", sans-serif;
+}
+
+.contact-title span {
+  display: block;
 }/*# sourceMappingURL=main.css.map */

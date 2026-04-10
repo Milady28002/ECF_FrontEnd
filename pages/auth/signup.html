@@ -8,62 +8,116 @@
         <div class="card signup-card border-0">
           <div class="card-body p-2 p-md-3">
 
-            <h1 class="text-center mb-4">Inscription</h1>
+            <h1 id="signup-title" class="text-center mb-4">Inscription</h1>
 
-            <form id="formulaireInscrition" aria-label="Formulaire d'inscription" >
+            <form id="formulaireInscription" aria-labelledby="signup-title">
               <div class="mb-3">
                 <label for="NomInput" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="NomInput" placeholder="Votre nom" name="nom">
-                  <div class="invalid-feedback">
-                  Le nom est requis
+                <input
+                  type="text"
+                  class="form-control"
+                  id="NomInput"
+                  name="nom"
+                  placeholder="Votre nom"
+                  autocomplete="family-name"
+                  required
+                >
+                <div class="invalid-feedback">
+                  Le nom est requis.
                 </div>
               </div>
 
               <div class="mb-3">
                 <label for="PrenomInput" class="form-label">Prénom</label>
-                <input type="text" class="form-control" id="PrenomInput" placeholder="Votre prénom" name="prenom">
-                  <div class="invalid-feedback">
-                  Le prénom est requis
+                <input
+                  type="text"
+                  class="form-control"
+                  id="PrenomInput"
+                  name="prenom"
+                  placeholder="Votre prénom"
+                  autocomplete="given-name"
+                  required
+                >
+                <div class="invalid-feedback">
+                  Le prénom est requis.
                 </div>
               </div>
 
               <div class="mb-3">
                 <label for="AdressePostaleInput" class="form-label">Adresse postale</label>
-                <input type="text" class="form-control" id="AdressePostaleInput" name="adresse_postale" required>
-            </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="AdressePostaleInput"
+                  name="adresse_postale"
+                  autocomplete="street-address"
+                  required
+                >
+              </div>
 
-            <div class="mb-3">
+              <div class="mb-3">
                 <label for="TelephoneInput" class="form-label">Téléphone</label>
-                <input type="tel" class="form-control" id="TelephoneInput" placeholder="Votre n° de téléphone" name="telephone">
-                  <div class="invalid-feedback">
-                  Le n° de téléphone est requis
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="TelephoneInput"
+                  name="telephone"
+                  placeholder="Votre n° de téléphone"
+                  autocomplete="tel"
+                  required
+                >
+                <div class="invalid-feedback">
+                  Le numéro de téléphone est requis.
                 </div>
               </div>
 
               <div class="mb-3">
-                <label for="EmailInput" class="form-label">Email</label>
-                <input type="email" class="form-control" id="EmailInput" placeholder="test@mail.fr" name="email">
+                <label for="EmailInput" class="form-label">Adresse e-mail</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="EmailInput"
+                  name="email"
+                  placeholder="test@mail.fr"
+                  autocomplete="email"
+                  required
+                >
                 <div class="invalid-feedback">
-                  Le mail n'est pas au bon format
+                  Le mail n'est pas au bon format.
                 </div>
               </div>
 
               <div class="mb-3">
                 <label for="PasswordInput" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="PasswordInput" name="mdp">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="PasswordInput"
+                  name="password"
+                  autocomplete="new-password"
+                  required
+                >
                 <div class="invalid-feedback">
-                  Mot de passe pas assez robuste : Au moins 8 caractères, avec au moins 1 majusccule, 1 minuscule, 1 chiffre et 1 caractère spécial
+                  Le mot de passe doit contenir au moins 10 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial.
                 </div>
               </div>
 
               <div class="mb-3">
                 <label for="ValidatePasswordInput" class="form-label">Confirmez votre mot de passe</label>
-                <input type="password" class="form-control" id="ValidatePasswordInput">
-                 <div class="invalid-feedback">
-                  La confirmation n'est pas identique au mot de passe saisi
+                <input
+                  type="password"
+                  class="form-control"
+                  id="ValidatePasswordInput"
+                  name="confirm_password"
+                  autocomplete="new-password"
+                  required
+                >
+                <div class="invalid-feedback">
+                  La confirmation doit être identique au mot de passe saisi.
                 </div>
-                
               </div>
+
+              <p id="signup-message" class="text-center mt-3" aria-live="polite"></p>
 
               <div class="text-center">
                 <button type="submit" class="btn btn-primary" id="btn-validation-inscription">

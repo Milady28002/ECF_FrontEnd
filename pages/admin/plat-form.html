@@ -11,7 +11,7 @@
       </div>
 
       <a href="#/gestion-plats" class="btn btn-outline-secondary">
-        ← Retour
+        ← Retour à la liste des plats
       </a>
     </div>
 
@@ -25,6 +25,7 @@
             <input
               type="text"
               id="titre"
+              name="titre"
               class="form-control"
               placeholder="Ex : Velouté de légumes"
               required
@@ -41,10 +42,11 @@
           </div>
 
           <div class="col-12">
-            <label for="image" class="form-label">URL de l’image</label>
+            <label for="image" class="form-label">URL de l’image du plat</label>
             <input
               type="text"
               id="image"
+              name="image"
               class="form-control"
               placeholder="/assets/images/menus/mon-image.jpg"
             >
@@ -53,7 +55,7 @@
           <div class="col-12">
             <label class="form-label">Aperçu</label>
             <div class="plat-image-preview">
-              <img id="preview-image" src="" alt="Aperçu image" />
+              <img id="preview-image" src="" alt="" />
             </div>
           </div>
 

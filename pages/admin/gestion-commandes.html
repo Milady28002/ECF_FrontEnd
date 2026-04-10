@@ -11,7 +11,7 @@
     </div>
 
     <div class="commandes-toolbar">
-      <div class="commandes-filter">
+      <div class="commandes-filter mb-3">
         <label for="filter-statut" class="form-label">Filtrer par statut</label>
         <select id="filter-statut" class="form-select">
           <option value="">Tous les statuts</option>
@@ -25,20 +25,23 @@
           <option value="annulee">Annulée</option>
         </select>
       </div>
+
       <div class="mb-3">
-      <label for="filter-client" class="form-label">Rechercher un client</label>
-      <input
-        type="text"
-        id="filter-client"
-        class="form-control"
-        placeholder="Nom, prénom ou email"
-      >
-    </div>
+        <label for="filter-client" class="form-label">Rechercher un client</label>
+        <input
+          type="text"
+          id="filter-client"
+          class="form-control"
+          placeholder="Nom, prénom ou email"
+        >
+      </div>
     </div>
 
-    <div id="commandes-container" class="commandes-grid"></div>
+    <div id="commandes-container" class="commandes-grid" aria-live="polite"></div>
   </div>
-  <section class="section-avis-moderation mt-5">
+</section>
+
+<section class="section-avis-moderation mt-5">
   <div class="container">
     <div class="commandes-header">
       <div>
@@ -50,7 +53,6 @@
       </div>
     </div>
 
-    <div id="avis-container" class="commandes-grid"></div>
+    <div id="avis-container" class="commandes-grid" aria-live="polite"></div>
   </div>
-</section>
 </section>
