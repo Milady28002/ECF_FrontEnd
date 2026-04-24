@@ -1,0 +1,72 @@
+<section class="container py-4">
+  <h1>Statistiques</h1>
+  <p class="text-muted small">
+  Les statistiques sont calculées selon les filtres sélectionnés (menu, période, statut).
+</p>
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <select id="statutFilter" class="form-select">
+      <option value="hors_annulees">Commandes actives</option>
+      <option value="annulees">Commandes annulées</option>
+      <option value="toutes">Toutes les commandes</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <select id="menuFilter" class="form-select">
+      <option value="">Tous les menus</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <input type="date" id="dateDebut" class="form-control">
+  </div>
+
+  <div class="col-md-2">
+    <input type="date" id="dateFin" class="form-control">
+  </div>
+
+  <div class="col-md-2">
+    <button id="btnLoadStats" class="btn btn-primary w-100">Filtrer</button>
+  </div>
+</div>
+
+ <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Menu</th>
+        <th>Nombre de commandes</th>
+        <th>Chiffre d'affaires (€)</th>
+      </tr>
+    </thead>
+    <tbody id="statsTable">
+      <tr><td colspan="3">Chargement...</td></tr>
+    </tbody>
+  </table>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="h4 mb-3">Graphique du chiffre d'affaires par menu</h2>
+    <div class="stats-chart-wrapper">
+      <canvas id="statsChart"></canvas>
+    </div>
+  </div>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="h4 mb-3">Graphique du nombre de commandes par menu</h2>
+    <div class="stats-chart-wrapper">
+      <canvas id="statsCountChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="h4 mb-3">Évolution du chiffre d'affaires dans le temps</h2>
+    <div class="stats-chart-wrapper">
+      <canvas id="statsEvolutionChart"></canvas>
+    </div>
+  </div>
+</div>
+</section>

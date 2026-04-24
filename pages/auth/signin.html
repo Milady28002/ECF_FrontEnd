@@ -1,5 +1,5 @@
 <section class="signin-hero d-flex align-items-center">
-  <div class="signin-hero__overlay"></div>
+  <div class="signin-hero_overlay"></div>
 
   <div class="container position-relative">
     <div class="row justify-content-center">
@@ -8,38 +8,54 @@
         <div class="card signin-card border-0">
           <div class="card-body p-4 p-md-5">
 
-            <h1 class="text-center mb-4">Connexion</h1>
+            <h1 id="signin-title" class="text-center mb-4">Connexion</h1>
 
-            <form id="signinForm" aria-label="Formulaire de connexion">
+            <form id="signinForm" aria-labelledby="signin-title">
               <div class="mb-3">
                 <label for="EmailInput" class="form-label">Email</label>
-                <input type="email" class="form-control" id="EmailInput" placeholder="email@mail.fr" name="email" required> 
-                  <div class="invalid-feedback">
-                    Le mail et le mot de passe ne correspondent pas
-
+                <input
+                  type="email"
+                  class="form-control"
+                  id="EmailInput"
+                  name="email"
+                  placeholder="email@mail.fr"
+                  autocomplete="email"
+                  required
+                >
+                <div class="invalid-feedback">
+                  Le mail et le mot de passe ne correspondent pas
                 </div>
               </div>
 
               <div class="mb-3">
                 <label for="PasswordInput" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" id="PasswordInput" name="mdp" required>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="PasswordInput"
+                  name="mdp"
+                  autocomplete="current-password"
+                  required
+                >
               </div>
 
+              <p id="signin-error" class="text-danger text-center mt-2" aria-live="polite"></p>
+
               <div class="text-center mt-2 mb-3">
-                <a href="/modifPassword" onclick="route()" class="signin-link-light small">
+                <a href="#/forgot-password" onclick="route()" class="signin-link-light small">
                   Mot de passe oublié ?
                 </a>
               </div>
 
               <div class="text-center">
                 <button type="button" class="btn btn-primary" id="btnSignin">
-                  Valider
+                  Se connecter
                 </button>
               </div>
             </form>
 
             <div class="text-center pt-3">
-              <a href="/signup" onclick="route()" class="signin-link-light">
+              <a href="#/signup" onclick="route()" class="signin-link-light">
                 Vous n’avez pas de compte ? Inscrivez-vous ici !
               </a>
             </div>

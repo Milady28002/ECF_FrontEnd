@@ -1,5 +1,6 @@
 const inputNom = document.getElementById("NomInput");
 const inputPrenom = document.getElementById("PrenomInput");
+const inputAdressePostale = document.getElementById("AdressePostaleInput");
 const inputTelephone = document.getElementById("TelephoneInput");
 const inputMail = document.getElementById("EmailInput");
 const inputPassword = document.getElementById("PasswordInput");
@@ -7,141 +8,134 @@ const inputValidationPassword = document.getElementById("ValidatePasswordInput")
 const btnValidation = document.getElementById("btn-validation-inscription");
 const formInscrition = document.getElementById("formulaireInscrition");
 
-inputNom.addEventListener("keyup", validateForm); 
+btnValidation.disabled = true;
+
+inputNom.addEventListener("keyup", validateForm);
 inputPrenom.addEventListener("keyup", validateForm);
+inputAdressePostale.addEventListener("keyup", validateForm);
 inputTelephone.addEventListener("keyup", validateForm);
 inputMail.addEventListener("keyup", validateForm);
 inputPassword.addEventListener("keyup", validateForm);
 inputValidationPassword.addEventListener("keyup", validateForm);
 
-btnValidation.addEventListener("click", InscrireUtilisateur);
+formInscrition.addEventListener("submit", inscrireUtilisateur);
 
-
-//Function permettant de valider tout le formulaire
-function validateForm(){
+function validateForm() {
     const nomOk = validateRequired(inputNom);
     const prenomOk = validateRequired(inputPrenom);
+    const adressePostaleOk = validateRequired(inputAdressePostale);
     const telephoneOk = validateRequired(inputTelephone);
     const mailOk = validateMail(inputMail);
     const passwordOk = validatePassword(inputPassword);
     const passwordConfirmOk = validateConfirmationPassword(inputPassword, inputValidationPassword);
 
-    if(nomOk && prenomOk && telephoneOk && mailOk && passwordOk && passwordConfirmOk) {
-        btnValidation.disabled = false;
+    btnValidation.disabled = !(nomOk && prenomOk && telephoneOk && adressePostaleOk && mailOk && passwordOk && passwordConfirmOk);
+
+    return nomOk && prenomOk && telephoneOk && adressePostaleOk && mailOk && passwordOk && passwordConfirmOk;
     }
-    else {
-        btnValidation.disabled=true;
-    }
-}
 
-
-
-function validateMail(input){
+function validateMail(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const mailUser = input.value;
-    if(mailUser.match(emailRegex)){
+    const mailUser = input.value.trim();
+
+    if (emailRegex.test(mailUser)) {
         input.classList.add("is-valid");
-        input.classList.remove("is-invalid"); 
+        input.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         return false;
     }
 }
 
-function validateConfirmationPassword(inputPwd, inputConfirmPwd){
-    if(inputPwd.value == inputConfirmPwd.value){
-        inputConfirmPwd.classList.add("is-valid");
-        inputConfirmPwd.classList.remove("is-invalid");
-        return true;
-    }
-    else{
-        inputConfirmPwd.classList.add("is-invalid");
-        inputConfirmPwd.classList.remove("is-valid");
-        return false;
-    }
-}
-
-function validatePassword(input){
-    //Définir mon regex
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+function validatePassword(input) {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$/;
     const passwordUser = input.value;
-    if(passwordUser.match(passwordRegex)){
+
+    if (passwordRegex.test(passwordUser)) {
         input.classList.add("is-valid");
-        input.classList.remove("is-invalid"); 
+        input.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         return false;
     }
 }
 
-function validateConfirmationPassword(inputPwd, inputConfirmPwd){
-    if(inputPwd.value == inputConfirmPwd.value){
+function validateConfirmationPassword(inputPwd, inputConfirmPwd) {
+    if (inputPwd.value === inputConfirmPwd.value && inputConfirmPwd.value !== "") {
         inputConfirmPwd.classList.add("is-valid");
         inputConfirmPwd.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         inputConfirmPwd.classList.add("is-invalid");
         inputConfirmPwd.classList.remove("is-valid");
         return false;
     }
 }
 
-
-function validateRequired(input){
-    if(input.value != ''){
+function validateRequired(input) {
+    if (input.value.trim() !== "") {
         input.classList.add("is-valid");
-        input.classList.remove("is-invalid"); 
+        input.classList.remove("is-invalid");
         return true;
-    }
-    else{
+    } else {
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         return false;
     }
 }
 
-//fetch
-function InscrireUtilisateur() {
-    let dataForm = new FormData(formInscrition);
+function inscrireUtilisateur(event) {
+    event.preventDefault();
+    console.log("submit inscription déclenché");
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    if (!validateForm()) {
+        alert("Veuillez corriger le formulaire avant de continuer.");
+        return;
+    }
 
-    let raw = JSON.stringify({
-        "firstName": dataForm.get("nom"),
-        "lastName": dataForm.get("prenom"),
-        "telephone" : dataForm.get("telephone"),
-        "email": dataForm.get("email"),
-        "password": dataForm.get("mdp"),
+    const dataForm = new FormData(formInscrition);
+
+    const raw = JSON.stringify({
+        name: dataForm.get("nom"),
+        firstname: dataForm.get("prenom"),
+        adresse_postale: dataForm.get("adresse_postale"),
+        telephone: dataForm.get("telephone"),
+        email: dataForm.get("email"),
+        password: dataForm.get("mdp"),
+        ville: "",
+        pays: "",
     });
 
-    let requestOptions = {
+    console.log("payload envoyé :", raw);
+
+    fetch(apiUrl + "registration", {
         method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: raw
+    })
+        .then(async (response) => {
+            const result = await response.json();
+            console.log("status:", response.status);
+            console.log("réponse API:", result);
 
-fetch(apiUrl+"registration", requestOptions)
-  .then(response => {
-        if(response.ok){
-            return response.json();
-        }
-        else{
-            alert("Erreur lors de l'inscription");
-        }
-  })
-  .then(result => {
-        alert("Bravo "+dataForm.get("prenom")+", vous êtes maintenant inscrit, vous pouvez vous connecter !");
-        document.location.href="/signin";
-  })
+            if (!response.ok) {
+                throw new Error(result.message || "Erreur lors de l'inscription");
+            }
 
-  .catch((error) => console.error(error));
+            return result;
+        })
+        .then(() => {
+            alert("Bravo " + dataForm.get("prenom") + ", vous êtes maintenant inscrit(e), vous pouvez vous connecter !");
+            document.location.href = "#/signin";
+        })
+        .catch((error) => {
+            console.error("erreur inscription :", error);
+            alert(error.message);
+        });
 }

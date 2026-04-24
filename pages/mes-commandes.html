@@ -1,0 +1,22 @@
+<section class="section-mes-commandes">
+  <div class="container py-5">
+    <div class="mes-commandes-header text-center mb-5">
+      <h1>Mes commandes</h1>
+      <p class="mes-commandes-subtitle">
+        Retrouvez ici le détail, le suivi et les actions disponibles sur vos commandes.
+      </p>
+
+      <a href="#/catalogue-menus" class="btn btn-primary mt-3" onclick="route()">
+        Commander un menu
+      </a>
+    </div>
+
+    <div
+      id="orders-container"
+      class="orders-grid"
+      aria-live="polite"
+      role="region"
+      aria-label="Liste des commandes"
+    ></div>
+  </div>
+</section>

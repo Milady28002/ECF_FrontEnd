@@ -1,0 +1,78 @@
+<section class="section-admin-plat-form">
+  <div class="container py-4">
+
+    <div class="admin-page-header">
+      <div>
+        <p class="admin-page-label">Espace employé / administrateur</p>
+        <h1 id="plat-form-title">Créer un plat</h1>
+        <p class="admin-page-subtitle">
+          Ajoutez ou modifiez un plat du catalogue.
+        </p>
+      </div>
+
+      <a href="#/gestion-plats" class="btn btn-outline-secondary">
+        ← Retour à la liste des plats
+      </a>
+    </div>
+
+    <div class="plat-form-card">
+      <form id="plat-form">
+
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <label for="titre" class="form-label">Titre du plat</label>
+            <input
+              type="text"
+              id="titre"
+              name="titre"
+              class="form-control"
+              placeholder="Ex : Velouté de légumes"
+              required
+            >
+          </div>
+
+          <div class="col-md-6">
+            <label for="type" class="form-label">Type de plat</label>
+            <select id="type" class="form-select" required>
+              <option value="1">Entrée</option>
+              <option value="2">Plat</option>
+              <option value="3">Dessert</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label for="image" class="form-label">URL de l’image du plat</label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              class="form-control"
+              placeholder="/assets/images/menus/mon-image.jpg"
+            >
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Aperçu</label>
+            <div class="plat-image-preview">
+              <img id="preview-image" src="" alt="" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="plat-form-actions mt-4">
+          <button type="submit" class="btn btn-success">
+            Enregistrer
+          </button>
+
+          <a href="#/gestion-plats" class="btn btn-outline-secondary">
+            Annuler
+          </a>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>

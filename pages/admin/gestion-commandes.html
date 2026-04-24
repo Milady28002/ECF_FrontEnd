@@ -1,0 +1,58 @@
+<section class="section-commandes">
+  <div class="container py-4">
+    <div class="commandes-header">
+      <div>
+        <p class="commandes-label">Espace employé / administrateur</p>
+        <h1>Gestion des commandes</h1>
+        <p class="commandes-subtitle">
+          Suivez, mettez à jour et annulez les commandes clients.
+        </p>
+      </div>
+    </div>
+
+    <div class="commandes-toolbar">
+      <div class="commandes-filter mb-3">
+        <label for="filter-statut" class="form-label">Filtrer par statut</label>
+        <select id="filter-statut" class="form-select">
+          <option value="">Tous les statuts</option>
+          <option value="en_attente">En attente</option>
+          <option value="acceptee">Acceptée</option>
+          <option value="en_preparation">En préparation</option>
+          <option value="en_livraison">En livraison</option>
+          <option value="livree">Livrée</option>
+          <option value="retour_materiel">Retour matériel</option>
+          <option value="terminee">Terminée</option>
+          <option value="annulee">Annulée</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="filter-client" class="form-label">Rechercher un client</label>
+        <input
+          type="text"
+          id="filter-client"
+          class="form-control"
+          placeholder="Nom, prénom ou email"
+        >
+      </div>
+    </div>
+
+    <div id="commandes-container" class="commandes-grid" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="section-avis-moderation mt-5">
+  <div class="container">
+    <div class="commandes-header">
+      <div>
+        <p class="commandes-label">Espace employé / administrateur</p>
+        <h2>Avis à modérer</h2>
+        <p class="commandes-subtitle">
+          Validez ou refusez les avis laissés par les clients.
+        </p>
+      </div>
+    </div>
+
+    <div id="avis-container" class="commandes-grid" aria-live="polite"></div>
+  </div>
+</section>

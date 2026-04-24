@@ -1,103 +1,116 @@
-# Vite & Gourmand – Frontend (Projet ECF)
+# Vite & Gourmand - Frontend
 
-Ce projet est réalisé dans le cadre de l’ECF – Graduate Développeur Web Full Stack**.
+## Description
 
-Il s’agit du **frontend** du projet *Vite & Gourmand*, développé en **HTML, SCSS et JavaScript**, avec un **routage front-end (SPA) sans framework**, conformément aux consignes pédagogiques.
+Ce projet correspond au frontend de l’application web **Vite & Gourmand**, réalisée dans le cadre de l’Évaluation de Compétences Finale (ECF) du titre professionnel Développeur Web et Web Mobile.
 
----
-
-## 🧱 Structure du projet
-
-La racine du projet frontend est le dossier :
-
-ECF/VSCODE
-
-
-Il contient notamment :
-
-- `index.html` → point d’entrée unique de l’application
-- `pages/` → pages HTML chargées dynamiquement
-- `Router/` → logique de routage JavaScript
-- `scss/` → styles SCSS compilés en CSS
-- `script.js` → logique JavaScript principale (configuration, API, auth…)
+L’application permet aux utilisateurs de consulter des menus, créer un compte, passer des commandes et suivre leurs prestations. Des espaces dédiés sont également disponibles pour les employés et administrateurs.
 
 ---
 
-## ▶️ Lancement du frontend en local
+## Stack technique
 
-### 1️⃣ Prérequis
-
-- PHP ≥ 8.x
-- Visual Studio Code
-- Un navigateur web moderne
+- HTML5
+- CSS3 / Bootstrap
+- JavaScript Vanilla
+- Architecture SPA (Single Page Application)
+- Router personnalisé
 
 ---
 
-### 2️⃣ Démarrage du serveur local
+## Fonctionnalités principales
 
-Ouvrir un terminal dans VS Code, puis :
+- Page d’accueil avec présentation et avis clients
+- Catalogue des menus avec filtres dynamiques
+- Vue détaillée des menus (plats, allergènes, conditions…)
+- Inscription / Connexion / Réinitialisation mot de passe
+- Passage de commande avec calcul dynamique du prix
+- Application automatique des réductions
+- Espace utilisateur (gestion commandes et profil)
+- Espace employé (gestion commandes, menus, horaires)
+- Espace administrateur
+- Formulaire de contact
 
+---
+
+## Structure du projet
+
+- `/pages` → vues HTML
+- `/js` → logique JavaScript
+- `/css` ou `/scss` → styles
+- `router.js` → gestion des routes
+- `script.js` → initialisation globale
+
+---
+
+## Prérequis
+
+- Navigateur web moderne
+- Backend Symfony lancé en local
+- API disponible à l’adresse :
+  http://127.0.0.1:8000/api/
+
+---
+
+## Installation
+
+1. Cloner le dépôt :
 ```bash
-cd ECF/VSCODE
-php -S 127.0.0.1:3001
+git clone https://github.com/Milady28002/ECF_FrontEnd.git
 
-Un message de confirmation doit apparaître :
+2. Ouvrir le projet dans votre éditeur (VS Code recommandé)
+3. Lancer un serveur local (exemple) : Live Server (VS Code)
+ou tout autre serveur statique
 
-PHP Development Server (http://127.0.0.1:3001) started
+---
 
-3️⃣ Accès au site
+## Lancement
 
-Dans le navigateur :
+Accéder à l’application via :
 
-http://127.0.0.1:3001/
+`http://127.0.0.1:3001`
 
-⚠️ Les routes internes (/signin, /signup, etc.) sont gérées exclusivement par le routage JavaScript.
-🔀 Fonctionnement du routage
+L'application nécessite que le backend Symfony soit lancé pour fonctionner correctement.
 
-Le projet utilise un routage front-end (Single Page Application) :
+--- 
 
-    index.html est toujours chargé
+## Comptes de test
 
-    Les contenus sont injectés dynamiquement
+-	Utilisateur :
+email : dana.scully@user.com
+mot de passe : Azerty@123
 
-    La navigation se fait sans rechargement complet de page
+-	Employé :
+email : employe@vitegourmand.fr
+mot de passe : Admin123!
 
-Comportements attendus
+-	Administrateur :
+email : admin@vitegourmand.fr
+mot de passe : Admin123!
 
-    ✅ Navigation via l’interface → OK
+---
 
-    ❌ Rafraîchissement sur une route interne → 404 (comportement normal)
+## Accessibilité
 
-    ❌ Accès direct à une route interne → 404 (comportement normal)
+L’interface a été développée en intégrant des bonnes pratiques d’accessibilité :
+- Structure HTML sémantique 
+- Hiérarchie des titres respectée 
+- Labels explicites pour les formulaires 
+- Navigation possible au clavier 
+- Focus visible sur les éléments interactifs 
+- Alternatives textuelles pour les images 
+- Attention portée aux contrastes et à la lisibilité 
 
-Ce comportement est volontaire et conforme aux consignes de l’ECF.
-🔌 Communication avec l’API
+---
 
-Le frontend communique avec une API backend Symfony via des requêtes HTTP (fetch).
+## Sécurité (côté frontend)
 
-L’URL de l’API est centralisée dans le fichier script.js :
-
-const apiUrl = "http://127.0.0.1:8000/api/";
-
-Cela permet :
-
-    une maintenance facilitée
-
-    une cohérence front/back
-
-    d’éviter les problèmes d’origine (CORS)
-
-🌱 Bonnes pratiques Git
-
-Le projet frontend utilise la stratégie suivante :
-
-    main → version stable
-
-    dev → branche de développement
-
-Le développement est réalisé sur la branche dev, puis fusionné vers main une fois stable.
+- Gestion des rôles utilisateur 
+- Protection des routes selon authentification 
+- Redirection automatique en cas d’accès non autorisé 
+- Gestion des tokens d’authentification
 
 
-👩‍💻 Autrice
-Projet réalisé par Sylvie
+## 👩‍💻 Autrice
+Projet réalisé par Sylvie Mendez alias Milady
 Formation Graduate Développeur Web Full Stack

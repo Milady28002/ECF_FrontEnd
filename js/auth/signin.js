@@ -1,49 +1,54 @@
 const mailInput = document.getElementById("EmailInput");
-const PasswordInput = document.getElementById("PasswordInput");
+const passwordInput = document.getElementById("PasswordInput");
 const btnSignin = document.getElementById("btnSignin");
 const signinForm = document.getElementById("signinForm");
 
 btnSignin.addEventListener("click", checkCredentials);
 
-function checkCredentials(){
-    let dataForm = new FormData(signinForm);
+function checkCredentials() {
+    const dataForm = new FormData(signinForm);
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    let raw = JSON.stringify({
-        "username": dataForm.get("email"),
-        "password": dataForm.get("mdp"),
+    const raw = JSON.stringify({
+        username: dataForm.get("email"),
+        password: dataForm.get("mdp"),
     });
 
-    let requestOptions = {
+    fetch(apiUrl + "login", {
         method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: raw
+    })
+        .then(async (response) => {
+            const result = await response.json();
 
-fetch(apiUrl+"login", requestOptions)
-  .then(response => {
-        if(response.ok){
-            return response.json();
-        }
-        else{
-            mailInput.classList.add("is-invalid");
-            PasswordInput.classList.add("is-invalid");
-        }
-  })
-  .then(result => {
-        const token = result.apiToken; //libellé sur ma doc API
-        setToken(token);
-        //placer ce token en cookie
-        setCookie(RoleCookieName, result.roles[0], 7); //sur mon API
-        
-        window.location.replace("/"); //redirection vers la page d'accueil
-  })
+            if (!response.ok) {
+                mailInput.classList.add("is-invalid");
+                passwordInput.classList.add("is-invalid");
+                throw new Error(result.message || "Email ou mot de passe incorrect");
+            }
 
-  .catch(error => console.log('error'.error));
+            return result;
+        })
+        .then((result) => {
+            const token = result.apiToken;
+
+            // stockage du token
+            setToken(token);
+
+            // stockage du rôle
+            setCookie(roleCookieName, result.roles[0], 7);
+
+            // nettoyage visuel si succès
+            mailInput.classList.remove("is-invalid");
+            passwordInput.classList.remove("is-invalid");
+
+            // redirection
+            window.location.replace("/");
+        })
+        .catch((error) => {
+            console.error(error);
+            alert(error.message);
+        });
 }
-
-
-
