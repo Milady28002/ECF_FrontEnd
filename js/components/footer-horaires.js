@@ -3,7 +3,7 @@ async function loadFooterHoraires() {
   if (!horairesList) return;
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/horaires");
+    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/horaires");
 
     if (!response.ok) {
       throw new Error("Erreur lors du chargement des horaires");

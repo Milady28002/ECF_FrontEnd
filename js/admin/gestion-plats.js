@@ -29,7 +29,7 @@ async function loadPlats() {
       return;
     }
 
-    const response = await fetch("http://127.0.0.1:8000/api/plats", {
+    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/plats", {
       headers: {
         "X-AUTH-TOKEN": token
       }
@@ -110,7 +110,7 @@ async function deletePlat(id) {
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/plats/${id}`, {
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/plats/${id}`, {
       method: "DELETE",
       headers: {
         "X-AUTH-TOKEN": token

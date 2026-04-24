@@ -1,6 +1,6 @@
 const horairesAdminContainer = document.getElementById("horaires-admin-list");
 const horairesAdminFeedback = document.getElementById("horaires-admin-feedback");
-const horairesApiUrl = "http://127.0.0.1:8000/api/horaires";
+const horairesApiUrl = "https://ecfbackendapi-production.up.railway.app/api/horaires";
 
 function showHorairesAdminFeedback(message, isError = false) {
   if (!horairesAdminFeedback) return;

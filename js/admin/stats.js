@@ -1,4 +1,4 @@
-const apiUrl = "http://127.0.0.1:8000/api/";
+const apiUrl = "https://ecfbackendapi-production.up.railway.app/api/";
 const table = document.getElementById("statsTable");
 const statutFilter = document.getElementById("statutFilter");
 const menuFilter = document.getElementById("menuFilter");

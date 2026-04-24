@@ -553,7 +553,7 @@ function initAvisForm(commandeId) {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/avis", {
+      const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/avis", {
         method: "POST",
         headers: {
           "X-AUTH-TOKEN": token,
@@ -629,7 +629,7 @@ async function loadCommandeDetail() {
   container.innerHTML = `<p class="text-center">Chargement du détail de la commande...</p>`;
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/commandes/${commandeId}`, {
+    const response = await fetch(`https://ton-backend-deploye.com/api/commandes/${commandeId}`, {
       method: "GET",
       headers: {
         "X-AUTH-TOKEN": token,
@@ -689,7 +689,7 @@ function initEditForm(commandeId) {
     };
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/commandes/${commandeId}`, {
+      const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/commandes/${commandeId}`, {
         method: "PATCH",
         headers: {
           "X-AUTH-TOKEN": token,
@@ -735,7 +735,7 @@ function initCancelButton(commandeId) {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/commandes/${commandeId}/cancel`, {
+      const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/commandes/${commandeId}/cancel`, {
         method: "PATCH",
         headers: {
           "X-AUTH-TOKEN": token,

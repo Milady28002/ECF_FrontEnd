@@ -78,7 +78,7 @@ async function loadAllCommandes() {
       params.append("client", clientSearch);
     }
 
-    const url = `http://127.0.0.1:8000/api/commandes${params.toString() ? `?${params.toString()}` : ""}`;
+    const url = `https://ecfbackendapi-production.up.railway.app/api/commandes${params.toString() ? `?${params.toString()}` : ""}`;
 
     const response = await fetch(url, {
       headers: {
@@ -112,7 +112,7 @@ async function loadAvisModeration() {
   }
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/avis/moderation?statut=en_attente", {
+    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/avis/moderation?statut=en_attente", {
       headers: {
         "X-AUTH-TOKEN": token
       }
@@ -357,7 +357,7 @@ async function updateStatus(id, statut) {
   const token = getTokenSafe();
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/commandes/employe/${id}/status`, {
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/commandes/employe/${id}/status`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -391,7 +391,7 @@ async function cancelCommande(id) {
   const token = getTokenSafe();
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/commandes/employe/${id}/cancel`, {
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/commandes/employe/${id}/cancel`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -421,7 +421,7 @@ async function validateAvis(id) {
   const token = getTokenSafe();
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/avis/${id}/validate`, {
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/avis/${id}/validate`, {
       method: "PATCH",
       headers: {
         "X-AUTH-TOKEN": token
@@ -447,7 +447,7 @@ async function rejectAvis(id) {
   const token = getTokenSafe();
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/avis/${id}/reject`, {
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/avis/${id}/reject`, {
       method: "PATCH",
       headers: {
         "X-AUTH-TOKEN": token

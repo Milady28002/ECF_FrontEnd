@@ -66,7 +66,7 @@ async function loadPlat() {
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/plats/${platId}`, {
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/plats/${platId}`, {
       headers: {
         "X-AUTH-TOKEN": token
       }
@@ -121,8 +121,8 @@ async function submitForm(event) {
   };
 
   const url = isEdit
-    ? `http://127.0.0.1:8000/api/plats/${platId}`
-    : "http://127.0.0.1:8000/api/plats";
+    ? `https://ecfbackendapi-production.up.railway.app/api/plats/${platId}`
+    : "https://ecfbackendapi-production.up.railway.app/api/plats";
 
   const method = isEdit ? "PUT" : "POST";
 
