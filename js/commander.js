@@ -103,7 +103,7 @@ async function loadCommandeMenu() {
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/menus/${menuId}`);
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/menus/${menuId}`);
 
     if (!response.ok) {
       throw new Error("Erreur lors du chargement du menu");
@@ -412,7 +412,7 @@ async function prefillUserInfos() {
   }
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/account/me", {
+    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/account/me", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -508,7 +508,7 @@ function initCommandeForm(menu) {
         message: messageClient || null
       };
 
-      const response = await fetch("http://127.0.0.1:8000/api/commandes", {
+      const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/commandes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

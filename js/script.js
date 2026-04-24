@@ -1,7 +1,7 @@
 const tokenCookieName = "accesstoken";
 const roleCookieName = "role";
 const signoutBtn = document.getElementById("signout-btn");
-const apiUrl = "http://127.0.0.1:8000/api/";
+const apiUrl = "https://ecfbackendapi-production.up.railway.app/api/";
 
 if (signoutBtn) {
     signoutBtn.addEventListener("click", signout);

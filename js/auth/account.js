@@ -259,7 +259,7 @@ async function loadAccountInfos() {
   }
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/account/me", {
+    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/account/me", {
       headers: {
         "X-AUTH-TOKEN": token
       }
@@ -345,7 +345,7 @@ function initAccountEditForm() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/account/edit", {
+      const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/account/edit", {
         method: "PUT",
         headers: {
           "X-AUTH-TOKEN": token,

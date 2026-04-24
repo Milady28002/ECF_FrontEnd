@@ -1,4 +1,4 @@
-const API_RESET_PASSWORD_URL = "http://127.0.0.1:8000/api/reset-password";
+const API_RESET_PASSWORD_URL = "https://ecfbackendapi-production.up.railway.app/api/reset-password";
 
 const resetPasswordForm = document.getElementById("resetPasswordForm");
 const passwordInput = document.getElementById("PasswordInput");

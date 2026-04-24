@@ -80,7 +80,7 @@ async function loadMenuDetail() {
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/menus/${menuId}`);
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/menus/${menuId}`);
     const menu = await response.json().catch(() => null);
 
     if (!response.ok || !menu) {
