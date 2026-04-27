@@ -59,7 +59,7 @@ Bootstrap est utilisé pour la mise en forme, la grille responsive et certains c
 
 ## 📁 Structure du projet
 
-- `/pages` → vues HTML  
+- `/pages` → vues HTML 
 - `/js` → logique JavaScript  
 - `/js/admin` → fonctionnalités back-office  
 - `/css` ou `/scss` → styles  
@@ -70,29 +70,40 @@ Bootstrap est utilisé pour la mise en forme, la grille responsive et certains c
 
 ## API
 
-Le frontend consomme une API REST.
+Le frontend consomme une API REST. 
+Il communique avec le backend via des requêtes HTTP utilisant la Fetch API.
 
 L’URL de l’API est configurée dans les fichiers JavaScript :
 
 ```js
 const apiUrl = "https://ecfbackendapi-production.up.railway.app/api";
 ```
-
 ---
 
-## Lancer le projet el local
+## Lancer le projet en local
 1. Cloner le repository frontend :
+```bash
 git clone https://github.com/Milady28002/ECF_FrontEnd.git
+```
 
 2. Ouvrir le projet dans VS Code
 3. Lancer un serveur local (ex: Live Server)
 
-Application en ligne
-https://ecf-front-end.vercel.app/
+
+## 🌍 Application en ligne
+
+👉 https://ecf-front-end.vercel.app
+
+
+---
+## Backend
+
+👉 https://github.com/Milady28002/ECF_BackEnd_API
 
 ---
 
 ##  Comptes de test
+
 👤 Utilisateur
 Email : dana.scully@user.com
 Mot de passe : Azerty@123
