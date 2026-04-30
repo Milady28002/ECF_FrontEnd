@@ -66,6 +66,7 @@ async function toggleEmployee(id) {
     alert("Erreur lors de la modification");
   }
 }
+window.toggleEmployee = toggleEmployee;
 
 const form = document.getElementById("create-employee-form");
 
