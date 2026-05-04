@@ -629,7 +629,7 @@ async function loadCommandeDetail() {
   container.innerHTML = `<p class="text-center">Chargement du détail de la commande...</p>`;
 
   try {
-    const response = await fetch(`https://ton-backend-deploye.com/api/commandes/${commandeId}`, {
+    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/commandes/${commandeId}`, {
       method: "GET",
       headers: {
         "X-AUTH-TOKEN": token,
