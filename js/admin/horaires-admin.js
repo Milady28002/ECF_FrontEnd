@@ -1,6 +1,5 @@
 const horairesAdminContainer = document.getElementById("horaires-admin-list");
 const horairesAdminFeedback = document.getElementById("horaires-admin-feedback");
-const horairesApiUrl = "https://ecfbackendapi-production.up.railway.app/api/horaires";
 
 function showHorairesAdminFeedback(message, isError = false) {
   if (!horairesAdminFeedback) return;
@@ -45,7 +44,7 @@ async function loadHorairesAdmin() {
   if (!horairesAdminContainer) return;
 
   try {
-    const response = await fetch(horairesApiUrl);
+    const response = await fetch(`${API_BASE_URL}/api/horaires/`);
 
     if (!response.ok) {
       throw new Error("Erreur lors du chargement des horaires.");
@@ -133,7 +132,7 @@ function initHorairesAdminForms() {
       const heureFermeture = form.querySelector('[name="heure_fermeture"]')?.value.trim();
 
       try {
-        const response = await fetch(`${horairesApiUrl}/${horaireId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/horaires/${horaireId}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

@@ -1,6 +1,14 @@
 {
+  "name": "ecf-frontend",
+  "version": "1.0.0",
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1"
+  },
+  "devDependencies": {
+    "sass": "^1.99.0"
+  },
+  "scripts": {
+    "sass": "sass scss/main.scss scss/main.css --watch"
   }
 }

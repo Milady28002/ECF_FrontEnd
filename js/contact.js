@@ -1,4 +1,3 @@
-const apiUrl = "https://ecfbackendapi-production.up.railway.app/api";
 const contactForm = document.getElementById("contactForm");
 const contactMessage = document.getElementById("contactMessage");
 
@@ -20,7 +19,7 @@ if (contactForm) {
     }
 
     try {
-      const response = await fetch(`${apiUrl}contact`, {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

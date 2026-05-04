@@ -1,4 +1,4 @@
-const API_GALERIE_URL = "https://ecfbackendapi-production.up.railway.app/api/galerie";
+const API_GALERIE_URL = `${API_BASE_URL}/api/galerie`;
 
 const editModal = document.getElementById("EditionPhotoModal");
 const deleteModal = document.getElementById("DeletePhotoModal");

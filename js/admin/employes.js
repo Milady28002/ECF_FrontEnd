@@ -1,11 +1,9 @@
-const apiUrl = "https://ecfbackendapi-production.up.railway.app/api/";
-
 async function loadEmployees() {
   const container = document.getElementById("employees-list");
   const token = getToken();
 
   try {
-    const response = await fetch(`${apiUrl}admin/employees`, {
+    const response = await fetch(`${API_BASE_URL}/api/admin/employees`, {
       headers: {
         "X-AUTH-TOKEN": token
       }
@@ -23,7 +21,7 @@ async function loadEmployees() {
     }
 
     container.innerHTML = employees.map(emp => `
-      <div class="border p-3 mb-2 d-flex justify-content-between align-items-center">
+      <div class="employee-item border p-3 mb-2 d-flex justify-content-between align-items-center">
         <div>
           <strong>${emp.email}</strong><br>
           Statut : ${emp.is_active ? "Actif" : "Inactif"}
@@ -48,7 +46,7 @@ async function toggleEmployee(id) {
   const token = getToken();
 
   try {
-    const response = await fetch(`${apiUrl}admin/employees/${id}/toggle`, {
+    const response = await fetch(`${API_BASE_URL}/api/admin/employees/${id}/toggle`, {
       method: "PATCH",
       headers: {
         "X-AUTH-TOKEN": token
@@ -82,7 +80,7 @@ form.addEventListener("submit", async (e) => {
   const token = getToken();
 
   try {
-    const response = await fetch(`${apiUrl}admin/employees`,{
+    const response = await fetch(`${API_BASE_URL}/api/admin/employees`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json",

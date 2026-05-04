@@ -112,7 +112,7 @@ function inscrireUtilisateur(event) {
 
     console.log("payload envoyé :", raw);
 
-    fetch(apiUrl + "registration", {
+    fetch(API_BASE_URL + "/api/registration", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

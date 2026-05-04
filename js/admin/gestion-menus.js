@@ -10,7 +10,7 @@ async function loadAllMenus() {
   if (!container) return;
 
   try {
-    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/menus");
+    const response = await fetch(`${API_BASE_URL}/api/menus`);
     const data = await response.json();
 
     if (!response.ok) {
@@ -80,7 +80,7 @@ async function deleteMenu(id) {
   const token = getTokenSafe();
 
   try {
-    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/menus/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/menus/${id}`, {
       method: "DELETE",
       headers: {
         "X-AUTH-TOKEN": token

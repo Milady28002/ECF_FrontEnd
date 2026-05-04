@@ -6,7 +6,7 @@ async function loadMenu() {
   const themeRecherche = container.dataset.theme;
 
   try {
-    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/menus");
+    const response = await fetch(`${API_BASE_URL}/api/menus`);
     const menus = await response.json();
 
    const normalize = (str) =>

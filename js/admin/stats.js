@@ -1,4 +1,3 @@
-const apiUrl = "https://ecfbackendapi-production.up.railway.app/api/";
 const table = document.getElementById("statsTable");
 const statutFilter = document.getElementById("statutFilter");
 const menuFilter = document.getElementById("menuFilter");
@@ -24,7 +23,7 @@ async function loadMenusForFilter() {
   const token = getToken();
 
   try {
-    const response = await fetch(`${apiUrl}menus`, {
+    const response = await fetch(`${API_BASE_URL}/api/menus`, {
       headers: {
         "X-AUTH-TOKEN": token
       }
@@ -69,7 +68,7 @@ async function loadStats() {
   }
 
   try {
-    const response = await fetch(`${apiUrl}admin/stats?${params.toString()}`, {
+    const response = await fetch(`${API_BASE_URL}/api/admin/stats?${params.toString()}`, {
       headers: {
         "X-AUTH-TOKEN": token
       }
@@ -117,7 +116,7 @@ async function loadEvolutionChart() {
   }
 
   try {
-    const response = await fetch(`${apiUrl}admin/stats/evolution?${params.toString()}`, {
+    const response = await fetch(`${API_BASE_URL}/api/admin/stats/evolution?${params.toString()}`, {
       headers: {
         "X-AUTH-TOKEN": token
       }

@@ -1,7 +1,7 @@
+const API_BASE_URL = "http://127.0.0.1:8000";
 const tokenCookieName = "accesstoken";
 const roleCookieName = "role";
 const signoutBtn = document.getElementById("signout-btn");
-const apiUrl = "https://ecfbackendapi-production.up.railway.app/api/";
 
 if (signoutBtn) {
     signoutBtn.addEventListener("click", signout);
@@ -132,7 +132,7 @@ async function loadFooterHoraires() {
     if (!horairesList) return;
 
     try {
-        const response = await fetch(`${apiUrl}horaires`);
+        const response = await fetch(`${API_BASE_URL}/api/horaires`);
 
         if (!response.ok) {
             throw new Error("Erreur lors du chargement des horaires");
@@ -214,3 +214,22 @@ async function loadFooterHoraires() {
 
 loadFooterHoraires();
 window.loadFooterHoraires = loadFooterHoraires;
+
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+if (scrollTopBtn) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 200) {
+            scrollTopBtn.style.display = "flex";
+        } else {
+            scrollTopBtn.style.display = "none";
+        }
+    });
+
+    scrollTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
