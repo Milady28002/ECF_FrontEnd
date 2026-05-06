@@ -56,7 +56,7 @@ async function loadPlats() {
   if (!container) return;
 
   try {
-    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/plats");
+    const response = await fetch(`${API_BASE_URL}/api/plats`);
     const plats = await response.json().catch(() => null);
 
     if (!response.ok || !Array.isArray(plats)) {
@@ -108,7 +108,7 @@ async function loadMenuIfEdit() {
   }
 
   try {
-    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/menus/${id}`);
+    const response = await fetch(`${API_BASE_URL}/api/menus/${id}`);
     const menu = await response.json().catch(() => null);
 
       if (!response.ok || !menu) {
@@ -170,8 +170,8 @@ async function handleSubmit(event) {
   };
 
   const url = id
-    ? `https://ecfbackendapi-production.up.railway.app/api/menus/${id}`
-    : "https://ecfbackendapi-production.up.railway.app/api/menus";
+    ? `${API_BASE_URL}/api/menus/${id}`
+    : `${API_BASE_URL}/api/menus`;
 
   const method = id ? "PATCH" : "POST";
 

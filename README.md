@@ -73,10 +73,10 @@ Bootstrap est utilisé pour la mise en forme, la grille responsive et certains c
 Le frontend consomme une API REST. 
 Il communique avec le backend via des requêtes HTTP utilisant la Fetch API.
 
-L’URL de l’API est configurée dans les fichiers JavaScript :
+L’URL de l’API est configurée dans le ficher script.js :
 
-```js
-const apiUrl = "https://ecfbackendapi-production.up.railway.app/api";
+```script.js
+const API_BASE_URL = "127.0.0.1:8000";
 ```
 ---
 

@@ -215,7 +215,7 @@ async function cancelOrder(orderId) {
   if (!confirmed) return;
 
   try {
-    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/commandes/${orderId}/cancel`, {
+    const response = await fetch(`${API_BASE_URL}/api/commandes/${orderId}/cancel`, {
       method: "PATCH",
       headers: {
         "X-AUTH-TOKEN": token,
@@ -266,7 +266,7 @@ async function submitReview(orderId) {
   }
 
   try {
-    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/avis", {
+    const response = await fetch(`${API_BASE_URL}/api/avis`, {
       method: "POST",
       headers: {
         "X-AUTH-TOKEN": token,
@@ -342,7 +342,7 @@ async function loadMesCommandes() {
   container.innerHTML = `<p class="text-center">Chargement de vos commandes...</p>`;
 
   try {
-    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/commandes", {
+    const response = await fetch(`${API_BASE_URL}/api/commandes`, {
       method: "GET",
       headers: {
         "X-AUTH-TOKEN": token,

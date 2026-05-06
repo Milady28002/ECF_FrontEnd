@@ -103,7 +103,7 @@ async function loadCommandeMenu() {
   }
 
   try {
-    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/menus/${menuId}`);
+    const response = await fetch(`${API_BASE_URL}/api/menus/${menuId}`);
 
     if (!response.ok) {
       throw new Error("Erreur lors du chargement du menu");
@@ -318,9 +318,19 @@ function initCommandeTotal(prixParPersonne, minimum) {
   const updateTotal = () => {
     let nbPersonnes = Number(input.value);
 
-    if (Number.isNaN(nbPersonnes) || nbPersonnes < minimum) {
+    if (input.value === "") {
+      totalValue.textContent = "0,00 €";
+      resumeNbPersonnes.textContent = "Non renseigné";
+      return;
+    }
+
+
+    if (Number.isNaN(nbPersonnes)) {
+      return;
+    }
+
+    if (nbPersonnes < minimum) {
       nbPersonnes = minimum;
-      input.value = minimum;
     }
 
     const prixMenuBrut = nbPersonnes * prixParPersonne;
@@ -412,7 +422,7 @@ async function prefillUserInfos() {
   }
 
   try {
-    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/account/me", {
+    const response = await fetch(`${API_BASE_URL}/api/account/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -473,6 +483,11 @@ function initCommandeForm(menu) {
       const messageClient = document.getElementById("message-client")?.value.trim();
       const pretMateriel = document.getElementById("pret-materiel")?.checked || false;
 
+      if (!nombrePersonnes || nombrePersonnes < Number(menu.nombre_personne_minimum)) {
+        showFeedback(`Le nombre de personnes doit être au minimum de ${menu.nombre_personne_minimum}.`);
+        return;
+      }
+
       if (!dateEvenement) {
         showFeedback("La date de l’événement est obligatoire.");
         return;
@@ -508,7 +523,7 @@ function initCommandeForm(menu) {
         message: messageClient || null
       };
 
-      const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/commandes", {
+      const response = await fetch(`${API_BASE_URL}/api/commandes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

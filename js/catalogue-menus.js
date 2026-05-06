@@ -16,7 +16,7 @@ async function loadMenus() {
   if (personnesMin) params.append("personnesMin", personnesMin);
 
   try {
-    const response = await fetch(`https://ecfbackendapi-production.up.railway.app/api/menus?${params.toString()}`);
+    const response = await fetch(`${API_BASE_URL}/api/menus?${params.toString()}`);
     console.log("response reçue", response);
 
     if (!response.ok) {

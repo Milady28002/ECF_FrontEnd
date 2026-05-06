@@ -1,4 +1,4 @@
-const API_RESET_PASSWORD_URL = "https://ecfbackendapi-production.up.railway.app/api/reset-password";
+const API_RESET_PASSWORD_URL = `${API_BASE_URL}/api/reset-password`;
 
 const resetPasswordForm = document.getElementById("resetPasswordForm");
 const passwordInput = document.getElementById("PasswordInput");

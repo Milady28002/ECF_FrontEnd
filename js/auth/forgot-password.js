@@ -1,4 +1,4 @@
-const API_FORGOT_PASSWORD_URL = "https://ecfbackendapi-production.up.railway.app/api/forgot-password";
+const API_FORGOT_PASSWORD_URL = `${API_BASE_URL}/api/forgot-password`;
 
 const form = document.getElementById("forgotPasswordForm");
 const emailInput = document.getElementById("ForgotEmailInput");

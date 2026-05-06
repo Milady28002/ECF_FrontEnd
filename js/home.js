@@ -3,7 +3,7 @@ async function loadAvis() {
   if (!container) return;
 
   try {
-    const response = await fetch("https://ecfbackendapi-production.up.railway.app/api/avis");
+    const response = await fetch(`${API_BASE_URL}/api/avis`);
     const data = await response.json().catch(() => []);
 
     if (!response.ok) {
