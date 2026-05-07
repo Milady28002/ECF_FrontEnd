@@ -8,9 +8,9 @@ L’application permet aux utilisateurs de consulter des menus, créer un compte
 
 Le frontend communique avec une API REST développée en Symfony.
 
-Le frontend est responsable de l’affichage des données, de l’interaction utilisateur et de la communication avec l’API.
+Il est responsable de l’affichage des données, de l’interaction utilisateur et de la communication avec l’API.
 
-Il est développé en **JavaScript vanilla**, sans framework, avec une architecture de type **Single Page Application (SPA)** basée sur un système de routage côté client.
+L'application est développée en **JavaScript vanilla**, sans framework, avec une architecture de type **Single Page Application (SPA)** basée sur un système de routage côté client.
 
 Bootstrap est utilisé pour la mise en forme, la grille responsive et certains composants d’interface.
 
@@ -23,7 +23,8 @@ Bootstrap est utilisé pour la mise en forme, la grille responsive et certains c
 - JavaScript (Vanilla)  
 - Router personnalisé (SPA)  
 - Fetch API  
-- Bootstrap  
+- Bootstrap
+- Docker (environnement local)  
 - Vercel (déploiement)
 
 ---
@@ -63,7 +64,7 @@ Bootstrap est utilisé pour la mise en forme, la grille responsive et certains c
 - `/js` → logique JavaScript  
 - `/js/admin` → fonctionnalités back-office  
 - `/css` ou `/scss` → styles  
-- `router.js` → gestion des routes  
+- `router.js` → gestion du routage SPA 
 - `script.js` → initialisation globale  
 
 ---
@@ -73,32 +74,110 @@ Bootstrap est utilisé pour la mise en forme, la grille responsive et certains c
 Le frontend consomme une API REST. 
 Il communique avec le backend via des requêtes HTTP utilisant la Fetch API.
 
-L’URL de l’API est configurée dans le ficher script.js :
+### Configuration
+En production :
 
 ```script.js
-const API_BASE_URL = "127.0.0.1:8000";
+const API_BASE_URL = "https://ecfbackendapi-production.up.railway.app";
+```
+En environnement local :
+
+```script.js
+const API_BASE_URL = "http://localhost:8000";
 ```
 ---
 
-## Lancer le projet en local
+## Docker
+
+Le projet utilise deux configurations Docker distinctes :
+
+1. Environnement de développement (local)
+
+Le fichier Dockerfile est utilisé avec Docker Compose pour lancer un environnement complet comprenant :
+
+le frontend
+le backend Symfony
+MariaDB
+MongoDB
+Mailhog
+
+Cet environnement permet de reproduire le projet localement de manière isolée et cohérente.
+
+Les dépendances PHP sont installées automatiquement lors du build Docker.
+Le dossier `vendor` est isolé dans un volume Docker afin de ne pas être écrasé par le montage du code local.
+
+2. Environnement de production
+
+Le fichier **Dockerfile.prod** est utilisé pour le déploiement du backend sur Railway.
+
+Il repose sur FrankenPHP, qui permet d’intégrer directement le serveur web et PHP dans un seul conteneur optimisé pour la production.
+
+
+## Lancer le projet en local (Docker)
+
+Prérequis
+
+- Docker Desktop
+- Git
+
+Vérification 
+```bash
+docker -v
+docker compose version
+git -v
+```
+
+1. Cloner les repositories
+```bash
+git clone https://github.com/Milady28002/ECF_FrontEnd.git
+git clone https://github.com/Milady28002/ECF_BackEnd_API.git
+git clone https://github.com/Milady28002/ECF_Docker.git
+```
+
+2. Lancer l'environnement Docker
+```bash
+cd ECF_Docker
+docker compose up -d --build
+```
+Accès à l'application
+- Frontend -> http://localhost:3001
+- Backend -> http://localhost:8000
+- Mailhog -> http://localhost:8026
+
+
+## Lancer le projet sans Docker
+
 1. Cloner le repository frontend :
 ```bash
 git clone https://github.com/Milady28002/ECF_FrontEnd.git
 ```
 
-2. Ouvrir le projet dans VS Code
-3. Lancer un serveur local (ex: Live Server)
+2. Modifier la configuration API dans script.js :
+```
+const API_BASE_URL = "http://localhost:8000";
+```
+
+4. Lancer un serveur local (ex: Live Server)
+```bash
+php -S 127.0.0.1:3001
+```
 
 
-## 🌍 Application en ligne
+## Application en ligne
 
-👉 https://ecf-front-end.vercel.app
+https://ecf-front-end.vercel.app
 
 
 ---
 ## Backend
 
-👉 https://github.com/Milady28002/ECF_BackEnd_API
+https://github.com/Milady28002/ECF_BackEnd_API
+
+---
+
+## Environnement Docker
+
+https://github.com/Milady28002/ECF_Docker.git
 
 ---
 
