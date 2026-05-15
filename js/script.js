@@ -1,4 +1,17 @@
-const API_BASE_URL = "https://ecfbackendapi-production.up.railway.app";
+const isLocal =
+
+    window.location.hostname === 'localhost' ||
+
+    window.location.hostname === '127.0.0.1';
+
+
+const API_BASE_URL = isLocal
+
+    ? 'http://127.0.0.1:8000'
+
+    : 'https://ecfbackendapi-production.up.railway.app';
+
+
 const tokenCookieName = "accesstoken";
 const roleCookieName = "role";
 const signoutBtn = document.getElementById("signout-btn");
