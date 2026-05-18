@@ -10,7 +10,7 @@ function checkCredentials() {
 
     const raw = JSON.stringify({
         username: dataForm.get("email"),
-        password: dataForm.get("mdp"),
+        password: dataForm.get("password"),
     });
 
     fetch(API_BASE_URL + "/api/login", {
