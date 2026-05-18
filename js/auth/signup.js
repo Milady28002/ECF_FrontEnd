@@ -6,7 +6,7 @@ const inputMail = document.getElementById("EmailInput");
 const inputPassword = document.getElementById("PasswordInput");
 const inputValidationPassword = document.getElementById("ValidatePasswordInput");
 const btnValidation = document.getElementById("btn-validation-inscription");
-const formInscrition = document.getElementById("formulaireInscrition");
+const formulaireInscription = document.getElementById("formulaireInscription");
 
 btnValidation.disabled = true;
 
@@ -18,7 +18,7 @@ inputMail.addEventListener("keyup", validateForm);
 inputPassword.addEventListener("keyup", validateForm);
 inputValidationPassword.addEventListener("keyup", validateForm);
 
-formInscrition.addEventListener("submit", inscrireUtilisateur);
+formulaireInscription.addEventListener("submit", inscrireUtilisateur);
 
 function validateForm() {
     const nomOk = validateRequired(inputNom);
@@ -97,7 +97,7 @@ function inscrireUtilisateur(event) {
         return;
     }
 
-    const dataForm = new FormData(formInscrition);
+    const dataForm = new FormData(formulaireInscription);
 
     const raw = JSON.stringify({
         name: dataForm.get("nom"),
@@ -105,7 +105,7 @@ function inscrireUtilisateur(event) {
         adresse_postale: dataForm.get("adresse_postale"),
         telephone: dataForm.get("telephone"),
         email: dataForm.get("email"),
-        password: dataForm.get("mdp"),
+        password: dataForm.get("password"),
         ville: "",
         pays: "",
     });
