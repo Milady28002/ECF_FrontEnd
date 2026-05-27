@@ -292,6 +292,8 @@ function renderCommandeMenu(menu) {
       Number(menu.prix_par_personne),
       Number(menu.nombre_personne_minimum)
     );
+
+    
     initCommandeForm(menu);
     prefillUserInfos();
   }
@@ -352,25 +354,17 @@ function initCommandeTotal(prixParPersonne, minimum) {
       resumePrixMenuBrut.textContent = formatTotal(prixMenuBrut);
     }
 
-    if (resumeRemise && resumeRemiseLigne) {
+    
+    if (resumeRemise && resumeRemiseLigne && resumeRemiseInfo) {
       if (montantRemise > 0) {
-        if (resumeRemise && resumeRemiseLigne && resumeRemiseInfo) {
-        if (montantRemise > 0) {
-          resumeRemise.textContent = `- ${formatTotal(montantRemise)}`;
-          resumeRemiseLigne.style.display = "block";
-          resumeRemiseInfo.style.display = "block";
-          resumeRemiseInfo.textContent = "Remise de 10 % appliquée ✔️";
-        } else {
-          resumeRemise.textContent = "0,00 €";
-          resumeRemiseLigne.style.display = "none";
-          resumeRemiseInfo.style.display = "none";
-        }
-      }
         resumeRemise.textContent = `- ${formatTotal(montantRemise)}`;
         resumeRemiseLigne.style.display = "block";
+        resumeRemiseInfo.style.display = "block";
+        resumeRemiseInfo.textContent = "Remise de 10 % appliquée ✔️";
       } else {
         resumeRemise.textContent = "0,00 €";
         resumeRemiseLigne.style.display = "none";
+        resumeRemiseInfo.style.display = "none";
       }
     }
 
@@ -392,7 +386,7 @@ function initCommandeTotal(prixParPersonne, minimum) {
     resumeAdresse.textContent = adresse || "Non renseignée";
 
     if (adresse && !isValidAdresseLivraison(adresse)) {
-      showAdresseFeedback("Veuillez saisir une adresse complète au format : numéro + voie, code postal, ville.");
+      showAdresseFeedback("Veuillez saisir une adresse complète au format : numéro + voie, code postal ville.");
     } else {
       showAdresseFeedback("");
     }
@@ -450,8 +444,32 @@ async function prefillUserInfos() {
   }
 }
 
+function getDelaiCommande(conditionsMenu) {
+  if (!conditionsMenu) return 0;
+
+  const condition = conditionsMenu.toLowerCase();
+
+  if (condition.includes("7 jours")) {
+    return 7;
+  }
+
+  if (condition.includes("24h")) {
+    return 1;
+  }
+
+  return 0;
+}
 function initCommandeForm(menu) {
   const form = document.getElementById("commande-form");
+  const dateInput = document.getElementById("date-evenement");
+
+  const delaiJours = getDelaiCommande(menu.conditions_menu);
+
+  const dateMinimum = new Date();
+  dateMinimum.setDate(dateMinimum.getDate() + delaiJours);
+
+  dateInput.min = dateMinimum.toISOString().split("T")[0];
+
   if (!form) {
     console.error("Formulaire introuvable");
     return;
@@ -506,6 +524,22 @@ function initCommandeForm(menu) {
       if (!isValidAdresseLivraison(adresseLivraison)) {
         showAdresseFeedback("Veuillez saisir une adresse complète au format : numéro + voie, code postal ville.");
         showFeedback("L’adresse de la prestation doit être complète.");
+        return;
+      }
+
+      const dateChoisie = new Date(dateInput.value);
+
+      const dateMinimumVerification = new Date();
+      dateMinimumVerification.setDate(
+        dateMinimumVerification.getDate() + delaiJours
+      );
+
+      dateMinimumVerification.setHours(0, 0, 0, 0);
+
+      if (dateChoisie < dateMinimumVerification) {
+        showFeedback(
+          `Ce menu doit être commandé au minimum ${menu.conditions_menu.toLowerCase()}.`
+        );
         return;
       }
 
