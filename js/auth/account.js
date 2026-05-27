@@ -196,26 +196,6 @@ function renderEditForm(data) {
             >
           </div>
 
-          <div class="col-md-6">
-            <label for="edit-account-city" class="form-label">Ville</label>
-            <input
-              type="text"
-              id="edit-account-city"
-              class="form-control"
-              value="${data.ville || ""}"
-            >
-          </div>
-
-          <div class="col-md-6">
-            <label for="edit-account-country" class="form-label">Pays</label>
-            <input
-              type="text"
-              id="edit-account-country"
-              class="form-control"
-              value="${data.pays || ""}"
-            >
-          </div>
-
           <div class="col-md-12">
             <label for="edit-account-password" class="form-label">Nouveau mot de passe</label>
             <input
@@ -325,8 +305,6 @@ function initAccountEditForm() {
       lastName: document.getElementById("edit-account-lastname")?.value.trim(),
       telephone: document.getElementById("edit-account-phone")?.value.trim(),
       adressePostale: document.getElementById("edit-account-address")?.value.trim(),
-      ville: document.getElementById("edit-account-city")?.value.trim(),
-      pays: document.getElementById("edit-account-country")?.value.trim(),
       password: document.getElementById("edit-account-password")?.value.trim()
     };
 

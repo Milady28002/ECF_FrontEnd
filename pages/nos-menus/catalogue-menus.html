@@ -4,30 +4,41 @@
     <fieldset class="menus-filters mb-4">
       <legend class="menus-filters-title">Filtrer les menus</legend>
 
-      <label for="prixMin">Prix minimum</label>
-      <input type="number" id="prixMin" placeholder="Ex : 10">
+      <div class="filter-group">
+        <label for="prixMin">Prix minimum</label>
+        <input type="number" id="prixMin" placeholder="Ex : 10">
+      </div>
 
-      <label for="prixMax">Prix maximum</label>
-      <input type="number" id="prixMax" placeholder="Ex : 50">
+      <div class="filter-group">
+        <label for="prixMax">Prix maximum</label>
+        <input type="number" id="prixMax" placeholder="Ex : 50">
+      </div>
 
-      <label for="theme">Thème</label>
-      <select id="theme">
-        <option value="">Tous les thèmes</option>
-        <option value="Classique">Classique</option>
-        <option value="Noel / Paques">Noël / Pâques</option>
-        <option value="Evenement">Événement</option>
-      </select>
+      
+      <div class="filter-group">
+        <label for="theme">Thème</label>
+        <select id="theme">
+          <option value="">Tous les thèmes</option>
+          <option value="Classique">Classique</option>
+          <option value="Noel / Paques">Noël / Pâques</option>
+          <option value="Evenement">Événement</option>
+        </select>
+      </div>
 
-      <label for="regime">Régime</label>
-      <select id="regime">
-        <option value="">Tous les régimes</option>
-        <option value="Standard">Standard</option>
-        <option value="Vegetarien">Végétarien</option>
-        <option value="Vegan">Vegan</option>
-      </select>
+      <div class="filter-group">
+        <label for="regime">Régime</label>
+        <select id="regime">
+          <option value="">Tous les régimes</option>
+          <option value="Standard">Standard</option>
+          <option value="Vegetarien">Végétarien</option>
+          <option value="Vegan">Vegan</option>
+        </select>
+      </div>
 
-      <label for="personnesMin">Nombre minimum de personnes</label>
-      <input type="number" id="personnesMin" placeholder="Ex : 5">
+      <div class="filter-group">
+        <label for="personnesMin">Nombre minimum de personnes</label>
+        <input type="number" id="personnesMin" placeholder="Ex : 5">
+      </div>
 
       <button type="button" id="resetFilters" class="btn btn-outline-secondary">
         Réinitialiser

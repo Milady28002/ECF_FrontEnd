@@ -64,6 +64,10 @@ async function loadPlats() {
       return;
     }
 
+    plats.sort((a, b) => {
+      return Number(a.type_plat) - Number(b.type_plat);
+    });
+
     container.innerHTML = plats.map(plat => `
       <div class="form-check">
         <input

@@ -38,7 +38,7 @@ if (contactForm) {
       }
 
       contactMessage.textContent = data.message || "Votre message a bien été envoyé.";
-      contactMessage.classList.add("text-success");
+      contactMessage.classList.add("text-success-sent");
       contactForm.reset();
 
     } catch (error) {
