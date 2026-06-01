@@ -1996,11 +1996,9 @@ footer.footer {
 }
 
 .menu-image-preview img {
-  width: 100%;
-  max-width: 600px;
-  height: 350px;
-  object-fit: cover;
-  border-radius: 8px;
+    max-width: 350px;
+    height: auto;
+    border-radius: 8px;
 }
 
 .commande-historique {
