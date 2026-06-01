@@ -13975,10 +13975,9 @@ footer.footer {
   }
 }
 .menu-image-preview img {
-  max-width: 100%;
+  max-width: 350px;
   height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
+  border-radius: 8px;
 }
 
 .commande-historique {
