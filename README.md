@@ -10,7 +10,7 @@ Le frontend communique avec une API REST développée en Symfony.
 
 Il est responsable de l’affichage des données, de l’interaction utilisateur et de la communication avec l’API.
 
-L'application est développée en **JavaScript vanilla**, sans framework, avec une architecture de type **Single Page Application (SPA)** basée sur un système de routage côté client.
+L'application est développée en **JavaScript vanilla**, sans framework, avec une architecture de type **Single Page Application (SPA)** basée sur un système de routage côté client et avec un routeur personnalisé permettant le chargement dynamique des pages sans rechargement complet du navigateur..
 
 Bootstrap est utilisé pour la mise en forme, la grille responsive et certains composants d’interface.
 
