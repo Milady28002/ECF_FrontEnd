@@ -44,7 +44,7 @@ async function loadHorairesAdmin() {
   if (!horairesAdminContainer) return;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/horaires/`);
+    const response = await fetch(`${API_BASE_URL}/api/horaires`);
 
     if (!response.ok) {
       throw new Error("Erreur lors du chargement des horaires.");
